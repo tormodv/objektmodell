@@ -1,0 +1,1507 @@
+@prefix : <http://data.skatteetaten.no/ontologier/objektModell#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skd: <http://data.skatteetaten.no#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#> .
+@base <http://data.skatteetaten.no/ontologier/objektModell> .
+
+<http://data.skatteetaten.no/ontologier/objektModell> rdf:type owl:Ontology ;
+                                                       dcterms:description "Utkast til objektmodell for skatteetaten" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://data.skatteetaten.no#begrepsreferanse
+skd:begrepsreferanse rdf:type owl:ObjectProperty ;
+                     rdfs:domain skd:Fictilis ;
+                     rdfs:range skd:Begrep ;
+                     rdfs:label "begrepsreferanse"@nb .
+
+
+###  http://data.skatteetaten.no#beskrivelse
+skd:beskrivelse rdf:type owl:ObjectProperty ;
+                rdfs:domain skd:Elementer ;
+                rdfs:range skd:Spraaktekst ;
+                rdfs:comment "Kan denne lett bli blandet med beskriver?"@nb ;
+                rdfs:label "beskrivelse"@nb .
+
+
+###  http://data.skatteetaten.no#beskriver
+skd:beskriver rdf:type owl:ObjectProperty ;
+              rdfs:domain skd:Begrepsmodell ;
+              rdfs:range skd:Interesseomraade ;
+              rdfs:label "beskriver"@nb .
+
+
+###  http://data.skatteetaten.no#brukerBegrep
+skd:brukerBegrep rdf:type owl:ObjectProperty ;
+                 rdfs:domain skd:Pakke ;
+                 rdfs:range skd:Begrep ;
+                 dcterms:description "relasjon som samler begreper i en begrepsmodell"@nb ;
+                 rdfs:label "bruker begrep"@nb .
+
+
+###  http://data.skatteetaten.no#brukerElement
+skd:brukerElement rdf:type owl:ObjectProperty ;
+                  rdfs:domain skd:Pakke ;
+                  rdfs:range skd:Elementer ;
+                  rdfs:label "bruker element"@nb .
+
+
+###  http://data.skatteetaten.no#eierElement
+skd:eierElement rdf:type owl:ObjectProperty ;
+                rdfs:domain skd:Pakke ;
+                rdfs:range skd:Elementer ;
+                rdfs:label "eier element"@nb .
+
+
+###  http://data.skatteetaten.no#eierInformasjonsmodell
+skd:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
+                           rdfs:domain skd:Prosjekt ;
+                           rdfs:range skd:Modell ;
+                           rdfs:label "eier informasjonsmodell"@nb .
+
+
+###  http://data.skatteetaten.no#gaarFra
+skd:gaarFra rdf:type owl:ObjectProperty ;
+            rdfs:domain skd:realisering ;
+            rdfs:range skd:Elementer ;
+            rdfs:comment "Kan vi bruke klient / leverandør slik som i UML?"@nb ;
+            rdfs:label "går fra"@nb ;
+            owl:deprecated "true"^^xsd:boolean .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:gaarFra ;
+   owl:annotatedProperty rdfs:range ;
+   owl:annotatedTarget skd:Elementer ;
+   rdfs:comment "Bør begrenset til skd:UMLklassifikator?"@nb
+ ] .
+
+
+###  http://data.skatteetaten.no#gaarTil
+skd:gaarTil rdf:type owl:ObjectProperty ;
+            rdfs:domain skd:realisering ;
+            rdfs:range skd:Elementer ;
+            rdfs:label "går til"@nb ;
+            owl:deprecated "true"^^xsd:boolean .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:gaarTil ;
+   owl:annotatedProperty rdfs:range ;
+   owl:annotatedTarget skd:Elementer ;
+   rdfs:comment "Mulig denne egentlig burde vært begrenset til skd:UMLklassifikator"@nb
+ ] .
+
+
+###  http://data.skatteetaten.no#gyldigForBehandling
+skd:gyldigForBehandling rdf:type owl:ObjectProperty ;
+                        rdfs:domain skd:Kode ;
+                        rdfs:range skd:Datoperiode ;
+                        rdfs:label "gyldig for behandling"@nb .
+
+
+###  http://data.skatteetaten.no#harBegrepsKontekst
+skd:harBegrepsKontekst rdf:type owl:ObjectProperty ;
+                       rdfs:domain skd:Begrepsrelasjon ;
+                       rdfs:range skd:Begrepsmodell .
+
+
+###  http://data.skatteetaten.no#harBredereBegrep
+skd:harBredereBegrep rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf skd:semantiskRelasjon ;
+                     owl:inverseOf skd:harSmalereBegrep ;
+                     rdfs:domain skd:Begrep ;
+                     rdfs:range skd:Begrep ;
+                     rdfs:comment "Brukes også i en begrepsmodell for  betegne at et begrep  er en generalisering av et annet begrep"@nb ;
+                     rdfs:isDefinedBy "skos:broader" ;
+                     rdfs:label "har bredere begrep"@nb .
+
+
+###  http://data.skatteetaten.no#harEgenskap
+skd:harEgenskap rdf:type owl:ObjectProperty ;
+                owl:inverseOf skd:tilhoererElement ;
+                rdfs:label "harEgenskap"@nb .
+
+
+###  http://data.skatteetaten.no#harInversBegrepsrelasjon
+skd:harInversBegrepsrelasjon rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf skd:semantiskRelasjon ;
+                             rdf:type owl:SymmetricProperty ,
+                                      owl:IrreflexiveProperty ;
+                             rdfs:domain skd:Begrepsrelasjon ;
+                             rdfs:range skd:Begrepsrelasjon ;
+                             dcterms:description "Brukes for å indikere begrepsrelasjon som utrykker relasjon mellom subjekt og objekt i motsatt rettning. Dvs. der a sitt subjekt er b sitt objekt."@nb ;
+                             rdfs:label "har invers begrepsrelasjon"@nb .
+
+
+###  http://data.skatteetaten.no#harKode
+skd:harKode rdf:type owl:ObjectProperty ;
+            owl:inverseOf skd:tilhoererKodeliste ;
+            rdfs:label "har kode"@nb .
+
+
+###  http://data.skatteetaten.no#harKodetillegg
+skd:harKodetillegg rdf:type owl:ObjectProperty ;
+                   rdfs:domain skd:Kode ;
+                   rdfs:range skd:Kodetillegg ;
+                   rdfs:label "har kodetillegg"@nb .
+
+
+###  http://data.skatteetaten.no#harObjekt
+skd:harObjekt rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf skd:semantiskRelasjon ;
+              rdf:type owl:FunctionalProperty ,
+                       owl:AsymmetricProperty ;
+              rdfs:domain skd:Begrepsrelasjon ;
+              rdfs:range skd:Begrep ;
+              dcterms:description "Brukes fra en verbalfase til å knyte til et objekt for å gjøre en konstruksjon i en begrepsmodell komplett."@nb ;
+              rdfs:label "har objekt"@nb .
+
+
+###  http://data.skatteetaten.no#harPartsrolle
+skd:harPartsrolle rdf:type owl:ObjectProperty ;
+                  rdfs:domain skd:Agent ;
+                  rdfs:range skd:Partsrolle ;
+                  rdfs:comment "Her bruker vi ofte begrepet harRolle, men rolle brukes her ellers i modellen"@nb ;
+                  rdfs:label "har partsrolle"@nb .
+
+
+###  http://data.skatteetaten.no#harRelatertBegrep
+skd:harRelatertBegrep rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf skd:semantiskRelasjon ;
+                      rdf:type owl:SymmetricProperty ;
+                      rdfs:domain skd:Begrep ;
+                      rdfs:range skd:Begrep ;
+                      rdfs:isDefinedBy "skos:related" ;
+                      rdfs:label "har relatert begrep" .
+
+
+###  http://data.skatteetaten.no#harRot
+skd:harRot rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf skd:brukerElement ;
+           rdfs:label "har rot"@nb .
+
+
+###  http://data.skatteetaten.no#harSmalereBegrep
+skd:harSmalereBegrep rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf skd:semantiskRelasjon ;
+                     rdfs:domain skd:Begrep ;
+                     rdfs:range skd:Begrep ;
+                     rdfs:isDefinedBy "skos:narrower" ;
+                     rdfs:label "har smalere begrep" .
+
+
+###  http://data.skatteetaten.no#harSubjekt
+skd:harSubjekt rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf skd:semantiskRelasjon ;
+               rdf:type owl:FunctionalProperty ,
+                        owl:AsymmetricProperty ;
+               rdfs:domain skd:Begrepsrelasjon ;
+               rdfs:range skd:Begrep ;
+               dcterms:description "Brukes fra en verbalfase til å knyte til et subjekt for å gjøre en konstruksjon i en begrepsmodell komplett."@nb ;
+               rdfs:label "har subjekt"@nb .
+
+
+###  http://data.skatteetaten.no#iEgenskapAv
+skd:iEgenskapAv rdf:type owl:ObjectProperty ;
+                rdfs:domain skd:Begrep ;
+                rdfs:range skd:Partsrolle ;
+                dcterms:description "En funksjon, kapasitet gitt i en situasjon"@nb ;
+                rdfs:label "i egenskap av"@nb .
+
+
+###  http://data.skatteetaten.no#inversRolle
+skd:inversRolle rdf:type owl:ObjectProperty .
+
+
+###  http://data.skatteetaten.no#knyttetTilAssosiasjon
+skd:knyttetTilAssosiasjon rdf:type owl:ObjectProperty ;
+                          rdfs:domain skd:Rolle ;
+                          rdfs:range skd:Assosiasjon ;
+                          rdfs:label "knyttet til assosiasjon"@nb .
+
+
+###  http://data.skatteetaten.no#realiserer
+skd:realiserer rdf:type owl:ObjectProperty ,
+                        owl:IrreflexiveProperty ;
+               rdfs:domain skd:Elementer ;
+               rdfs:range skd:Elementer .
+
+
+###  http://data.skatteetaten.no#semantiskRelasjon
+skd:semantiskRelasjon rdf:type owl:ObjectProperty ;
+                      rdfs:domain skd:Begrep ;
+                      rdfs:range skd:Begrep ;
+                      dcterms:description "Samling av semantiske relasjoner for bruk i begrepsmodeller"@nb ;
+                      rdfs:label "semantisk relasjon"@nb .
+
+
+###  http://data.skatteetaten.no#spesialiserer
+skd:spesialiserer rdf:type owl:ObjectProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain skd:Elementer ;
+                  rdfs:range skd:Elementer ;
+                  rdfs:comment "Kan utrykkes ved hjelp av rdsf:type også, men det kan være greit å si at to modellelementer har denne rollen i forhold til hverandre. Det er ikke nødvendighvis en arv i OWL forstand."@nb .
+
+
+###  http://data.skatteetaten.no#tilhoererElement
+skd:tilhoererElement rdf:type owl:ObjectProperty ;
+                     rdfs:domain skd:Egenskap ;
+                     rdfs:range skd:Modellbyggestener ;
+                     rdfs:label "tilhører element"@nb .
+
+
+###  http://data.skatteetaten.no#tilhoererInteresseomraade
+skd:tilhoererInteresseomraade rdf:type owl:ObjectProperty ;
+                              rdfs:domain skd:Begrep ;
+                              rdfs:range skd:Interesseomraade ;
+                              rdfs:label "tilhører interesseområde"@nb .
+
+
+###  http://data.skatteetaten.no#tilhoererKodeliste
+skd:tilhoererKodeliste rdf:type owl:ObjectProperty ;
+                       rdfs:domain skd:Kode ;
+                       rdfs:range skd:Kodeliste ;
+                       rdfs:label "tilhører kodeliste"@nb .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:tilhoererKodeliste ;
+   owl:annotatedProperty rdfs:range ;
+   owl:annotatedTarget skd:Kodeliste ;
+   rdfs:comment "Legge inn skrukturkodeliste, eventuelt?"@nb
+ ] .
+
+
+###  http://data.skatteetaten.no#type
+skd:type rdf:type owl:ObjectProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain skd:Egenskap ;
+         rdfs:range skd:Modellbyggestener ;
+         rdfs:label "type"@nb .
+
+
+###  http://data.skatteetaten.no#visningsnavn
+skd:visningsnavn rdf:type owl:ObjectProperty ;
+                 rdfs:domain skd:Kode ;
+                 rdfs:range skd:Spraaktekst ;
+                 rdfs:label "visningsnavn"@nb .
+
+
+###  http://purl.org/dc/terms/isReplacedBy
+dcterms:isReplacedBy rdf:type owl:ObjectProperty ;
+                     owl:inverseOf dcterms:replaces ;
+                     rdf:type owl:TransitiveProperty ;
+                     rdfs:domain skd:Fictilis ;
+                     rdfs:range skd:Fictilis ;
+                     rdfs:label "er erstattet av"@nb .
+
+
+###  http://purl.org/dc/terms/replaces
+dcterms:replaces rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+                 rdfs:domain skd:Fictilis ;
+                 rdfs:range skd:Fictilis ;
+                 rdfs:label "erstatter"@nb .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://data.skatteetaten.no#aggregeringsform
+skd:aggregeringsform rdf:type owl:DatatypeProperty ;
+                     rdfs:domain skd:Egenskap ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "aggregeringsform"@nb .
+
+
+###  http://data.skatteetaten.no#annenKodeverdi
+skd:annenKodeverdi rdf:type owl:DatatypeProperty ;
+                   rdfs:domain skd:Kode ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "annen kodeverdi"@nb .
+
+
+###  http://data.skatteetaten.no#begrepErNavngittNode
+skd:begrepErNavngittNode rdf:type owl:DatatypeProperty ;
+                         rdfs:domain skd:Begrep ;
+                         rdfs:range xsd:boolean ;
+                         rdfs:label "begrep er navngitt node"@nb .
+
+
+###  http://data.skatteetaten.no#begrepGyldigFra
+skd:begrepGyldigFra rdf:type owl:DatatypeProperty ;
+                    rdfs:domain skd:Begrep ;
+                    rdfs:range xsd:date ;
+                    rdfs:label "begrep gyldig fra"@nb .
+
+
+###  http://data.skatteetaten.no#begrepSistOppdatert
+skd:begrepSistOppdatert rdf:type owl:DatatypeProperty ;
+                        rdfs:domain skd:Begrep ;
+                        rdfs:range xsd:date ;
+                        rdfs:label "begrep sist oppdatert"@nb .
+
+
+###  http://data.skatteetaten.no#begrepsdefinisjon
+skd:begrepsdefinisjon rdf:type owl:DatatypeProperty ;
+                      rdfs:domain skd:Begrep ;
+                      rdfs:range rdfs:Literal ;
+                      rdfs:label "begrepsdefinisjon"@nb .
+
+
+###  http://data.skatteetaten.no#begrepsidentifikator
+skd:begrepsidentifikator rdf:type owl:DatatypeProperty ;
+                         rdfs:domain skd:Begrep ;
+                         rdfs:range xsd:string ;
+                         rdfs:label "begrepsidentifikator"@nb .
+
+
+###  http://data.skatteetaten.no#begrepsnavn
+skd:begrepsnavn rdf:type owl:DatatypeProperty ;
+                rdfs:domain skd:Begrep ;
+                rdfs:range rdfs:Literal ;
+                rdfs:label "begrepsnavn"@nb .
+
+
+###  http://data.skatteetaten.no#begrepsstatus
+skd:begrepsstatus rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Begrep ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "begrepsstatus"@nb .
+
+
+###  http://data.skatteetaten.no#diagramnavn
+skd:diagramnavn rdf:type owl:DatatypeProperty ;
+                rdfs:domain skd:Diagram ;
+                rdfs:range xsd:string ;
+                rdfs:label "diagramnavn"@nb .
+
+
+###  http://data.skatteetaten.no#dokumentasjon
+skd:dokumentasjon rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Elementer ;
+                  rdfs:range rdfs:Literal ;
+                  rdfs:label "dokumentasjon"@nb .
+
+
+###  http://data.skatteetaten.no#eksternKodeliste
+skd:eksternKodeliste rdf:type owl:DatatypeProperty ;
+                     rdfs:domain skd:Enumerator ;
+                     rdfs:range xsd:anyURI ;
+                     rdfs:label ""@nb ,
+                                "ekstern kodeliste"@nb .
+
+
+###  http://data.skatteetaten.no#eksternKodelisteUri
+skd:eksternKodelisteUri rdf:type owl:DatatypeProperty ;
+                        rdfs:domain skd:Kodeliste ;
+                        rdfs:range xsd:anyURI ;
+                        rdfs:label "ekstern kodeliste URI"@nb .
+
+
+###  http://data.skatteetaten.no#elementID
+skd:elementID rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain skd:Fictilis ;
+              rdfs:range xsd:string ;
+              rdfs:label "element id"@nb .
+
+
+###  http://data.skatteetaten.no#endret
+skd:endret rdf:type owl:DatatypeProperty ;
+           rdfs:domain skd:Prosjekt ;
+           rdfs:range xsd:dateTime ;
+           rdfs:label "endret"@nb .
+
+
+###  http://data.skatteetaten.no#filnavn
+skd:filnavn rdf:type owl:DatatypeProperty ;
+            rdfs:domain skd:Pakke ;
+            rdfs:range xsd:string ;
+            rdfs:label "filnavn"@nb .
+
+
+###  http://data.skatteetaten.no#godkjenningsstatus
+skd:godkjenningsstatus rdf:type owl:DatatypeProperty ;
+                       rdfs:domain skd:Modell ;
+                       rdfs:range xsd:string ;
+                       rdfs:label "godkjenningsstatus"@nb .
+
+
+###  http://data.skatteetaten.no#harSpraakkode
+skd:harSpraakkode rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Spraaktekst ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "har språkkode"@nb .
+
+
+###  http://data.skatteetaten.no#harTekst
+skd:harTekst rdf:type owl:DatatypeProperty ;
+             rdfs:domain skd:Spraaktekst ;
+             rdfs:range rdfs:Literal ;
+             rdfs:label "har tekst"@nb .
+
+
+###  http://data.skatteetaten.no#interesseomraadeidentifikator
+skd:interesseomraadeidentifikator rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain skd:Interesseomraade ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:label "interesseområde-identifikator"@nb .
+
+
+###  http://data.skatteetaten.no#interesseomraadenavn
+skd:interesseomraadenavn rdf:type owl:DatatypeProperty ;
+                         rdfs:domain skd:Interesseomraade ;
+                         rdfs:range xsd:string ;
+                         rdfs:label "interesseområde-navn"@nb .
+
+
+###  http://data.skatteetaten.no#kodelisteidentifikator
+skd:kodelisteidentifikator rdf:type owl:DatatypeProperty ;
+                           rdfs:domain skd:KodelisteKatalog ;
+                           rdfs:range xsd:string ;
+                           rdfs:label "kodeliste-identifikator"@nb .
+
+
+###  http://data.skatteetaten.no#kommentar
+skd:kommentar rdf:type owl:DatatypeProperty ;
+              rdfs:domain skd:Fictilis ;
+              rdfs:range rdfs:Literal ;
+              rdfs:comment "Bruk dette for å merke elementer som har manglende metadata isteden for å sette disse til en ukjent klasse."@nb ;
+              rdfs:label "kommentar"@nb .
+
+
+###  http://data.skatteetaten.no#konseptstatus
+skd:konseptstatus rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Begrep ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "konseptstatus"@nb .
+
+
+###  http://data.skatteetaten.no#kontekst
+skd:kontekst rdf:type owl:DatatypeProperty ;
+             rdfs:domain skd:KodelisteKatalog ;
+             rdfs:range xsd:string ;
+             rdfs:label "kontekst"@nb .
+
+
+###  http://data.skatteetaten.no#lengde
+skd:lengde rdf:type owl:DatatypeProperty ;
+           rdfs:domain skd:Enkeltype ;
+           rdfs:range xsd:nonNegativeInteger ;
+           rdfs:label "lengde"@nb .
+
+
+###  http://data.skatteetaten.no#lokaltForvaltet
+skd:lokaltForvaltet rdf:type owl:DatatypeProperty ;
+                    rdfs:domain skd:KodelisteKatalog ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:label "lokalt forvaltet"@nb .
+
+
+###  http://data.skatteetaten.no#maksDesimaler
+skd:maksDesimaler rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Enkeltype ;
+                  rdfs:range xsd:nonNegativeInteger ;
+                  rdfs:label ""@nb ,
+                             "maks desimaler"@nb .
+
+
+###  http://data.skatteetaten.no#maksLengde
+skd:maksLengde rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Enkeltype ;
+               rdfs:range xsd:nonNegativeInteger ;
+               rdfs:label "maks lengde"@nb .
+
+
+###  http://data.skatteetaten.no#maksSiffer
+skd:maksSiffer rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Enkeltype ;
+               rdfs:range xsd:nonNegativeInteger ;
+               rdfs:label "maks siffer"@nb .
+
+
+###  http://data.skatteetaten.no#minLengde
+skd:minLengde rdf:type owl:DatatypeProperty ;
+              rdfs:domain skd:Enkeltype ;
+              rdfs:range xsd:nonNegativeInteger ;
+              rdfs:label "min lengde"@nb .
+
+
+###  http://data.skatteetaten.no#modellElementnavn
+skd:modellElementnavn rdf:type owl:DatatypeProperty ;
+                      rdfs:domain skd:Elementer ;
+                      rdfs:range xsd:string ;
+                      rdfs:label "modell elementnavn"@nb .
+
+
+###  http://data.skatteetaten.no#modellID
+skd:modellID rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain skd:Elementer ;
+             rdfs:range xsd:string ;
+             rdfs:label "modell id"@nb .
+
+
+###  http://data.skatteetaten.no#modellnavn
+skd:modellnavn rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Modell ;
+               rdfs:range rdfs:Literal ;
+               rdfs:label "modellnavn"@nb .
+
+
+###  http://data.skatteetaten.no#multiplisitet
+skd:multiplisitet rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Egenskap ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "multiplisitet"@nb .
+
+
+###  http://data.skatteetaten.no#navigerbar
+skd:navigerbar rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Egenskap ;
+               rdfs:range xsd:boolean ;
+               rdfs:label "navigerbar"@nb .
+
+
+###  http://data.skatteetaten.no#navn
+skd:navn rdf:type owl:DatatypeProperty ;
+         rdfs:domain skd:Kodetillegg ;
+         rdfs:range rdfs:Literal ;
+         rdfs:label "navn"@nb .
+
+
+###  http://data.skatteetaten.no#navnerom
+skd:navnerom rdf:type owl:DatatypeProperty ;
+             rdfs:domain skd:Konstruksjonsmodell ;
+             rdfs:range xsd:string ;
+             rdfs:label "navnerom"@nb .
+
+
+###  http://data.skatteetaten.no#navneromsprefiks
+skd:navneromsprefiks rdf:type owl:DatatypeProperty ;
+                     rdfs:domain skd:Konstruksjonsmodell ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "navneroms-prefiks"@nb .
+
+
+###  http://data.skatteetaten.no#opprettet
+skd:opprettet rdf:type owl:DatatypeProperty ;
+              rdfs:domain skd:Prosjekt ;
+              rdfs:range xsd:dateTime ;
+              rdfs:label "opprettet"@nb .
+
+
+###  http://data.skatteetaten.no#prosjektbeskrivelse
+skd:prosjektbeskrivelse rdf:type owl:DatatypeProperty ;
+                        rdfs:domain skd:Prosjekt ;
+                        rdfs:range xsd:string ;
+                        rdfs:label "prosjektbeskrivelse"@nb .
+
+
+###  http://data.skatteetaten.no#prosjektnavn
+skd:prosjektnavn rdf:type owl:DatatypeProperty ;
+                 rdfs:domain skd:Prosjekt ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "prosjektnavn"@nb .
+
+
+###  http://data.skatteetaten.no#qualifiedName
+skd:qualifiedName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Elementer ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "kvalifisert unikt navn"@nb ,
+                             "qualified name"@en .
+
+
+###  http://data.skatteetaten.no#relasjon
+skd:relasjon rdf:type owl:DatatypeProperty ;
+             rdfs:domain skd:begrepsRelasjon ;
+             rdfs:range xsd:string ;
+             rdfs:label "relasjon"@nb ;
+             owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#representasjonsmoenster
+skd:representasjonsmoenster rdf:type owl:DatatypeProperty ;
+                            rdfs:domain skd:Enkeltype ;
+                            rdfs:range xsd:string ;
+                            rdfs:label "representasjonsmønster"@nb .
+
+
+###  http://data.skatteetaten.no#rotElementID
+skd:rotElementID rdf:type owl:DatatypeProperty ;
+                 rdfs:domain skd:Prosjekt ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "rotelement id"@nb .
+
+
+###  http://data.skatteetaten.no#sekvensnummer
+skd:sekvensnummer rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Egenskap ;
+                  rdfs:range xsd:int ;
+                  dcterms:description "Bukes der det er nodvendig å binde egenskaper for et objekt til en sekvensiell sorteringsrekkefølge"@nb ;
+                  rdfs:label "Sekvensnummer"@nb .
+
+
+###  http://data.skatteetaten.no#skjemalokasjon
+skd:skjemalokasjon rdf:type owl:DatatypeProperty ;
+                   rdfs:domain skd:Konstruksjonsmodell ;
+                   rdfs:range xsd:anyURI ;
+                   rdfs:label "skjemalokasjon"@nb .
+
+
+###  http://data.skatteetaten.no#skjemanavn
+skd:skjemanavn rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Konstruksjonsmodell ;
+               rdfs:range xsd:string ;
+               rdfs:label "skjemanavn"@nb .
+
+
+###  http://data.skatteetaten.no#sluttdato
+skd:sluttdato rdf:type owl:DatatypeProperty ;
+              rdfs:domain skd:Datoperiode ;
+              rdfs:range xsd:date ;
+              rdfs:label "sluttdato"@nb .
+
+
+###  http://data.skatteetaten.no#startdato
+skd:startdato rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain skd:Datoperiode ;
+              rdfs:range xsd:date ;
+              rdfs:label "startdato"@nb .
+
+
+###  http://data.skatteetaten.no#stereotype
+skd:stereotype rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Elementer ;
+               rdfs:range xsd:string ;
+               rdfs:label "stereotype"@nb .
+
+
+###  http://data.skatteetaten.no#tekniskNavn
+skd:tekniskNavn rdf:type owl:DatatypeProperty ;
+                rdfs:domain skd:Kode ;
+                rdfs:range xsd:string ;
+                rdfs:label "teknisk navn"@nb .
+
+
+###  http://data.skatteetaten.no#valgEgenskap
+skd:valgEgenskap rdf:type owl:DatatypeProperty ;
+                 rdfs:domain skd:Egenskap ;
+                 rdfs:range xsd:boolean ;
+                 rdfs:label "valg-egenskap"@nb .
+
+
+###  http://data.skatteetaten.no#valgGruppe
+skd:valgGruppe rdf:type owl:DatatypeProperty ;
+               rdfs:domain skd:Egenskap ;
+               rdfs:range xsd:string ;
+               rdfs:label "valg-gruppe"@nb .
+
+
+###  http://data.skatteetaten.no#verdi
+skd:verdi rdf:type owl:DatatypeProperty ;
+          rdfs:domain skd:Kodetillegg ;
+          rdfs:range xsd:string ;
+          rdfs:label "verdi"@nb .
+
+
+###  http://data.skatteetaten.no#verdiMaksimum
+skd:verdiMaksimum rdf:type owl:DatatypeProperty ;
+                  rdfs:domain skd:Enkeltype ;
+                  rdfs:range xsd:long ;
+                  rdfs:label "verdi-maksimum"@nb .
+
+
+###  http://data.skatteetaten.no#verdiMinimum
+skd:verdiMinimum rdf:type owl:DatatypeProperty ;
+                 rdfs:domain skd:Enkeltype ;
+                 rdfs:range xsd:long ;
+                 rdfs:label "verdiminimum"@nb .
+
+
+###  http://data.skatteetaten.no#versjonAvSkjema
+skd:versjonAvSkjema rdf:type owl:DatatypeProperty ;
+                    rdfs:domain skd:Konstruksjonsmodell ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "versjon av skjema"@nb .
+
+
+###  http://data.skatteetaten.no#versjonsnummer
+skd:versjonsnummer rdf:type owl:DatatypeProperty ;
+                   rdfs:domain skd:Fictilis ;
+                   rdfs:range xsd:int ;
+                   rdfs:label "versjonsnummer"@nb .
+
+
+###  http://data.skatteetaten.no#versjonstidspunkt
+skd:versjonstidspunkt rdf:type owl:DatatypeProperty ;
+                      rdfs:domain skd:Fictilis ;
+                      rdfs:range xsd:dateTime ;
+                      rdfs:label "versjonstidspunkt"@nb .
+
+
+###  https://data.norge.no/vocabulary/modelldcatno#typeDefinitionReference
+modelldcatno:typeDefinitionReference rdf:type owl:DatatypeProperty ,
+                                              owl:FunctionalProperty ;
+                                     rdfs:domain skd:Enkeltype ;
+                                     rdfs:range xsd:anyURI ;
+                                     dcterms:description "External definition of the type in question, before adding any restrictions."@en ;
+                                     rdfs:label "referanse til ekstern typedefinisjon"@nb .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://data.skatteetaten.no#Agent
+skd:Agent rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( skd:Objekttype
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty skd:harPartsrolle ;
+                                                       owl:allValuesFrom skd:Partsrolle
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://data.skatteetaten.no#Assosiasjon
+skd:Assosiasjon rdf:type owl:Class ;
+                rdfs:subClassOf skd:Elementer ;
+                rdfs:comment "Brukes som felles forankringspunkt for parvise rollebasserte forhold mellom to klasser ***"@nb ;
+                rdfs:label "Assosiasjon"@nb .
+
+
+###  http://data.skatteetaten.no#Attributt
+skd:Attributt rdf:type owl:Class ;
+              rdfs:subClassOf skd:Egenskap ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty skd:tilhoererElement ;
+                                owl:someValuesFrom skd:Datatype
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty skd:tilhoererElement ;
+                                owl:someValuesFrom skd:Objekttype
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty skd:tilhoererElement ;
+                                owl:someValuesFrom skd:Rotobjektstype
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty skd:type ;
+                                owl:allValuesFrom skd:Datatyper
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty skd:type ;
+                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass skd:Datatyper
+                              ] ;
+              rdfs:label "Attribute"@en ,
+                         "Attributt"@nb .
+
+
+###  http://data.skatteetaten.no#Begrep
+skd:Begrep rdf:type owl:Class ;
+           rdfs:subClassOf skd:Fictilis ,
+                           <http://www.w3.org/2004/02/skos/core#Consept> ;
+           owl:disjointWith skd:Elementer ;
+           rdfs:isDefinedBy "skos:Consept" ;
+           rdfs:label "Begrep"@nb .
+
+
+###  http://data.skatteetaten.no#Begrepsdiagram
+skd:Begrepsdiagram rdf:type owl:Class ;
+                   rdfs:subClassOf skd:Diagram ;
+                   rdfs:label "Begrepsdiagram"@nb .
+
+
+###  http://data.skatteetaten.no#Begrepsmodell
+skd:Begrepsmodell rdf:type owl:Class ;
+                  rdfs:subClassOf skd:Modell ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty skd:brukerBegrep ;
+                                    owl:someValuesFrom skd:Begrep
+                                  ] ;
+                  rdfs:label "Begrepsmodell"@nb .
+
+
+###  http://data.skatteetaten.no#Begrepsrelasjon
+skd:Begrepsrelasjon rdf:type owl:Class ;
+                    rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#Consept> ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty skd:harObjekt ;
+                                      owl:allValuesFrom skd:Begrep
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty skd:harSubjekt ;
+                                      owl:allValuesFrom skd:Begrep
+                                    ] ;
+                    dcterms:description "Sammenbindende begrep som utgjør en verbalfrase mellom to begreper i en begrepsmodell."@nb ;
+                    rdfs:label "Relasjonsbegrep"@nb .
+
+
+###  http://data.skatteetaten.no#Datatype
+skd:Datatype rdf:type owl:Class ;
+             rdfs:subClassOf skd:Datatyper ;
+             owl:disjointWith skd:Enkeltype ;
+             rdfs:label "Datatype"@nb .
+
+
+###  http://data.skatteetaten.no#Datatyper
+skd:Datatyper rdf:type owl:Class ;
+              rdfs:subClassOf skd:Modellbyggestener ;
+              owl:disjointWith skd:Klasse ;
+              rdfs:label "Datatyper"@nb .
+
+
+###  http://data.skatteetaten.no#Datoperiode
+skd:Datoperiode rdf:type owl:Class ;
+                rdfs:subClassOf skd:Fictilis ;
+                dcterms:description "Type for datointervaler"@nb ;
+                rdfs:label "Datoperiode"@nb .
+
+
+###  http://data.skatteetaten.no#Diagram
+skd:Diagram rdf:type owl:Class ;
+            rdfs:subClassOf skd:Pakke ;
+            owl:disjointWith skd:Modell ;
+            rdfs:label "Diagram"@nb .
+
+
+###  http://data.skatteetaten.no#Egenskap
+skd:Egenskap rdf:type owl:Class ;
+             rdfs:subClassOf skd:Elementer ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty skd:type ;
+                               owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                               owl:onClass skd:Rotobjektstype
+                             ] ;
+             rdfs:label "Composition"@en ,
+                        "Egenskap"@nb ,
+                        "Property"@en .
+
+
+###  http://data.skatteetaten.no#Elementer
+skd:Elementer rdf:type owl:Class ;
+              rdfs:subClassOf skd:Fictilis ;
+              rdfs:comment "Brukes som felles forankringspunkt for parvise rollebasserte forhold mellom to klasser ***"@nb ;
+              rdfs:label "Element"@nb ;
+              owl:backwardCompatibleWith skd:UMLElement .
+
+
+###  http://data.skatteetaten.no#Enkeltype
+skd:Enkeltype rdf:type owl:Class ;
+              rdfs:subClassOf skd:Datatyper ;
+              rdfs:label "Enkeltype"@nb ,
+                         "Simple type"@en .
+
+
+###  http://data.skatteetaten.no#Enumerator
+skd:Enumerator rdf:type owl:Class ;
+               rdfs:subClassOf skd:Elementer ;
+               rdfs:label "Enumerator"@nb .
+
+
+###  http://data.skatteetaten.no#Enumeratorverdi
+skd:Enumeratorverdi rdf:type owl:Class ;
+                    rdfs:subClassOf skd:Elementer ;
+                    rdfs:label "Enumeratorverdi"@nb .
+
+
+###  http://data.skatteetaten.no#Fictilis
+skd:Fictilis rdf:type owl:Class ;
+             rdfs:comment "Toppklasse for modelereing, fra latin for leire."@nb ;
+             rdfs:label "Fictilis"@la ,
+                        "Leire"@nb .
+
+
+###  http://data.skatteetaten.no#Interesseomraade
+skd:Interesseomraade rdf:type owl:Class ;
+                     rdfs:subClassOf skd:Kategori ;
+                     rdfs:label "Interesseområde"@nb .
+
+
+###  http://data.skatteetaten.no#Kategori
+skd:Kategori rdf:type owl:Class ;
+             rdfs:subClassOf skd:Fictilis ;
+             rdfs:label "Kategori"@nb .
+
+
+###  http://data.skatteetaten.no#Klasse
+skd:Klasse rdf:type owl:Class ;
+           rdfs:subClassOf skd:Modellbyggestener ;
+           rdfs:label "Klasse"@nb .
+
+
+###  http://data.skatteetaten.no#Kode
+skd:Kode rdf:type owl:Class ;
+         owl:equivalentClass skd:Kodenavn ;
+         rdfs:subClassOf skd:Enumeratorverdi ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty skd:tilhoererKodeliste ;
+                           owl:someValuesFrom skd:Kodeliste
+                         ] ;
+         rdfs:label "Kode"@nb .
+
+
+###  http://data.skatteetaten.no#Kodeliste
+skd:Kodeliste rdf:type owl:Class ;
+              rdfs:subClassOf skd:Datatyper ;
+              rdfs:comment "Utad oppfører seg som en datatype, innad et sammlingaspunkt for koder"@nb ;
+              rdfs:label "Kodeliste"@nb .
+
+
+###  http://data.skatteetaten.no#KodelisteKatalog
+skd:KodelisteKatalog rdf:type owl:Class ;
+                     owl:equivalentClass skd:kodelisteIKatalog ;
+                     rdfs:subClassOf skd:Fictilis ;
+                     rdfs:label "Kodeliste-katalog"@nb .
+
+
+###  http://data.skatteetaten.no#Kodenavn
+skd:Kodenavn rdf:type owl:Class ;
+             rdfs:subClassOf skd:Enumeratorverdi ;
+             rdfs:label "Kodenavn"@nb .
+
+
+###  http://data.skatteetaten.no#Kodetillegg
+skd:Kodetillegg rdf:type owl:Class ;
+                rdfs:subClassOf skd:Fictilis ;
+                rdfs:label "Kodetillegg"@nb .
+
+
+###  http://data.skatteetaten.no#Kodetilleggsnavn
+skd:Kodetilleggsnavn rdf:type owl:Class ;
+                     rdfs:subClassOf skd:Fictilis ;
+                     rdfs:label "Kodetilleggsnavn"@nb .
+
+
+###  http://data.skatteetaten.no#Kodetilleggsverdi
+skd:Kodetilleggsverdi rdf:type owl:Class ;
+                      rdfs:subClassOf skd:Fictilis ;
+                      rdfs:label "Kodetilleggsverdi"@nb .
+
+
+###  http://data.skatteetaten.no#Komposisjon
+skd:Komposisjon rdf:type owl:Class ;
+                rdfs:subClassOf skd:Egenskap ;
+                rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
+                rdfs:label "Composition"@en ,
+                           "Komposisjon"@nb .
+
+
+###  http://data.skatteetaten.no#Konstruksjonsdiagram
+skd:Konstruksjonsdiagram rdf:type owl:Class ;
+                         rdfs:subClassOf skd:Diagram ;
+                         rdfs:label "Konstruksjonsdiagram"@nb .
+
+
+###  http://data.skatteetaten.no#Konstruksjonsmodell
+skd:Konstruksjonsmodell rdf:type owl:Class ;
+                        rdfs:subClassOf skd:Modell ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty skd:brukerElement ;
+                                          owl:someValuesFrom skd:Modellbyggestener
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty skd:harRot ;
+                                          owl:allValuesFrom skd:Rotobjektstype
+                                        ] ;
+                        rdfs:label "Konstruksjonsmodell"@nb .
+
+
+###  http://data.skatteetaten.no#Modell
+skd:Modell rdf:type owl:Class ;
+           rdfs:subClassOf skd:Pakke ;
+           rdfs:label "Modell"@nb .
+
+
+###  http://data.skatteetaten.no#Modellbyggestener
+skd:Modellbyggestener rdf:type owl:Class ;
+                      rdfs:subClassOf skd:Elementer ;
+                      rdfs:label "Modellbyggestener"@nb .
+
+
+###  http://data.skatteetaten.no#Objekttype
+skd:Objekttype rdf:type owl:Class ;
+               rdfs:subClassOf skd:Klasse ;
+               rdfs:label "Objekttype"@nb .
+
+
+###  http://data.skatteetaten.no#Pakke
+skd:Pakke rdf:type owl:Class ;
+          rdfs:subClassOf skd:Elementer ;
+          rdfs:label "Pakke"@nb .
+
+
+###  http://data.skatteetaten.no#Partsrolle
+skd:Partsrolle rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#Consept> ;
+               rdfs:comment "Klasse for begreper som også oppfører seg som en rolle"@nb ;
+               rdfs:label "Partsrolle"@nb .
+
+
+###  http://data.skatteetaten.no#Prosjekt
+skd:Prosjekt rdf:type owl:Class ;
+             rdfs:subClassOf skd:Pakke ;
+             rdfs:label "Prosjekt"@nb .
+
+
+###  http://data.skatteetaten.no#Rolle
+skd:Rolle rdf:type owl:Class ;
+          rdfs:subClassOf skd:Egenskap ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty skd:tilhoererElement ;
+                            owl:someValuesFrom skd:Objekttype
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty skd:knyttetTilAssosiasjon ;
+                            owl:allValuesFrom skd:Assosiasjon
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty skd:type ;
+                            owl:allValuesFrom skd:Objekttype
+                          ] ;
+          rdfs:label "Role"@en ,
+                     "Rolle"@nb .
+
+
+###  http://data.skatteetaten.no#Rotobjektstype
+skd:Rotobjektstype rdf:type owl:Class ;
+                   rdfs:subClassOf skd:Objekttype ;
+                   rdfs:label "Rot-objektsmøte"@nb .
+
+
+###  http://data.skatteetaten.no#Samling
+skd:Samling rdf:type owl:Class ;
+            rdfs:subClassOf skd:Egenskap ;
+            rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
+            rdfs:label "Collection"@en ,
+                       "Samling"@nb .
+
+
+###  http://data.skatteetaten.no#Spraaktekst
+skd:Spraaktekst rdf:type owl:Class ;
+                rdfs:subClassOf skd:Fictilis ;
+                rdfs:label "Språktekst"@nb .
+
+
+###  http://data.skatteetaten.no#Strukturdiagram
+skd:Strukturdiagram rdf:type owl:Class ;
+                    rdfs:subClassOf skd:Diagram ;
+                    rdfs:label "Strukturdiagram"@nb .
+
+
+###  http://data.skatteetaten.no#Strukturmodell
+skd:Strukturmodell rdf:type owl:Class ;
+                   rdfs:subClassOf skd:Modell ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty skd:brukerElement ;
+                                     owl:someValuesFrom skd:Modellbyggestener
+                                   ] ;
+                   rdfs:label "Strukturmodell"@nb .
+
+
+###  http://data.skatteetaten.no#UMLDatatype
+skd:UMLDatatype rdf:type owl:Class ;
+                rdfs:subClassOf skd:Modellbyggestener ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty dcterms:isReplacedBy ;
+                                  owl:someValuesFrom skd:Datatyper
+                                ] ;
+                owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#UMLEgenskap
+skd:UMLEgenskap rdf:type owl:Class ;
+                rdfs:subClassOf skd:Elementer ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty dcterms:isReplacedBy ;
+                                  owl:someValuesFrom skd:Egenskap
+                                ] ;
+                owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#UMLElement
+skd:UMLElement rdf:type owl:Class ;
+               rdfs:subClassOf skd:Fictilis ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty dcterms:isReplacedBy ;
+                                 owl:someValuesFrom skd:Elementer
+                               ] ;
+               owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#UMLEnumerator
+skd:UMLEnumerator rdf:type owl:Class ;
+                  rdfs:subClassOf skd:Elementer ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty dcterms:isReplacedBy ;
+                                    owl:someValuesFrom skd:Enumerator
+                                  ] ;
+                  owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#UMLEnumeratorverdi
+skd:UMLEnumeratorverdi rdf:type owl:Class ;
+                       rdfs:subClassOf skd:Elementer ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty dcterms:isReplacedBy ;
+                                         owl:someValuesFrom skd:Enumeratorverdi
+                                       ] ;
+                       owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#UMLKlasse
+skd:UMLKlasse rdf:type owl:Class ;
+              rdfs:subClassOf skd:Modellbyggestener ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty dcterms:isReplacedBy ;
+                                owl:someValuesFrom skd:Klasse
+                              ] ;
+              owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#UMLKlassifikator
+skd:UMLKlassifikator rdf:type owl:Class ;
+                     rdfs:subClassOf skd:Elementer ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty dcterms:isReplacedBy ;
+                                       owl:someValuesFrom skd:Modellbyggestener
+                                     ] ;
+                     owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#Valg
+skd:Valg rdf:type owl:Class ;
+         rdfs:subClassOf skd:Egenskap ;
+         rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
+         rdfs:label "Choice"@en ,
+                    "Valg"@nb .
+
+
+###  http://data.skatteetaten.no#begrepSomModellelement
+skd:begrepSomModellelement rdf:type owl:Class ;
+                           rdfs:subClassOf skd:Klasse ;
+                           rdfs:comment """Ikke i trippelstoren.
+Hva skal vi bruke denne til?
+I så fall er det snakk om en kloss som både er en entitetstype og et begrep?"""@nb ;
+                           rdfs:label "Begrep som modellelement"@nb ;
+                           owl:deprecated "true"@nb .
+
+
+###  http://data.skatteetaten.no#begrepsRelasjon
+skd:begrepsRelasjon rdf:type owl:Class ;
+                    rdfs:subClassOf skd:Assosiasjon ;
+                    owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#entitetstype
+skd:entitetstype rdf:type owl:Class ;
+                 rdfs:subClassOf skd:Klasse ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty dcterms:isReplacedBy ;
+                                   owl:someValuesFrom skd:Objekttype
+                                 ] ;
+                 owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#kodelisteIKatalog
+skd:kodelisteIKatalog rdf:type owl:Class ;
+                      rdfs:subClassOf skd:Fictilis ;
+                      owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#realisering
+skd:realisering rdf:type owl:Class ;
+                rdfs:subClassOf skd:Modellbyggestener ;
+                rdfs:label "Realiserer"@nb ;
+                owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#rotentitetstype
+skd:rotentitetstype rdf:type owl:Class ;
+                    rdfs:subClassOf skd:Objekttype ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty dcterms:isReplacedBy ;
+                                      owl:someValuesFrom skd:Rotobjektstype
+                                    ] ;
+                    owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#strukturDatatype
+skd:strukturDatatype rdf:type owl:Class ;
+                     rdfs:subClassOf skd:Datatyper ;
+                     rdfs:label "Struktur datatype"@nb ;
+                     owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#strukturEnkeltype
+skd:strukturEnkeltype rdf:type owl:Class ;
+                      rdfs:subClassOf skd:Datatyper ;
+                      rdfs:label "Struktur enkeltype"@nb ;
+                      owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#strukturEntitetstype
+skd:strukturEntitetstype rdf:type owl:Class ;
+                         rdfs:subClassOf skd:Klasse ;
+                         rdfs:label "Strukturentitetstype"@nb ;
+                         owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#strukturkodeliste
+skd:strukturkodeliste rdf:type owl:Class ;
+                      rdfs:subClassOf skd:Enumerator ,
+                                      skd:Kodeliste ;
+                      dcterms:description "Type som definerer et sett av lovlige verdier for et attributt i en strukturentitetstype eller en strukturdatatype"@nb ;
+                      rdfs:comment "Finnes ikke i trippelstoren"@nb ;
+                      rdfs:label "Strukturkodeliste"@nb ;
+                      owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#underkodeliste
+skd:underkodeliste rdf:type owl:Class ;
+                   rdfs:subClassOf skd:KodelisteKatalog .
+
+
+###  http://www.w3.org/2004/02/skos/core#Consept
+<http://www.w3.org/2004/02/skos/core#Consept> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://data.skatteetaten.no/ontologier/objektModell#annenEnkeltype
+:annenEnkeltype rdf:type owl:NamedIndividual ,
+                         skd:Enkeltype .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#borger
+:borger rdf:type owl:NamedIndividual ,
+                 skd:Begrep ;
+        skd:iEgenskapAv :debitor .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#byggermodell
+:byggermodell rdf:type owl:NamedIndividual ,
+                       skd:Konstruksjonsmodell ;
+              skd:brukerElement :minDatatype ,
+                                :mittRot ;
+              skd:harRot :mittRot .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#clay
+:clay rdf:type owl:NamedIndividual ,
+               skd:Fictilis ;
+      skd:begrepsreferanse :omformbar .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#debitor
+:debitor rdf:type owl:NamedIndividual ,
+                  skd:Begrep ;
+         rdfs:label "Debitor"@nb .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#eggs
+:eggs rdf:type owl:NamedIndividual ,
+               skd:Kode ;
+      skd:tilhoererKodeliste :minKodeliste .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#element
+:element rdf:type owl:NamedIndividual ,
+                  skd:Elementer ;
+         skd:dokumentasjon "Dette er en dokumentasjon"^^xsd:string ;
+         skd:elementID "Fgfdfg werr 333"^^xsd:string .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#harPengerTilgodeHos
+:harPengerTilgodeHos rdf:type owl:NamedIndividual ,
+                              skd:Begrepsrelasjon ;
+                     skd:harObjekt :debitor ;
+                     skd:harSubjekt :kreditor ;
+                     rdfs:label "har penger tilgode hos"@nb .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#harrollerolle
+:harrollerolle rdf:type owl:NamedIndividual ,
+                        skd:Rolle .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#hjemKommune
+:hjemKommune rdf:type owl:NamedIndividual ,
+                      skd:Begrep ;
+             skd:iEgenskapAv :kreditor .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#innsender
+:innsender rdf:type owl:NamedIndividual ,
+                    skd:Objekttype ;
+           skd:harPartsrolle :kreditor .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#julepakke
+:julepakke rdf:type owl:NamedIndividual ,
+                    skd:Pakke .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#kittens
+:kittens rdf:type owl:NamedIndividual ,
+                  skd:Kode ;
+         skd:tilhoererKodeliste :minkodeliste .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#kreditor
+:kreditor rdf:type owl:NamedIndividual ,
+                   skd:Begrep ;
+          rdfs:label "Kreditor"@nb .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#metamorphose
+:metamorphose rdf:type owl:NamedIndividual ,
+                       skd:Begrep ;
+              skd:elementID "errt324"^^xsd:string ;
+              skd:versjonsnummer "1"^^xsd:int .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#minBox
+:minBox rdf:type owl:NamedIndividual ,
+                 skd:Objekttype .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#minDatatype
+:minDatatype rdf:type owl:NamedIndividual ,
+                      skd:Datatype .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#minEnkeltype
+:minEnkeltype rdf:type owl:NamedIndividual ,
+                       skd:Enkeltype .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#minKodeliste
+:minKodeliste rdf:type owl:NamedIndividual ,
+                       skd:Kodeliste .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#minMeter
+:minMeter rdf:type owl:NamedIndividual ,
+                   skd:Enkeltype ;
+          skd:qualifiedName "Skatteetaten::Konstruksjon::Opplysninger::Meldinger a-ordningen-2.1::A06A07Avstemming::A07SvarAvstemming::Permisjon::sluttdato" .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#minkodeliste
+:minkodeliste rdf:type owl:NamedIndividual ,
+                       skd:Kodeliste ;
+              rdfs:label "" .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#mittAttributt
+:mittAttributt rdf:type owl:NamedIndividual ,
+                        skd:Attributt ;
+               skd:tilhoererElement :mittRot ;
+               skd:type :minKodeliste .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#mittRot
+:mittRot rdf:type owl:NamedIndividual ,
+                  skd:Rotobjektstype .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#omformbar
+:omformbar rdf:type owl:NamedIndividual ,
+                    skd:Begrep ;
+           skd:harBredereBegrep :metamorphose .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#prosjektet
+:prosjektet rdf:type owl:NamedIndividual ,
+                     skd:Prosjekt ;
+            skd:eierInformasjonsmodell :byggermodell .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#skjemaetMitt
+:skjemaetMitt rdf:type owl:NamedIndividual ,
+                       skd:Rolle ;
+              skd:type :minBox .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#skylderPengerTil
+:skylderPengerTil rdf:type owl:NamedIndividual ,
+                           skd:Begrepsrelasjon ;
+                  skd:harInversBegrepsrelasjon :harPengerTilgodeHos ;
+                  skd:harObjekt :kreditor ;
+                  skd:harSubjekt :debitor ;
+                  rdfs:label "skylder penger til"@nb .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#spam
+:spam rdf:type owl:NamedIndividual ,
+               skd:Kode ;
+      skd:tilhoererKodeliste :minKodeliste .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( skd:Attributt
+                skd:Kodeliste
+                skd:Rolle
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( skd:Begrepsdiagram
+                skd:Konstruksjonsdiagram
+                skd:Strukturdiagram
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( skd:Begrepsmodell
+                skd:Konstruksjonsmodell
+                skd:Strukturmodell
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( skd:Objekttype
+                skd:begrepSomModellelement
+                skd:strukturEntitetstype
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
