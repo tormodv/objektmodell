@@ -711,14 +711,14 @@ skd:tekniskNavn rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#valgEgenskap
 skd:valgEgenskap rdf:type owl:DatatypeProperty ;
-                 rdfs:domain skd:Egenskap ;
+                 rdfs:domain skd:Valg ;
                  rdfs:range xsd:boolean ;
                  rdfs:label "valg-egenskap"@nb .
 
 
 ###  http://data.skatteetaten.no#valgGruppe
 skd:valgGruppe rdf:type owl:DatatypeProperty ;
-               rdfs:domain skd:Egenskap ;
+               rdfs:domain skd:Valg ;
                rdfs:range xsd:string ;
                rdfs:label "valg-gruppe"@nb .
 
@@ -1199,7 +1199,11 @@ skd:UMLKlassifikator rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Valg
 skd:Valg rdf:type owl:Class ;
-         rdfs:subClassOf skd:Egenskap ;
+         rdfs:subClassOf skd:Egenskap ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty skd:type ;
+                           owl:someValuesFrom skd:Objekttype
+                         ] ;
          rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
          rdfs:label "Choice"@en ,
                     "Valg"@nb .
