@@ -5,6 +5,7 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#> .
 @base <http://data.skatteetaten.no/ontologier/objektModell> .
@@ -81,6 +82,12 @@ skd:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
                            rdfs:domain skd:Prosjekt ;
                            rdfs:range skd:Modell ;
                            rdfs:label "eier informasjonsmodell"@nb .
+
+
+###  http://data.skatteetaten.no#formForAggregering
+skd:formForAggregering rdf:type owl:ObjectProperty ;
+                       rdfs:domain skd:Rolle ;
+                       rdfs:range skos:Consept .
 
 
 ###  http://data.skatteetaten.no#gaarFra
@@ -231,10 +238,6 @@ skd:iEgenskapAv rdf:type owl:ObjectProperty ;
                 rdfs:label "i egenskap av"@nb .
 
 
-###  http://data.skatteetaten.no#inversRolle
-skd:inversRolle rdf:type owl:ObjectProperty .
-
-
 ###  http://data.skatteetaten.no#knyttetTilAssosiasjon
 skd:knyttetTilAssosiasjon rdf:type owl:ObjectProperty ;
                           rdfs:domain skd:Rolle ;
@@ -263,6 +266,11 @@ skd:spesialiserer rdf:type owl:ObjectProperty ,
                   rdfs:domain skd:Elementer ;
                   rdfs:range skd:Elementer ;
                   rdfs:comment "Kan utrykkes ved hjelp av rdsf:type også, men det kan være greit å si at to modellelementer har denne rollen i forhold til hverandre. Det er ikke nødvendighvis en arv i OWL forstand."@nb .
+
+
+###  http://data.skatteetaten.no#synlighet
+skd:synlighet rdf:type owl:ObjectProperty ;
+              rdfs:domain skd:Egenskap .
 
 
 ###  http://data.skatteetaten.no#tilhoererElement
@@ -333,7 +341,9 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
 skd:aggregeringsform rdf:type owl:DatatypeProperty ;
                      rdfs:domain skd:Egenskap ;
                      rdfs:range xsd:string ;
-                     rdfs:label "aggregeringsform"@nb .
+                     rdfs:comment "Flyttes som objektegenskap på rolle" ;
+                     rdfs:label "aggregeringsform"@nb ;
+                     owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#annenKodeverdi
@@ -828,7 +838,7 @@ skd:Attributt rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#Begrep
 skd:Begrep rdf:type owl:Class ;
            rdfs:subClassOf skd:Fictilis ,
-                           <http://www.w3.org/2004/02/skos/core#Consept> ;
+                           skos:Consept ;
            owl:disjointWith skd:Elementer ;
            rdfs:isDefinedBy "skos:Consept" ;
            rdfs:label "Begrep"@nb .
@@ -852,7 +862,7 @@ skd:Begrepsmodell rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Begrepsrelasjon
 skd:Begrepsrelasjon rdf:type owl:Class ;
-                    rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#Consept> ,
+                    rdfs:subClassOf skos:Consept ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty skd:harObjekt ;
                                       owl:allValuesFrom skd:Begrep
@@ -896,6 +906,16 @@ skd:Diagram rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#Egenskap
 skd:Egenskap rdf:type owl:Class ;
              rdfs:subClassOf skd:Elementer ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty skd:synlighet ;
+                               owl:someValuesFrom [ rdf:type owl:Class ;
+                                                    owl:oneOf ( skd:package
+                                                                skd:private
+                                                                skd:protected
+                                                                skd:public
+                                                              )
+                                                  ]
+                             ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty skd:type ;
                                owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
@@ -1012,7 +1032,8 @@ skd:Komposisjon rdf:type owl:Class ;
                 rdfs:subClassOf skd:Egenskap ;
                 rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
                 rdfs:label "Composition"@en ,
-                           "Komposisjon"@nb .
+                           "Komposisjon"@nb ;
+                owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#Konstruksjonsdiagram
@@ -1061,7 +1082,7 @@ skd:Pakke rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Partsrolle
 skd:Partsrolle rdf:type owl:Class ;
-               rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#Consept> ;
+               rdfs:subClassOf skos:Consept ;
                rdfs:comment "Klasse for begreper som også oppfører seg som en rolle"@nb ;
                rdfs:label "Partsrolle"@nb .
 
@@ -1078,6 +1099,14 @@ skd:Rolle rdf:type owl:Class ;
                           [ rdf:type owl:Restriction ;
                             owl:onProperty skd:tilhoererElement ;
                             owl:someValuesFrom skd:Objekttype
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty skd:formForAggregering ;
+                            owl:allValuesFrom [ rdf:type owl:Class ;
+                                                owl:oneOf ( skd:composited
+                                                            skd:shared
+                                                          )
+                                              ]
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty skd:knyttetTilAssosiasjon ;
@@ -1102,7 +1131,8 @@ skd:Samling rdf:type owl:Class ;
             rdfs:subClassOf skd:Egenskap ;
             rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
             rdfs:label "Collection"@en ,
-                       "Samling"@nb .
+                       "Samling"@nb ;
+            owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#Spraaktekst
@@ -1295,12 +1325,42 @@ skd:underkodeliste rdf:type owl:Class ;
 
 
 ###  http://www.w3.org/2004/02/skos/core#Consept
-<http://www.w3.org/2004/02/skos/core#Consept> rdf:type owl:Class .
+skos:Consept rdf:type owl:Class .
 
 
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://data.skatteetaten.no#composited
+skd:composited rdf:type owl:NamedIndividual ,
+                        skos:Consept .
+
+
+###  http://data.skatteetaten.no#package
+skd:package rdf:type owl:NamedIndividual ,
+                     skos:Consept .
+
+
+###  http://data.skatteetaten.no#private
+skd:private rdf:type owl:NamedIndividual ,
+                     skos:Consept .
+
+
+###  http://data.skatteetaten.no#protected
+skd:protected rdf:type owl:NamedIndividual ,
+                       skos:Consept .
+
+
+###  http://data.skatteetaten.no#public
+skd:public rdf:type owl:NamedIndividual ,
+                    skos:Consept .
+
+
+###  http://data.skatteetaten.no#shared
+skd:shared rdf:type owl:NamedIndividual ,
+                    skos:Consept .
+
 
 ###  http://data.skatteetaten.no/ontologier/objektModell#annenEnkeltype
 :annenEnkeltype rdf:type owl:NamedIndividual ,
