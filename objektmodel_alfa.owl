@@ -21,6 +21,55 @@
 dcterms:description rdf:type owl:AnnotationProperty .
 
 
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf rdfs:label .
+
+
+###  http://www.w3.org/2004/02/skos/core#changeNote
+skos:changeNote rdf:type owl:AnnotationProperty ;
+                rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty ;
+                rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2004/02/skos/core#editorialNote
+skos:editorialNote rdf:type owl:AnnotationProperty ;
+                   rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+skos:example rdf:type owl:AnnotationProperty ;
+             rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2004/02/skos/core#hiddenLabel
+skos:hiddenLabel rdf:type owl:AnnotationProperty ;
+                 rdfs:subPropertyOf rdfs:label .
+
+
+###  http://www.w3.org/2004/02/skos/core#historyNote
+skos:historyNote rdf:type owl:AnnotationProperty ;
+                 rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2004/02/skos/core#note
+skos:note rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty ;
+               rdfs:subPropertyOf rdfs:label .
+
+
+###  http://www.w3.org/2004/02/skos/core#scopeNote
+skos:scopeNote rdf:type owl:AnnotationProperty ;
+               rdfs:subPropertyOf skos:note .
+
+
 #################################################################
 #    Datatypes
 #################################################################
@@ -331,6 +380,113 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
                  rdfs:domain skd:Fictilis ;
                  rdfs:range skd:Fictilis ;
                  rdfs:label "erstatter"@nb .
+
+
+###  http://www.w3.org/2004/02/skos/core#broadMatch
+skos:broadMatch rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:broader ,
+                                   skos:mappingRelation ;
+                owl:inverseOf skos:narrowMatch .
+
+
+###  http://www.w3.org/2004/02/skos/core#broader
+skos:broader rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf skos:broaderTransitive ;
+             owl:inverseOf skos:narrower .
+
+
+###  http://www.w3.org/2004/02/skos/core#broaderTransitive
+skos:broaderTransitive rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf skos:semanticRelation ;
+                       owl:inverseOf skos:narrowerTransitive ;
+                       rdf:type owl:TransitiveProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+skos:closeMatch rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:mappingRelation ;
+                rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+skos:exactMatch rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:closeMatch ;
+                rdf:type owl:SymmetricProperty ,
+                         owl:TransitiveProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#hasTopConsept
+skos:hasTopConsept rdf:type owl:ObjectProperty ;
+                   owl:inverseOf skos:topConceptOf ;
+                   rdfs:domain skos:ConceptScheme ;
+                   rdfs:range skos:Consept .
+
+
+###  http://www.w3.org/2004/02/skos/core#inScheme
+skos:inScheme rdf:type owl:ObjectProperty ;
+              rdfs:range skos:ConceptScheme .
+
+
+###  http://www.w3.org/2004/02/skos/core#mappingRelation
+skos:mappingRelation rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf skos:semanticRelation .
+
+
+###  http://www.w3.org/2004/02/skos/core#member
+skos:member rdf:type owl:ObjectProperty ;
+            rdfs:domain skos:Collection ;
+            rdfs:range [ rdf:type owl:Class ;
+                         owl:unionOf ( skos:Collection
+                                       skos:Consept
+                                     )
+                       ] .
+
+
+###  http://www.w3.org/2004/02/skos/core#memberList
+skos:memberList rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain skos:OrderedCollection .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrowMatch
+skos:narrowMatch rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf skos:mappingRelation ,
+                                    skos:narrower .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrower
+skos:narrower rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf skos:narrowerTransitive .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrowerTransitive
+skos:narrowerTransitive rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf skos:semanticRelation ;
+                        rdf:type owl:TransitiveProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#related
+skos:related rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf skos:semanticRelation ;
+             rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#relatedMatch
+skos:relatedMatch rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf skos:mappingRelation ,
+                                     skos:related ;
+                  rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#semanticRelation
+skos:semanticRelation rdf:type owl:ObjectProperty ;
+                      rdfs:domain skos:Consept ;
+                      rdfs:range skos:Consept .
+
+
+###  http://www.w3.org/2004/02/skos/core#topConceptOf
+skos:topConceptOf rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf skos:inScheme .
 
 
 #################################################################
@@ -775,6 +931,10 @@ skd:versjonstidspunkt rdf:type owl:DatatypeProperty ;
                       rdfs:label "versjonstidspunkt"@nb .
 
 
+###  http://www.w3.org/2004/02/skos/core#notation
+skos:notation rdf:type owl:DatatypeProperty .
+
+
 ###  https://data.norge.no/vocabulary/modelldcatno#typeDefinitionReference
 modelldcatno:typeDefinitionReference rdf:type owl:DatatypeProperty ,
                                               owl:FunctionalProperty ;
@@ -962,7 +1122,8 @@ skd:Fictilis rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Interesseomraade
 skd:Interesseomraade rdf:type owl:Class ;
-                     rdfs:subClassOf skd:Kategori ;
+                     rdfs:subClassOf skd:Kategori ,
+                                     skos:ConceptScheme ;
                      rdfs:label "Interesseområde"@nb .
 
 
@@ -1324,42 +1485,73 @@ skd:underkodeliste rdf:type owl:Class ;
                    rdfs:subClassOf skd:KodelisteKatalog .
 
 
+###  http://www.w3.org/2004/02/skos/core#Collection
+skos:Collection rdf:type owl:Class ;
+                owl:disjointWith skos:ConceptScheme ,
+                                 skos:Consept .
+
+
+###  http://www.w3.org/2004/02/skos/core#ConceptScheme
+skos:ConceptScheme rdf:type owl:Class ;
+                   owl:disjointWith skos:Consept .
+
+
 ###  http://www.w3.org/2004/02/skos/core#Consept
 skos:Consept rdf:type owl:Class .
+
+
+###  http://www.w3.org/2004/02/skos/core#OrderedCollection
+skos:OrderedCollection rdf:type owl:Class ;
+                       rdfs:subClassOf skos:Collection .
 
 
 #################################################################
 #    Individuals
 #################################################################
 
+###  http://data.skatteetaten.no#aggregationKinds
+skd:aggregationKinds rdf:type owl:NamedIndividual ,
+                              skos:ConceptScheme .
+
+
 ###  http://data.skatteetaten.no#composited
 skd:composited rdf:type owl:NamedIndividual ,
-                        skos:Consept .
+                        skos:Consept ;
+               skos:inScheme skd:aggregationKinds .
 
 
 ###  http://data.skatteetaten.no#package
 skd:package rdf:type owl:NamedIndividual ,
-                     skos:Consept .
+                     skos:Consept ;
+            skos:inScheme skd:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no#private
 skd:private rdf:type owl:NamedIndividual ,
-                     skos:Consept .
+                     skos:Consept ;
+            skos:inScheme skd:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no#protected
 skd:protected rdf:type owl:NamedIndividual ,
-                       skos:Consept .
+                       skos:Consept ;
+              skos:inScheme skd:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no#public
 skd:public rdf:type owl:NamedIndividual ,
-                    skos:Consept .
+                    skos:Consept ;
+           skos:inScheme skd:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no#shared
 skd:shared rdf:type owl:NamedIndividual ,
-                    skos:Consept .
+                    skos:Consept ;
+           skos:inScheme skd:aggregationKinds .
+
+
+###  http://data.skatteetaten.no#visibilityKinds
+skd:visibilityKinds rdf:type owl:NamedIndividual .
 
 
 ###  http://data.skatteetaten.no/ontologier/objektModell#annenEnkeltype
