@@ -303,6 +303,7 @@ skd:realiserer rdf:type owl:ObjectProperty ,
 
 ###  http://data.skatteetaten.no#semantiskRelasjon
 skd:semantiskRelasjon rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf skos:semanticRelation ;
                       rdfs:domain skd:Begrep ;
                       rdfs:range skd:Begrep ;
                       dcterms:description "Samling av semantiske relasjoner for bruk i begrepsmodeller"@nb ;
@@ -534,11 +535,13 @@ skd:begrepSistOppdatert rdf:type owl:DatatypeProperty ;
 skd:begrepsdefinisjon rdf:type owl:DatatypeProperty ;
                       rdfs:domain skd:Begrep ;
                       rdfs:range rdfs:Literal ;
-                      rdfs:label "begrepsdefinisjon"@nb .
+                      rdfs:label "begrepsdefinisjon"@nb ;
+                      rdfs:seeAlso skos:definition .
 
 
 ###  http://data.skatteetaten.no#begrepsidentifikator
 skd:begrepsidentifikator rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf dcterms:identifier ;
                          rdfs:domain skd:Begrep ;
                          rdfs:range xsd:string ;
                          rdfs:label "begrepsidentifikator"@nb .
@@ -548,6 +551,7 @@ skd:begrepsidentifikator rdf:type owl:DatatypeProperty ;
 skd:begrepsnavn rdf:type owl:DatatypeProperty ;
                 rdfs:domain skd:Begrep ;
                 rdfs:range rdfs:Literal ;
+                rdfs:isDefinedBy skos:prefLabel ;
                 rdfs:label "begrepsnavn"@nb .
 
 
@@ -588,8 +592,9 @@ skd:eksternKodelisteUri rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#elementID
-skd:elementID rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
+skd:elementID rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf dcterms:identifier ;
+              rdf:type owl:FunctionalProperty ;
               rdfs:domain skd:Fictilis ;
               rdfs:range xsd:string ;
               rdfs:label "element id"@nb .
@@ -632,6 +637,7 @@ skd:harTekst rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#interesseomraadeidentifikator
 skd:interesseomraadeidentifikator rdf:type owl:DatatypeProperty ;
+                                  rdfs:subPropertyOf dcterms:identifier ;
                                   rdfs:domain skd:Interesseomraade ;
                                   rdfs:range xsd:string ;
                                   rdfs:label "interesseområde-identifikator"@nb .
@@ -646,6 +652,7 @@ skd:interesseomraadenavn rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#kodelisteidentifikator
 skd:kodelisteidentifikator rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf dcterms:identifier ;
                            rdfs:domain skd:KodelisteKatalog ;
                            rdfs:range xsd:string ;
                            rdfs:label "kodeliste-identifikator"@nb .
@@ -677,7 +684,9 @@ skd:kontekst rdf:type owl:DatatypeProperty ;
 skd:lengde rdf:type owl:DatatypeProperty ;
            rdfs:domain skd:Enkeltype ;
            rdfs:range xsd:nonNegativeInteger ;
-           rdfs:label "lengde"@nb .
+           rdfs:label "lengde"@nb ;
+           rdfs:seeAlso xsd:length ;
+           owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#lokaltForvaltet
@@ -699,21 +708,27 @@ skd:maksDesimaler rdf:type owl:DatatypeProperty ;
 skd:maksLengde rdf:type owl:DatatypeProperty ;
                rdfs:domain skd:Enkeltype ;
                rdfs:range xsd:nonNegativeInteger ;
-               rdfs:label "maks lengde"@nb .
+               rdfs:label "maks lengde"@nb ;
+               rdfs:seeAlso xsd:maxLength ;
+               owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#maksSiffer
 skd:maksSiffer rdf:type owl:DatatypeProperty ;
                rdfs:domain skd:Enkeltype ;
                rdfs:range xsd:nonNegativeInteger ;
-               rdfs:label "maks siffer"@nb .
+               rdfs:label "maks siffer"@nb ;
+               rdfs:seeAlso xsd:totalDigits ;
+               owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#minLengde
 skd:minLengde rdf:type owl:DatatypeProperty ;
               rdfs:domain skd:Enkeltype ;
               rdfs:range xsd:nonNegativeInteger ;
-              rdfs:label "min lengde"@nb .
+              rdfs:label "min lengde"@nb ;
+              rdfs:seeAlso xsd:minLength ;
+              owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#modellElementnavn
@@ -724,8 +739,9 @@ skd:modellElementnavn rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#modellID
-skd:modellID rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
+skd:modellID rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf dcterms:identifier ;
+             rdf:type owl:FunctionalProperty ;
              rdfs:domain skd:Elementer ;
              rdfs:range xsd:string ;
              rdfs:label "modell id"@nb .
@@ -814,11 +830,14 @@ skd:relasjon rdf:type owl:DatatypeProperty ;
 skd:representasjonsmoenster rdf:type owl:DatatypeProperty ;
                             rdfs:domain skd:Enkeltype ;
                             rdfs:range xsd:string ;
-                            rdfs:label "representasjonsmønster"@nb .
+                            rdfs:label "representasjonsmønster"@nb ;
+                            rdfs:seeAlso xsd:pattern ;
+                            owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#rotElementID
 skd:rotElementID rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf dcterms:identifier ;
                  rdfs:domain skd:Prosjekt ;
                  rdfs:range xsd:string ;
                  rdfs:label "rotelement id"@nb .
@@ -847,7 +866,8 @@ skd:skjemanavn rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#sluttdato
-skd:sluttdato rdf:type owl:DatatypeProperty ;
+skd:sluttdato rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
               rdfs:label "sluttdato"@nb .
@@ -893,6 +913,7 @@ skd:valgGruppe rdf:type owl:DatatypeProperty ;
 skd:verdi rdf:type owl:DatatypeProperty ;
           rdfs:domain skd:Kodetillegg ;
           rdfs:range xsd:string ;
+          rdfs:comment skos:notation ;
           rdfs:label "verdi"@nb .
 
 
@@ -900,14 +921,18 @@ skd:verdi rdf:type owl:DatatypeProperty ;
 skd:verdiMaksimum rdf:type owl:DatatypeProperty ;
                   rdfs:domain skd:Enkeltype ;
                   rdfs:range xsd:long ;
-                  rdfs:label "verdi-maksimum"@nb .
+                  rdfs:label "verdi-maksimum"@nb ;
+                  rdfs:seeAlso xsd:maxInclusive ;
+                  owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#verdiMinimum
 skd:verdiMinimum rdf:type owl:DatatypeProperty ;
                  rdfs:domain skd:Enkeltype ;
                  rdfs:range xsd:long ;
-                 rdfs:label "verdiminimum"@nb .
+                 rdfs:label "verdiminimum"@nb ;
+                 rdfs:seeAlso xsd:minInclusive ;
+                 owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#versjonAvSkjema
@@ -929,6 +954,117 @@ skd:versjonstidspunkt rdf:type owl:DatatypeProperty ;
                       rdfs:domain skd:Fictilis ;
                       rdfs:range xsd:dateTime ;
                       rdfs:label "versjonstidspunkt"@nb .
+
+
+###  http://purl.org/dc/terms/identifier
+dcterms:identifier rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2001/XMLSchema#fractionDigits
+xsd:fractionDigits rdf:type owl:DatatypeProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:domain skd:Enkeltype ,
+                               modelldcatno:SimpleType ;
+                   rdfs:range xsd:nonNegativeInteger ;
+                   rdfs:label "antall desimaler"@nb ,
+                              "fraction digits"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#length
+xsd:length rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain skd:Enkeltype ,
+                       modelldcatno:SimpleType ;
+           rdfs:range xsd:nonNegativeInteger ;
+           rdfs:label "lengde"@nb ,
+                      "length"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#maxInclusive
+xsd:maxInclusive rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain skd:Enkeltype ,
+                             modelldcatno:SimpleType ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:label "maks inklusiv"@nb ,
+                            "max inclusive"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#maxLength
+xsd:maxLength rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain skd:Enkeltype ,
+                          modelldcatno:SimpleType ;
+              rdfs:range xsd:nonNegativeInteger ;
+              rdfs:label "maks lengde"@nb ,
+                         "max length"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#maxOccurs
+xsd:maxOccurs rdf:type owl:DatatypeProperty ;
+              rdfs:domain skd:Egenskap ,
+                          modelldcatno:Property ;
+              rdfs:range [ rdf:type rdfs:Datatype ;
+                           owl:unionOf ( xsd:nonNegativeInteger
+                                         [ rdf:type rdfs:Datatype ;
+                                           owl:oneOf [ rdf:type rdf:List ;
+                                                       rdf:first "*" ;
+                                                       rdf:rest rdf:nil
+                                                     ]
+                                         ]
+                                       )
+                         ] ;
+              rdfs:label "maks multiplisitet"@nb ,
+                         "max occurs"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#minInclusive
+xsd:minInclusive rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain skd:Enkeltype ,
+                             modelldcatno:SimpleType ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:label "min inclusive"@en ,
+                            "minimum inklusive"@nb .
+
+
+###  http://www.w3.org/2001/XMLSchema#minLength
+xsd:minLength rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain skd:Enkeltype ,
+                          modelldcatno:SimpleType ;
+              rdfs:range xsd:nonNegativeInteger ;
+              rdfs:label "min length"@en ,
+                         "minimum lengde"@nb .
+
+
+###  http://www.w3.org/2001/XMLSchema#minOccurs
+xsd:minOccurs rdf:type owl:DatatypeProperty ;
+              rdfs:domain skd:Egenskap ,
+                          modelldcatno:Property ;
+              rdfs:range xsd:nonNegativeInteger ;
+              rdfs:label "min occurs"@en ,
+                         "minimum multiplisitet"@nb .
+
+
+###  http://www.w3.org/2001/XMLSchema#pattern
+xsd:pattern rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain skd:Enkeltype ,
+                        modelldcatno:SimpleType ;
+            rdfs:range xsd:string ;
+            rdfs:label "mønster"@nb ,
+                       "pattern"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#totalDigits
+xsd:totalDigits rdf:type owl:DatatypeProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain skd:Enkeltype ,
+                            modelldcatno:SimpleType ;
+                rdfs:range xsd:nonNegativeInteger ;
+                rdfs:label "total digits"@en ,
+                           "totalt antall siffer"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#notation
@@ -1065,6 +1201,7 @@ skd:Diagram rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Egenskap
 skd:Egenskap rdf:type owl:Class ;
+             owl:equivalentClass modelldcatno:Property ;
              rdfs:subClassOf skd:Elementer ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty skd:synlighet ;
@@ -1096,6 +1233,7 @@ skd:Elementer rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Enkeltype
 skd:Enkeltype rdf:type owl:Class ;
+              owl:equivalentClass modelldcatno:SimpleType ;
               rdfs:subClassOf skd:Datatyper ;
               rdfs:label "Enkeltype"@nb ,
                          "Simple type"@en .
@@ -1503,6 +1641,14 @@ skos:Consept rdf:type owl:Class .
 ###  http://www.w3.org/2004/02/skos/core#OrderedCollection
 skos:OrderedCollection rdf:type owl:Class ;
                        rdfs:subClassOf skos:Collection .
+
+
+###  https://data.norge.no/vocabulary/modelldcatno#Property
+modelldcatno:Property rdf:type owl:Class .
+
+
+###  https://data.norge.no/vocabulary/modelldcatno#SimpleType
+modelldcatno:SimpleType rdf:type owl:Class .
 
 
 #################################################################
