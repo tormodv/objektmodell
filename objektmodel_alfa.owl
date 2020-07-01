@@ -1,4 +1,5 @@
 @prefix : <http://data.skatteetaten.no/ontologier/objektModell#> .
+@prefix ex: <http://example.com/test#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix skd: <http://data.skatteetaten.no#> .
@@ -80,6 +81,10 @@ skos:scopeNote rdf:type owl:AnnotationProperty ;
 
 ###  http://www.w3.org/2001/XMLSchema#date
 xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#datetime
+xsd:datetime rdf:type rdfs:Datatype .
 
 
 #################################################################
@@ -556,7 +561,8 @@ skd:begrepsnavn rdf:type owl:DatatypeProperty ;
                 rdfs:domain skd:Begrep ;
                 rdfs:range rdfs:Literal ;
                 rdfs:isDefinedBy skos:prefLabel ;
-                rdfs:label "begrepsnavn"@nb .
+                rdfs:label "begrepsnavn"@nb ;
+                owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#begrepsstatus
@@ -1879,6 +1885,27 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
 :spam rdf:type owl:NamedIndividual ,
                skd:Kode ;
       skd:tilhoererKodeliste :minKodeliste .
+
+
+###  http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1
+<http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> rdf:type owl:NamedIndividual ,
+                                                                           skos:ConceptScheme .
+
+
+###  http://example.com/test#etBegrep/123
+<http://example.com/test#etBegrep/123> rdf:type owl:NamedIndividual ,
+                                                skd:Begrep ,
+                                                skos:Consept ;
+                                       skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
+                                       skd:begrepErNavngittNode "false"^^xsd:boolean ;
+                                       skd:begrepSistOppdatert "2019-03-27"^^xsd:date ;
+                                       skd:begrepsidentifikator "15cfbeb9-50c0-11e9-9ce9-0050568204d6" ;
+                                       skd:begrepsstatus "active" ;
+                                       skd:konseptstatus "Registert" ;
+                                       skd:versjonsnummer "1"^^xsd:int ;
+                                       skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:datetime ;
+                                       skos:definition "De forretningsprosessene som må utføres for å konkludere på det spørsmålet som er oppe til vurdering" ;
+                                       skos:prefLabel "saksbehandling"@nb .
 
 
 #################################################################
