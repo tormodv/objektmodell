@@ -11,7 +11,11 @@
 @base <http://data.skatteetaten.no/ontologier/objektModell> .
 
 <http://data.skatteetaten.no/ontologier/objektModell> rdf:type owl:Ontology ;
-                                                       dcterms:description "Utkast til objektmodell for skatteetaten" .
+                                                       dcterms:description "Utkast til objektmodell for skatteetaten" ;
+                                                       rdfs:comment """Jeg tror en del felles dataProperties bør endre status til annotation properties. Slike ting som gyldighetsdatoer, eierskap, o.l. 
+Dette er jo ting som kan opptre på alle konsepter. 
+
+Dette er tildels samme logikk som SKOS og dette vil og gå bedre med de ulike standardene vi skal eksportere til.""" .
 
 #################################################################
 #    Annotation properties
@@ -870,6 +874,7 @@ skd:sluttdato rdf:type owl:DatatypeProperty ,
                        owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
+              rdfs:comment "schema:startDate og schema:endDate"@nb ;
               rdfs:label "sluttdato"@nb .
 
 
@@ -1187,6 +1192,7 @@ skd:Datatyper rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Datoperiode
 skd:Datoperiode rdf:type owl:Class ;
+                owl:equivalentClass dcterms:PeriodOfTime ;
                 rdfs:subClassOf skd:Fictilis ;
                 dcterms:description "Type for datointervaler"@nb ;
                 rdfs:label "Datoperiode"@nb .
@@ -1226,7 +1232,6 @@ skd:Egenskap rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#Elementer
 skd:Elementer rdf:type owl:Class ;
               rdfs:subClassOf skd:Fictilis ;
-              rdfs:comment "Brukes som felles forankringspunkt for parvise rollebasserte forhold mellom to klasser ***"@nb ;
               rdfs:label "Element"@nb ;
               owl:backwardCompatibleWith skd:UMLElement .
 
@@ -1621,6 +1626,12 @@ skd:strukturkodeliste rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#underkodeliste
 skd:underkodeliste rdf:type owl:Class ;
                    rdfs:subClassOf skd:KodelisteKatalog .
+
+
+###  http://purl.org/dc/terms/PeriodOfTime
+dcterms:PeriodOfTime rdf:type owl:Class ;
+                     rdfs:label "Datoperiode"@nb ,
+                                "Period of Time"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#Collection
