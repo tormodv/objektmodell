@@ -5,8 +5,10 @@
 @prefix skd: <http://data.skatteetaten.no#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skosno: <https://data.norge.no/vocabulary/skosno#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#> .
 @base <http://data.skatteetaten.no/ontologier/objektModell> .
@@ -16,18 +18,57 @@
                                                        rdfs:comment """Jeg tror en del felles dataProperties bør endre status til annotation properties. Slike ting som gyldighetsdatoer, eierskap, o.l. 
 Dette er jo ting som kan opptre på alle konsepter. 
 
-Dette er tildels samme logikk som SKOS og dette vil og gå bedre med de ulike standardene vi skal eksportere til.""" .
+Dette er tildels samme logikk som SKOS og dette vil og gå bedre med de ulike standardene vi skal eksportere til.""" ,
+                                                                    """Rettinger:
+
+xsd:datetime ->xsd:dateTime
+
+xsd:date er ikke en av standardtypene i OWL
+https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Datatype_Maps
+
+4.7 Time Instants
+
+The OWL 2 datatype map provides the following XML Schema datatypes [XML Schema Datatypes] for the representation of time instants with and without time zone offsets:
+
+xsd:dateTime
+xsd:dateTimeStamp"""@nb .
 
 #################################################################
 #    Annotation properties
 #################################################################
 
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty ;
+                rdfs:label "Date Created"@en ,
+                           "Opprettet dato"@nb ;
+                rdfs:range xsd:dateTime .
+
+
 ###  http://purl.org/dc/terms/description
 dcterms:description rdf:type owl:AnnotationProperty .
 
 
+###  http://purl.org/dc/terms/modified
+dcterms:modified rdf:type owl:AnnotationProperty ;
+                 rdfs:label "Date modified"@en ,
+                            "Endret dato"@nb ;
+                 rdfs:range xsd:dateTime .
+
+
+###  http://purl.org/dc/terms/subject
+dcterms:subject rdf:type owl:AnnotationProperty ;
+                rdfs:comment "Brukes i diverse digdir standarder så som SKOSNO og MODELDCATNO"@nb .
+
+
+###  http://purl.org/dc/terms/temporal
+dcterms:temporal rdf:type owl:AnnotationProperty ;
+                 rdfs:label "Guldighetsperiode"@nb ;
+                 rdfs:range dcterms:PeriodOfTime .
+
+
 ###  http://www.w3.org/2004/02/skos/core#altLabel
 skos:altLabel rdf:type owl:AnnotationProperty ;
+              rdfs:label "Tillatt term"@nb ;
               rdfs:subPropertyOf rdfs:label .
 
 
@@ -53,6 +94,7 @@ skos:example rdf:type owl:AnnotationProperty ;
 
 ###  http://www.w3.org/2004/02/skos/core#hiddenLabel
 skos:hiddenLabel rdf:type owl:AnnotationProperty ;
+                 rdfs:label "Frarådet term"@nb ;
                  rdfs:subPropertyOf rdfs:label .
 
 
@@ -67,6 +109,7 @@ skos:note rdf:type owl:AnnotationProperty .
 
 ###  http://www.w3.org/2004/02/skos/core#prefLabel
 skos:prefLabel rdf:type owl:AnnotationProperty ;
+               rdfs:label "Anbefalt term"@nb ;
                rdfs:subPropertyOf rdfs:label .
 
 
@@ -80,11 +123,10 @@ skos:scopeNote rdf:type owl:AnnotationProperty ;
 #################################################################
 
 ###  http://www.w3.org/2001/XMLSchema#date
-xsd:date rdf:type rdfs:Datatype .
-
-
-###  http://www.w3.org/2001/XMLSchema#datetime
-xsd:datetime rdf:type rdfs:Datatype .
+xsd:date rdf:type rdfs:Datatype ;
+         rdfs:comment """Denne bør vi ikke ha, da den ikke støttes av OWL2 verktøy.
+jmf https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Datatype_Maps"""@nb ;
+         owl:deprecated "true"^^xsd:boolean .
 
 
 #################################################################
@@ -614,7 +656,9 @@ skd:elementID rdf:type owl:DatatypeProperty ;
 skd:endret rdf:type owl:DatatypeProperty ;
            rdfs:domain skd:Prosjekt ;
            rdfs:range xsd:dateTime ;
-           rdfs:label "endret"@nb .
+           rdfs:isDefinedBy dcterms:modified ;
+           rdfs:label "endret"@nb ;
+           owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#filnavn
@@ -803,7 +847,9 @@ skd:navneromsprefiks rdf:type owl:DatatypeProperty ;
 skd:opprettet rdf:type owl:DatatypeProperty ;
               rdfs:domain skd:Prosjekt ;
               rdfs:range xsd:dateTime ;
-              rdfs:label "opprettet"@nb .
+              rdfs:isDefinedBy dcterms:created ;
+              rdfs:label "opprettet"@nb ;
+              owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#prosjektbeskrivelse
@@ -1080,6 +1126,22 @@ xsd:totalDigits rdf:type owl:DatatypeProperty ,
 
 ###  http://www.w3.org/2004/02/skos/core#notation
 skos:notation rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/ns/dcat#endDate
+dcat:endDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain dcterms:PeriodOfTime ;
+             rdfs:range xsd:dateTime ;
+             rdfs:comment "end date"@en ;
+             rdfs:label "sluttdato"@nb .
+
+
+###  http://www.w3.org/ns/dcat#startDate
+dcat:startDate rdf:type owl:DatatypeProperty ;
+               rdfs:domain dcterms:PeriodOfTime ;
+               rdfs:range xsd:dateTime ;
+               rdfs:label "start date"@en ,
+                          "startdato"@nb .
 
 
 ###  https://data.norge.no/vocabulary/modelldcatno#typeDefinitionReference
@@ -1893,17 +1955,18 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
 
 
 ###  http://example.com/test#etBegrep/123
-<http://example.com/test#etBegrep/123> rdf:type owl:NamedIndividual ,
+<http://example.com/test#123> rdf:type owl:NamedIndividual ,
                                                 skd:Begrep ,
                                                 skos:Consept ;
                                        skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
                                        skd:begrepErNavngittNode "false"^^xsd:boolean ;
-                                       skd:begrepSistOppdatert "2019-03-27"^^xsd:date ;
+                                       skd:begrepSistOppdatert "2019-03-27T00:00:00Z"^^xsd:dateTime ;
                                        skd:begrepsidentifikator "15cfbeb9-50c0-11e9-9ce9-0050568204d6" ;
                                        skd:begrepsstatus "active" ;
                                        skd:konseptstatus "Registert" ;
                                        skd:versjonsnummer "1"^^xsd:int ;
-                                       skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:datetime ;
+                                       skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:dateTime ;
+                                       dcterms:modified "2019-03-27T00:00:00Z"^^xsd:dateTime ;
                                        skos:definition "De forretningsprosessene som må utføres for å konkludere på det spørsmålet som er oppe til vurdering" ;
                                        skos:prefLabel "saksbehandling"@nb .
 
