@@ -5,7 +5,9 @@
 @prefix skd: <http://data.skatteetaten.no#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix skosno: <https://data.norge.no/vocabulary/skosno#> .
@@ -37,33 +39,33 @@ xsd:dateTimeStamp"""@nb .
 #    Annotation properties
 #################################################################
 
-###  http://purl.org/dc/terms/created
-dcterms:created rdf:type owl:AnnotationProperty ;
-                rdfs:label "Date Created"@en ,
-                           "Opprettet dato"@nb ;
-                rdfs:range xsd:dateTime .
+###  http://data.skatteetaten.no#beslutningskommentar
+skd:beslutningskommentar rdf:type owl:AnnotationProperty ;
+                         rdfs:subPropertyOf skos:editorialNote .
+
+
+###  http://data.skatteetaten.no#folkeligForklaring
+skd:folkeligForklaring rdf:type owl:AnnotationProperty ;
+                       rdfs:subPropertyOf skos:note .
+
+
+###  http://data.skatteetaten.no#forvaltningsmerknad
+skd:forvaltningsmerknad rdf:type owl:AnnotationProperty ;
+                        rdfs:subPropertyOf skos:editorialNote .
+
+
+###  http://data.skatteetaten.no#kommentar
+skd:kommentar rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf skos:editorialNote .
+
+
+###  http://data.skatteetaten.no#rettsligForklaring
+skd:rettsligForklaring rdf:type owl:AnnotationProperty ;
+                       rdfs:subPropertyOf skos:note .
 
 
 ###  http://purl.org/dc/terms/description
 dcterms:description rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/terms/modified
-dcterms:modified rdf:type owl:AnnotationProperty ;
-                 rdfs:label "Date modified"@en ,
-                            "Endret dato"@nb ;
-                 rdfs:range xsd:dateTime .
-
-
-###  http://purl.org/dc/terms/subject
-dcterms:subject rdf:type owl:AnnotationProperty ;
-                rdfs:comment "Brukes i diverse digdir standarder så som SKOSNO og MODELDCATNO"@nb .
-
-
-###  http://purl.org/dc/terms/temporal
-dcterms:temporal rdf:type owl:AnnotationProperty ;
-                 rdfs:label "Guldighetsperiode"@nb ;
-                 rdfs:range dcterms:PeriodOfTime .
 
 
 ###  http://www.w3.org/2004/02/skos/core#altLabel
@@ -361,6 +363,11 @@ skd:semantiskRelasjon rdf:type owl:ObjectProperty ;
                       rdfs:label "semantisk relasjon"@nb .
 
 
+###  http://data.skatteetaten.no#sistEndretAv
+skd:sistEndretAv rdf:type owl:ObjectProperty ;
+                 rdfs:range foaf:Agent .
+
+
 ###  http://data.skatteetaten.no#spesialiserer
 skd:spesialiserer rdf:type owl:ObjectProperty ,
                            owl:IrreflexiveProperty ;
@@ -426,12 +433,26 @@ dcterms:isReplacedBy rdf:type owl:ObjectProperty ;
                      rdfs:label "er erstattet av"@nb .
 
 
+###  http://purl.org/dc/terms/publisher
+dcterms:publisher rdf:type owl:ObjectProperty ;
+                  rdfs:range foaf:Agent .
+
+
 ###  http://purl.org/dc/terms/replaces
 dcterms:replaces rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
                  rdfs:domain skd:Fictilis ;
                  rdfs:range skd:Fictilis ;
                  rdfs:label "erstatter"@nb .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:ObjectProperty .
+
+
+###  http://purl.org/dc/terms/temporal
+dcterms:temporal rdf:type owl:ObjectProperty ;
+                 rdfs:range dcterms:PeriodOfTime .
 
 
 ###  http://www.w3.org/2004/02/skos/core#broadMatch
@@ -541,6 +562,11 @@ skos:topConceptOf rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf skos:inScheme .
 
 
+###  http://www.w3.org/ns/adms#status
+adms:status rdf:type owl:ObjectProperty ;
+            rdfs:range skos:Consept .
+
+
 #################################################################
 #    Data properties
 #################################################################
@@ -562,7 +588,8 @@ skd:annenKodeverdi rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#begrepErNavngittNode
-skd:begrepErNavngittNode rdf:type owl:DatatypeProperty ;
+skd:begrepErNavngittNode rdf:type owl:DatatypeProperty ,
+                                  owl:FunctionalProperty ;
                          rdfs:domain skd:Begrep ;
                          rdfs:range xsd:boolean ;
                          rdfs:label "begrep er navngitt node"@nb .
@@ -715,9 +742,7 @@ skd:kodelisteidentifikator rdf:type owl:DatatypeProperty ;
 ###  http://data.skatteetaten.no#kommentar
 skd:kommentar rdf:type owl:DatatypeProperty ;
               rdfs:domain skd:Fictilis ;
-              rdfs:range rdfs:Literal ;
-              rdfs:comment "Bruk dette for å merke elementer som har manglende metadata isteden for å sette disse til en ukjent klasse."@nb ;
-              rdfs:label "kommentar"@nb .
+              rdfs:range rdfs:Literal .
 
 
 ###  http://data.skatteetaten.no#konseptstatus
@@ -922,8 +947,9 @@ skd:skjemanavn rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#sluttdato
-skd:sluttdato rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
+skd:sluttdato rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf dcat:endDate ;
+              rdf:type owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
               rdfs:comment "schema:startDate og schema:endDate"@nb ;
@@ -931,8 +957,9 @@ skd:sluttdato rdf:type owl:DatatypeProperty ,
 
 
 ###  http://data.skatteetaten.no#startdato
-skd:startdato rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
+skd:startdato rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf dcat:startDate ;
+              rdf:type owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
               rdfs:label "startdato"@nb .
@@ -947,6 +974,7 @@ skd:stereotype rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#tekniskNavn
 skd:tekniskNavn rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf skos:notation ;
                 rdfs:domain skd:Kode ;
                 rdfs:range xsd:string ;
                 rdfs:label "teknisk navn"@nb .
@@ -1013,8 +1041,27 @@ skd:versjonstidspunkt rdf:type owl:DatatypeProperty ;
                       rdfs:label "versjonstidspunkt"@nb .
 
 
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:DatatypeProperty ;
+                rdfs:range xsd:dateTime ;
+                rdfs:label "Date Created"@en ,
+                           "Opprettet dato"@nb .
+
+
 ###  http://purl.org/dc/terms/identifier
 dcterms:identifier rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/dc/terms/modified
+dcterms:modified rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:dateTime ;
+                 rdfs:label "Date modified"@en ,
+                            "Endret dato"@nb .
+
+
+###  http://purl.org/dc/terms/subject
+dcterms:subject rdf:type owl:DatatypeProperty ;
+                rdfs:comment "Brukes i diverse digdir standarder så som SKOSNO og MODELDCATNO"@nb .
 
 
 ###  http://www.w3.org/2001/XMLSchema#fractionDigits
@@ -1207,10 +1254,127 @@ skd:Attributt rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#Begrep
 skd:Begrep rdf:type owl:Class ;
            rdfs:subClassOf skd:Fictilis ,
-                           skos:Consept ;
+                           skos:Consept ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skd:sistEndretAv ;
+                             owl:someValuesFrom foaf:Agent
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty dcterms:publisher ;
+                             owl:someValuesFrom foaf:Agent
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty dcterms:source ;
+                             owl:someValuesFrom skd:Definisjonskilde
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty dcterms:temporal ;
+                             owl:someValuesFrom dcterms:PeriodOfTime
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skos:inScheme ;
+                             owl:someValuesFrom skos:ConceptScheme
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty adms:status ;
+                             owl:someValuesFrom skos:Consept
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skd:begrepErNavngittNode ;
+                             owl:someValuesFrom xsd:boolean
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skd:begrepsidentifikator ;
+                             owl:someValuesFrom rdfs:Literal
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skd:versjonsnummer ;
+                             owl:someValuesFrom rdfs:Literal
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skd:versjonstidspunkt ;
+                             owl:someValuesFrom xsd:dateTime
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty dcterms:modified ;
+                             owl:someValuesFrom xsd:dateTime
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty skos:notation ;
+                             owl:someValuesFrom rdfs:Literal
+                           ] ;
            owl:disjointWith skd:Elementer ;
+           skd:beslutningskommentar "Beslutsomhet"@nb ;
+           skd:forvaltningsmerknad "Hva brukes denne til?"@nb ;
+           skd:kommentar "Har vi delt oss på for mange felter her?"@nb ;
            rdfs:isDefinedBy "skos:Consept" ;
-           rdfs:label "Begrep"@nb .
+           rdfs:label "Begrep"@nb ;
+           skos:altLabel "Alternativt begrepsnavn"@nb ;
+           skos:definition "Begrepets definisjonstekst"@nb ;
+           skos:editorialNote "Merknad til definisjon"@nb ;
+           skos:example "Eksempel"@nb ;
+           skos:hiddenLabel "Frarådet begrepsnavn"@nb ;
+           skos:prefLabel "Anbefalt begrep - begrepsnavn"@nb .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty dcterms:publisher ;
+                         owl:someValuesFrom foaf:Agent
+                       ] ;
+   rdfs:comment "Ansvarlig enhet"@nb
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty dcterms:temporal ;
+                         owl:someValuesFrom dcterms:PeriodOfTime
+                       ] ;
+   rdfs:comment "Gyldig til og fra"@nb
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty skos:inScheme ;
+                         owl:someValuesFrom skos:ConceptScheme
+                       ] ;
+   rdfs:comment "ekvivalent til \"skd:tilhoererInteresseomraade\""@nb
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty adms:status ;
+                         owl:someValuesFrom skos:Consept
+                       ] ;
+   rdfs:comment "samme som skd:begrepsstatus og konseptstatus"@nb
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty dcterms:modified ;
+                         owl:someValuesFrom xsd:dateTime
+                       ] ;
+   rdfs:comment "ekv. skd:begrepSistOppdatert"@nb
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty skos:notation ;
+                         owl:someValuesFrom rdfs:Literal
+                       ] ;
+   rdfs:comment "teknisk navn"@nb
+ ] .
 
 
 ###  http://data.skatteetaten.no#Begrepsdiagram
@@ -1263,7 +1427,15 @@ skd:Datoperiode rdf:type owl:Class ;
                 owl:equivalentClass dcterms:PeriodOfTime ;
                 rdfs:subClassOf skd:Fictilis ;
                 dcterms:description "Type for datointervaler"@nb ;
-                rdfs:label "Datoperiode"@nb .
+                rdfs:comment "Bruk heller standard dcterms uri"@nb ;
+                rdfs:label "Datoperiode"@nb ;
+                owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#Definisjonskilde
+skd:Definisjonskilde rdf:type owl:Class ;
+                     rdfs:subClassOf skd:Fictilis ;
+                     rdfs:comment "Bruk rdfs:label for beskrivelse av kilden og rdfs:seeAlso for selve referansen til kilden."@nb .
 
 
 ###  http://data.skatteetaten.no#Diagram
@@ -1295,6 +1467,12 @@ skd:Egenskap rdf:type owl:Class ;
              rdfs:label "Composition"@en ,
                         "Egenskap"@nb ,
                         "Property"@en .
+
+
+###  http://data.skatteetaten.no#Egenskapsnavn
+skd:Egenskapsnavn rdf:type owl:Class ;
+                  rdfs:subClassOf skd:Begrep ;
+                  dcterms:description "Begrep som er brukt i struktur- eller konstruksjonsmodell"@nb .
 
 
 ###  http://data.skatteetaten.no#Elementer
@@ -1329,6 +1507,12 @@ skd:Fictilis rdf:type owl:Class ;
              rdfs:comment "Toppklasse for modelereing, fra latin for leire."@nb ;
              rdfs:label "Fictilis"@la ,
                         "Leire"@nb .
+
+
+###  http://data.skatteetaten.no#Forretningsbegrep
+skd:Forretningsbegrep rdf:type owl:Class ;
+                      rdfs:subClassOf skd:Begrep ;
+                      dcterms:description "Alle begreper som antas å være relevante for publikum og/eller ansatte utover en snever krets av spesialistbrukere."@nb .
 
 
 ###  http://data.skatteetaten.no#Interesseomraade
@@ -1722,6 +1906,10 @@ skos:OrderedCollection rdf:type owl:Class ;
                        rdfs:subClassOf skos:Collection .
 
 
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class .
+
+
 ###  https://data.norge.no/vocabulary/modelldcatno#Property
 modelldcatno:Property rdf:type owl:Class .
 
@@ -1949,26 +2137,34 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
       skd:tilhoererKodeliste :minKodeliste .
 
 
+###  http://example.com/test#123
+<http://example.com/test#123> rdf:type owl:NamedIndividual ,
+                                       skd:Begrep ,
+                                       skos:Consept ;
+                              skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
+                              skd:begrepErNavngittNode "false"^^xsd:boolean ;
+                              skd:begrepSistOppdatert "2019-03-27T00:00:00Z"^^xsd:dateTime ;
+                              skd:begrepsidentifikator "15cfbeb9-50c0-11e9-9ce9-0050568204d6" ;
+                              skd:begrepsstatus "active" ;
+                              skd:konseptstatus "Registert" ;
+                              skd:versjonsnummer "1"^^xsd:int ;
+                              skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:dateTime ;
+                              dcterms:modified "2019-03-27T00:00:00Z"^^xsd:dateTime ;
+                              skos:definition "De forretningsprosessene som må utføres for å konkludere på det spørsmålet som er oppe til vurdering" ;
+                              skos:prefLabel "saksbehandling"@nb .
+
+
 ###  http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1
 <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> rdf:type owl:NamedIndividual ,
                                                                            skos:ConceptScheme .
 
 
-###  http://example.com/test#etBegrep/123
-<http://example.com/test#123> rdf:type owl:NamedIndividual ,
-                                                skd:Begrep ,
-                                                skos:Consept ;
-                                       skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
-                                       skd:begrepErNavngittNode "false"^^xsd:boolean ;
-                                       skd:begrepSistOppdatert "2019-03-27T00:00:00Z"^^xsd:dateTime ;
-                                       skd:begrepsidentifikator "15cfbeb9-50c0-11e9-9ce9-0050568204d6" ;
-                                       skd:begrepsstatus "active" ;
-                                       skd:konseptstatus "Registert" ;
-                                       skd:versjonsnummer "1"^^xsd:int ;
-                                       skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:dateTime ;
-                                       dcterms:modified "2019-03-27T00:00:00Z"^^xsd:dateTime ;
-                                       skos:definition "De forretningsprosessene som må utføres for å konkludere på det spørsmålet som er oppe til vurdering" ;
-                                       skos:prefLabel "saksbehandling"@nb .
+#################################################################
+#    Annotations
+#################################################################
+
+skd:kommentar rdfs:comment "Bruk dette for å merke elementer som har manglende metadata isteden for å sette disse til en ukjent klasse."@nb ;
+              rdfs:label "kommentar"@nb .
 
 
 #################################################################
