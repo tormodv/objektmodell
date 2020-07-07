@@ -592,14 +592,18 @@ skd:begrepErNavngittNode rdf:type owl:DatatypeProperty ,
                                   owl:FunctionalProperty ;
                          rdfs:domain skd:Begrep ;
                          rdfs:range xsd:boolean ;
-                         rdfs:label "begrep er navngitt node"@nb .
+                         rdfs:comment "Bruk subtype av begrep" ;
+                         rdfs:label "begrep er navngitt node"@nb ;
+                         owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#begrepGyldigFra
 skd:begrepGyldigFra rdf:type owl:DatatypeProperty ;
                     rdfs:domain skd:Begrep ;
                     rdfs:range xsd:date ;
-                    rdfs:label "begrep gyldig fra"@nb .
+                    rdfs:comment "bruk temporal" ;
+                    rdfs:label "begrep gyldig fra"@nb ;
+                    owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#begrepSistOppdatert
@@ -1280,10 +1284,6 @@ skd:Begrep rdf:type owl:Class ;
                              owl:someValuesFrom skos:Consept
                            ] ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty skd:begrepErNavngittNode ;
-                             owl:someValuesFrom xsd:boolean
-                           ] ,
-                           [ rdf:type owl:Restriction ;
                              owl:onProperty skd:begrepsidentifikator ;
                              owl:someValuesFrom rdfs:Literal
                            ] ,
@@ -1821,6 +1821,11 @@ skd:entitetstype rdf:type owl:Class ;
                  owl:deprecated "true"^^xsd:boolean .
 
 
+###  http://data.skatteetaten.no#erNavngittNode
+skd:erNavngittNode rdf:type owl:Class ;
+                   rdfs:subClassOf skd:Begrep .
+
+
 ###  http://data.skatteetaten.no#kodelisteIKatalog
 skd:kodelisteIKatalog rdf:type owl:Class ;
                       rdfs:subClassOf skd:Fictilis ;
@@ -1922,6 +1927,11 @@ modelldcatno:SimpleType rdf:type owl:Class .
 #    Individuals
 #################################################################
 
+###  http://data.skatteetaten.no#active
+skd:active rdf:type owl:NamedIndividual ,
+                    skos:Consept .
+
+
 ###  http://data.skatteetaten.no#aggregationKinds
 skd:aggregationKinds rdf:type owl:NamedIndividual ,
                               skos:ConceptScheme .
@@ -1972,6 +1982,11 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
                          skd:Enkeltype .
 
 
+###  http://data.skatteetaten.no/ontologier/objektModell#bibl.erasmus.montanus
+:bibl.erasmus.montanus rdf:type owl:NamedIndividual ,
+                                skd:Definisjonskilde .
+
+
 ###  http://data.skatteetaten.no/ontologier/objektModell#borger
 :borger rdf:type owl:NamedIndividual ,
                  skd:Begrep ;
@@ -2009,6 +2024,12 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
                   skd:Elementer ;
          skd:dokumentasjon "Dette er en dokumentasjon"^^xsd:string ;
          skd:elementID "Fgfdfg werr 333"^^xsd:string .
+
+
+###  http://data.skatteetaten.no/ontologier/objektModell#gyldigFra2019
+:gyldigFra2019 rdf:type owl:NamedIndividual ,
+                        dcterms:PeriodOfTime ;
+               dcat:startDate "2019-01-01T00:00:00Z"^^xsd:dateTime .
 
 
 ###  http://data.skatteetaten.no/ontologier/objektModell#harPengerTilgodeHos
@@ -2131,27 +2152,59 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
                   rdfs:label "skylder penger til"@nb .
 
 
+###  http://data.skatteetaten.no/ontologier/objektModell#sofie
+:sofie rdf:type owl:NamedIndividual ,
+                foaf:Agent .
+
+
 ###  http://data.skatteetaten.no/ontologier/objektModell#spam
 :spam rdf:type owl:NamedIndividual ,
                skd:Kode ;
       skd:tilhoererKodeliste :minKodeliste .
 
 
+###  http://data.skatteetaten.no/ontologier/objektModell#tv
+:tv rdf:type owl:NamedIndividual ,
+             foaf:Agent .
+
+
 ###  http://example.com/test#123
 <http://example.com/test#123> rdf:type owl:NamedIndividual ,
                                        skd:Begrep ,
                                        skos:Consept ;
+                              skd:sistEndretAv :tv ;
+                              dcterms:publisher :sofie ;
+                              dcterms:source :bibl.erasmus.montanus ;
+                              dcterms:temporal :gyldigFra2019 ;
                               skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
+                              adms:status skd:active ;
                               skd:begrepErNavngittNode "false"^^xsd:boolean ;
                               skd:begrepSistOppdatert "2019-03-27T00:00:00Z"^^xsd:dateTime ;
                               skd:begrepsidentifikator "15cfbeb9-50c0-11e9-9ce9-0050568204d6" ;
-                              skd:begrepsstatus "active" ;
                               skd:konseptstatus "Registert" ;
                               skd:versjonsnummer "1"^^xsd:int ;
                               skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:dateTime ;
                               dcterms:modified "2019-03-27T00:00:00Z"^^xsd:dateTime ;
+                              skos:notation "saksBehandlingSomTekniskNavn"^^xsd:string ;
+                              skd:beslutningskommentar "Besluttes før man sitter i saksen"@nb ;
+                              skd:folkeligForklaring "En folkelig forklaring på saksbehandling"@nb ;
+                              skd:forvaltningsmerknad "En forvaltningsmerknat til saksbehandling"@nb ;
+                              skd:kommentar "En kommentar her du"@nb ;
+                              skd:rettsligForklaring "Rett(slig) forklaring"@nb ;
+                              skos:altLabel "Behandling av saker"@nb ;
                               skos:definition "De forretningsprosessene som må utføres for å konkludere på det spørsmålet som er oppe til vurdering" ;
+                              skos:editorialNote "definisjonsmerknad"@nb ;
+                              skos:example "Et eksempel"@nb ;
+                              skos:hiddenLabel "Saksbehandling"@nb ;
                               skos:prefLabel "saksbehandling"@nb .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource <http://example.com/test#123> ;
+   owl:annotatedProperty skd:begrepErNavngittNode ;
+   owl:annotatedTarget "false"^^xsd:boolean ;
+   rdfs:comment "Bør være en subklasse" ;
+   owl:deprecated "true"^^xsd:boolean
+ ] .
 
 
 ###  http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1
