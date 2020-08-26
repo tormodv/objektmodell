@@ -56,7 +56,9 @@ skd:forvaltningsmerknad rdf:type owl:AnnotationProperty ;
 
 ###  http://data.skatteetaten.no#kommentar
 skd:kommentar rdf:type owl:AnnotationProperty ;
-              rdfs:subPropertyOf skos:editorialNote .
+              rdfs:subPropertyOf skos:editorialNote ;
+              rdfs:range rdfs:Literal ;
+              rdfs:domain skd:Fictilis .
 
 
 ###  http://data.skatteetaten.no#rettsligForklaring
@@ -172,6 +174,23 @@ skd:brukerElement rdf:type owl:ObjectProperty ;
                   rdfs:label "bruker element"@nb .
 
 
+###  http://data.skatteetaten.no#client
+skd:client rdf:type owl:ObjectProperty ;
+           rdfs:domain skd:avhengighet ;
+           rdfs:range skd:Elementer ;
+           rdfs:comment "Kan vi bruke klient / leverandør slik som i UML?"@nb ;
+           rdfs:label "client"@en ,
+                      "klient"@nb ;
+           skos:hiddenLabel "går fra"@nb .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:client ;
+   owl:annotatedProperty rdfs:range ;
+   owl:annotatedTarget skd:Elementer ;
+   rdfs:comment "Bør begrenset til skd:UMLklassifikator?"@nb
+ ] .
+
+
 ###  http://data.skatteetaten.no#eierElement
 skd:eierElement rdf:type owl:ObjectProperty ;
                 rdfs:domain skd:Pakke ;
@@ -190,37 +209,6 @@ skd:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
 skd:formForAggregering rdf:type owl:ObjectProperty ;
                        rdfs:domain skd:Rolle ;
                        rdfs:range skos:Consept .
-
-
-###  http://data.skatteetaten.no#gaarFra
-skd:gaarFra rdf:type owl:ObjectProperty ;
-            rdfs:domain skd:realisering ;
-            rdfs:range skd:Elementer ;
-            rdfs:comment "Kan vi bruke klient / leverandør slik som i UML?"@nb ;
-            rdfs:label "går fra"@nb ;
-            owl:deprecated "true"^^xsd:boolean .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource skd:gaarFra ;
-   owl:annotatedProperty rdfs:range ;
-   owl:annotatedTarget skd:Elementer ;
-   rdfs:comment "Bør begrenset til skd:UMLklassifikator?"@nb
- ] .
-
-
-###  http://data.skatteetaten.no#gaarTil
-skd:gaarTil rdf:type owl:ObjectProperty ;
-            rdfs:domain skd:realisering ;
-            rdfs:range skd:Elementer ;
-            rdfs:label "går til"@nb ;
-            owl:deprecated "true"^^xsd:boolean .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource skd:gaarTil ;
-   owl:annotatedProperty rdfs:range ;
-   owl:annotatedTarget skd:Elementer ;
-   rdfs:comment "Mulig denne egentlig burde vært begrenset til skd:UMLklassifikator"@nb
- ] .
 
 
 ###  http://data.skatteetaten.no#gyldigForBehandling
@@ -374,6 +362,22 @@ skd:spesialiserer rdf:type owl:ObjectProperty ,
                   rdfs:domain skd:Elementer ;
                   rdfs:range skd:Elementer ;
                   rdfs:comment "Kan utrykkes ved hjelp av rdsf:type også, men det kan være greit å si at to modellelementer har denne rollen i forhold til hverandre. Det er ikke nødvendighvis en arv i OWL forstand."@nb .
+
+
+###  http://data.skatteetaten.no#suplier
+skd:suplier rdf:type owl:ObjectProperty ;
+            rdfs:domain skd:avhengighet ;
+            rdfs:range skd:Elementer ;
+            rdfs:label "Suplier"@en ,
+                       "leverandør"@en ;
+            skos:hiddenLabel "går til"@nb .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource skd:suplier ;
+   owl:annotatedProperty rdfs:range ;
+   owl:annotatedTarget skd:Elementer ;
+   rdfs:comment "Mulig denne egentlig burde vært begrenset til skd:UMLklassifikator"@nb
+ ] .
 
 
 ###  http://data.skatteetaten.no#synlighet
@@ -744,9 +748,7 @@ skd:kodelisteidentifikator rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#kommentar
-skd:kommentar rdf:type owl:DatatypeProperty ;
-              rdfs:domain skd:Fictilis ;
-              rdfs:range rdfs:Literal .
+skd:kommentar rdf:type owl:DatatypeProperty .
 
 
 ###  http://data.skatteetaten.no#konseptstatus
@@ -1672,6 +1674,7 @@ skd:Rolle rdf:type owl:Class ;
                             owl:onProperty skd:type ;
                             owl:allValuesFrom skd:Objekttype
                           ] ;
+          rdfs:comment "*** Er dette egentlig en spesiel form for rolle? ***"@nb ;
           rdfs:label "Role"@en ,
                      "Rolle"@nb .
 
@@ -1785,7 +1788,7 @@ skd:UMLKlassifikator rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Valg
 skd:Valg rdf:type owl:Class ;
-         rdfs:subClassOf skd:Egenskap ,
+         rdfs:subClassOf skd:Rolle ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty skd:type ;
                            owl:someValuesFrom skd:Objekttype
@@ -1793,6 +1796,18 @@ skd:Valg rdf:type owl:Class ;
          rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
          rdfs:label "Choice"@en ,
                     "Valg"@nb .
+
+
+###  http://data.skatteetaten.no#abstraksjon
+skd:abstraksjon rdf:type owl:Class ;
+                rdfs:subClassOf skd:avhengighet .
+
+
+###  http://data.skatteetaten.no#avhengighet
+skd:avhengighet rdf:type owl:Class ;
+                rdfs:subClassOf skd:Modellbyggestener ;
+                rdfs:label "Avhengighet"@nb ,
+                           "Dependency"@en .
 
 
 ###  http://data.skatteetaten.no#begrepSomModellelement
@@ -1832,11 +1847,16 @@ skd:kodelisteIKatalog rdf:type owl:Class ;
                       owl:deprecated "true"^^xsd:boolean .
 
 
+###  http://data.skatteetaten.no#manifestasjon
+skd:manifestasjon rdf:type owl:Class ;
+                  rdfs:subClassOf skd:abstraksjon ;
+                  rdfs:label "manifestasjon"@en .
+
+
 ###  http://data.skatteetaten.no#realisering
 skd:realisering rdf:type owl:Class ;
-                rdfs:subClassOf skd:Modellbyggestener ;
-                rdfs:label "Realiserer"@nb ;
-                owl:deprecated "true"^^xsd:boolean .
+                rdfs:subClassOf skd:abstraksjon ;
+                rdfs:label "Realiserer"@nb .
 
 
 ###  http://data.skatteetaten.no#rotentitetstype
