@@ -975,6 +975,7 @@ skd:startdato rdf:type owl:DatatypeProperty ;
 skd:stereotype rdf:type owl:DatatypeProperty ;
                rdfs:domain skd:Elementer ;
                rdfs:range xsd:string ;
+               rdfs:comment "*** Skal denne heller peke til en instans av en klasse, eller holder det med en streng her. Er det mer vi ønsker å si om stereotypen. ***"@en ;
                rdfs:label "stereotype"@nb .
 
 
@@ -1549,7 +1550,8 @@ skd:Kode rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Kodeliste
 skd:Kodeliste rdf:type owl:Class ;
-              rdfs:subClassOf skd:Datatyper ;
+              rdfs:subClassOf skd:Datatyper ,
+                              skd:Enumerator ;
               rdfs:comment "Utad oppfører seg som en datatype, innad et sammlingaspunkt for koder"@nb ;
               rdfs:label "Kodeliste"@nb .
 
@@ -1788,7 +1790,7 @@ skd:UMLKlassifikator rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Valg
 skd:Valg rdf:type owl:Class ;
-         rdfs:subClassOf skd:Rolle ,
+         rdfs:subClassOf skd:Egenskap ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty skd:type ;
                            owl:someValuesFrom skd:Objekttype
