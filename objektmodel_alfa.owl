@@ -1074,8 +1074,7 @@ dcterms:subject rdf:type owl:DatatypeProperty ;
 ###  http://www.w3.org/2001/XMLSchema#fractionDigits
 xsd:fractionDigits rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
-                   rdfs:domain skd:Enkeltype ,
-                               modelldcatno:SimpleType ;
+                   rdfs:domain skd:Enkeltype ;
                    rdfs:range xsd:nonNegativeInteger ;
                    rdfs:label "antall desimaler"@nb ,
                               "fraction digits"@en .
@@ -1084,8 +1083,7 @@ xsd:fractionDigits rdf:type owl:DatatypeProperty ,
 ###  http://www.w3.org/2001/XMLSchema#length
 xsd:length rdf:type owl:DatatypeProperty ,
                     owl:FunctionalProperty ;
-           rdfs:domain skd:Enkeltype ,
-                       modelldcatno:SimpleType ;
+           rdfs:domain skd:Enkeltype ;
            rdfs:range xsd:nonNegativeInteger ;
            rdfs:label "lengde"@nb ,
                       "length"@en .
@@ -1094,8 +1092,7 @@ xsd:length rdf:type owl:DatatypeProperty ,
 ###  http://www.w3.org/2001/XMLSchema#maxInclusive
 xsd:maxInclusive rdf:type owl:DatatypeProperty ,
                           owl:FunctionalProperty ;
-                 rdfs:domain skd:Enkeltype ,
-                             modelldcatno:SimpleType ;
+                 rdfs:domain skd:Enkeltype ;
                  rdfs:range xsd:decimal ;
                  rdfs:label "maks inklusiv"@nb ,
                             "max inclusive"@en .
@@ -1104,8 +1101,7 @@ xsd:maxInclusive rdf:type owl:DatatypeProperty ,
 ###  http://www.w3.org/2001/XMLSchema#maxLength
 xsd:maxLength rdf:type owl:DatatypeProperty ,
                        owl:FunctionalProperty ;
-              rdfs:domain skd:Enkeltype ,
-                          modelldcatno:SimpleType ;
+              rdfs:domain skd:Enkeltype ;
               rdfs:range xsd:nonNegativeInteger ;
               rdfs:label "maks lengde"@nb ,
                          "max length"@en .
@@ -1113,8 +1109,7 @@ xsd:maxLength rdf:type owl:DatatypeProperty ,
 
 ###  http://www.w3.org/2001/XMLSchema#maxOccurs
 xsd:maxOccurs rdf:type owl:DatatypeProperty ;
-              rdfs:domain skd:Egenskap ,
-                          modelldcatno:Property ;
+              rdfs:domain skd:Egenskap ;
               rdfs:range [ rdf:type rdfs:Datatype ;
                            owl:unionOf ( xsd:nonNegativeInteger
                                          [ rdf:type rdfs:Datatype ;
@@ -1132,8 +1127,7 @@ xsd:maxOccurs rdf:type owl:DatatypeProperty ;
 ###  http://www.w3.org/2001/XMLSchema#minInclusive
 xsd:minInclusive rdf:type owl:DatatypeProperty ,
                           owl:FunctionalProperty ;
-                 rdfs:domain skd:Enkeltype ,
-                             modelldcatno:SimpleType ;
+                 rdfs:domain skd:Enkeltype ;
                  rdfs:range xsd:decimal ;
                  rdfs:label "min inclusive"@en ,
                             "minimum inklusive"@nb .
@@ -1142,8 +1136,7 @@ xsd:minInclusive rdf:type owl:DatatypeProperty ,
 ###  http://www.w3.org/2001/XMLSchema#minLength
 xsd:minLength rdf:type owl:DatatypeProperty ,
                        owl:FunctionalProperty ;
-              rdfs:domain skd:Enkeltype ,
-                          modelldcatno:SimpleType ;
+              rdfs:domain skd:Enkeltype ;
               rdfs:range xsd:nonNegativeInteger ;
               rdfs:label "min length"@en ,
                          "minimum lengde"@nb .
@@ -1151,8 +1144,7 @@ xsd:minLength rdf:type owl:DatatypeProperty ,
 
 ###  http://www.w3.org/2001/XMLSchema#minOccurs
 xsd:minOccurs rdf:type owl:DatatypeProperty ;
-              rdfs:domain skd:Egenskap ,
-                          modelldcatno:Property ;
+              rdfs:domain skd:Egenskap ;
               rdfs:range xsd:nonNegativeInteger ;
               rdfs:label "min occurs"@en ,
                          "minimum multiplisitet"@nb .
@@ -1161,8 +1153,7 @@ xsd:minOccurs rdf:type owl:DatatypeProperty ;
 ###  http://www.w3.org/2001/XMLSchema#pattern
 xsd:pattern rdf:type owl:DatatypeProperty ,
                      owl:FunctionalProperty ;
-            rdfs:domain skd:Enkeltype ,
-                        modelldcatno:SimpleType ;
+            rdfs:domain skd:Enkeltype ;
             rdfs:range xsd:string ;
             rdfs:label "mønster"@nb ,
                        "pattern"@en .
@@ -1171,8 +1162,7 @@ xsd:pattern rdf:type owl:DatatypeProperty ,
 ###  http://www.w3.org/2001/XMLSchema#totalDigits
 xsd:totalDigits rdf:type owl:DatatypeProperty ,
                          owl:FunctionalProperty ;
-                rdfs:domain skd:Enkeltype ,
-                            modelldcatno:SimpleType ;
+                rdfs:domain skd:Enkeltype ;
                 rdfs:range xsd:nonNegativeInteger ;
                 rdfs:label "total digits"@en ,
                            "totalt antall siffer"@nb .
@@ -1450,7 +1440,6 @@ skd:Diagram rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Egenskap
 skd:Egenskap rdf:type owl:Class ;
-             owl:equivalentClass modelldcatno:Property ;
              rdfs:subClassOf skd:Elementer ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty skd:synlighet ;
@@ -1487,7 +1476,6 @@ skd:Elementer rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Enkeltype
 skd:Enkeltype rdf:type owl:Class ;
-              owl:equivalentClass modelldcatno:SimpleType ;
               rdfs:subClassOf skd:Datatyper ;
               rdfs:label "Enkeltype"@nb ,
                          "Simple type"@en .
@@ -1541,6 +1529,7 @@ skd:Klasse rdf:type owl:Class ;
 skd:Kode rdf:type owl:Class ;
          owl:equivalentClass skd:Kodenavn ;
          rdfs:subClassOf skd:Enumeratorverdi ,
+                         skos:Consept ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty skd:tilhoererKodeliste ;
                            owl:someValuesFrom skd:Kodeliste
@@ -1935,14 +1924,6 @@ skos:OrderedCollection rdf:type owl:Class ;
 
 ###  http://xmlns.com/foaf/0.1/Agent
 foaf:Agent rdf:type owl:Class .
-
-
-###  https://data.norge.no/vocabulary/modelldcatno#Property
-modelldcatno:Property rdf:type owl:Class .
-
-
-###  https://data.norge.no/vocabulary/modelldcatno#SimpleType
-modelldcatno:SimpleType rdf:type owl:Class .
 
 
 #################################################################
