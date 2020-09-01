@@ -364,6 +364,12 @@ skd:spesialiserer rdf:type owl:ObjectProperty ,
                   rdfs:comment "Kan utrykkes ved hjelp av rdsf:type også, men det kan være greit å si at to modellelementer har denne rollen i forhold til hverandre. Det er ikke nødvendighvis en arv i OWL forstand."@nb .
 
 
+###  http://data.skatteetaten.no#stereotype
+skd:stereotype rdf:type owl:ObjectProperty ;
+               rdfs:domain skd:Elementer ;
+               rdfs:range skos:Consept .
+
+
 ###  http://data.skatteetaten.no#suplier
 skd:suplier rdf:type owl:ObjectProperty ;
             rdfs:domain skd:avhengighet ;
@@ -665,7 +671,7 @@ skd:dokumentasjon rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#eksternKodeliste
 skd:eksternKodeliste rdf:type owl:DatatypeProperty ;
-                     rdfs:domain skd:Enumerator ;
+                     rdfs:domain skd:Kodeliste ;
                      rdfs:range xsd:anyURI ;
                      rdfs:label ""@nb ,
                                 "ekstern kodeliste"@nb .
@@ -969,14 +975,6 @@ skd:startdato rdf:type owl:DatatypeProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
               rdfs:label "startdato"@nb .
-
-
-###  http://data.skatteetaten.no#stereotype
-skd:stereotype rdf:type owl:DatatypeProperty ;
-               rdfs:domain skd:Elementer ;
-               rdfs:range xsd:string ;
-               rdfs:comment "*** Skal denne heller peke til en instans av en klasse, eller holder det med en streng her. Er det mer vi ønsker å si om stereotypen. ***"@en ;
-               rdfs:label "stereotype"@nb .
 
 
 ###  http://data.skatteetaten.no#tekniskNavn
@@ -1636,6 +1634,13 @@ skd:Partsrolle rdf:type owl:Class ;
                rdfs:label "Partsrolle"@nb .
 
 
+###  http://data.skatteetaten.no#Plassholder
+skd:Plassholder rdf:type owl:Class ;
+                rdfs:subClassOf skd:Elementer ;
+                rdfs:comment "Brukes der det egentlige elementet ikke er ferdig modelert."@nb ;
+                rdfs:label "Plassholder"@nb .
+
+
 ###  http://data.skatteetaten.no#Prosjekt
 skd:Prosjekt rdf:type owl:Class ;
              rdfs:subClassOf skd:Pakke ;
@@ -1784,7 +1789,7 @@ skd:Valg rdf:type owl:Class ;
                            owl:onProperty skd:type ;
                            owl:someValuesFrom skd:Objekttype
                          ] ;
-         rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
+         rdfs:comment "Egenskap som er tillegg til Attributt eller Rolle"@nb ;
          rdfs:label "Choice"@en ,
                     "Valg"@nb .
 
