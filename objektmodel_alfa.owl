@@ -70,6 +70,14 @@ skd:rettsligForklaring rdf:type owl:AnnotationProperty ;
 dcterms:description rdf:type owl:AnnotationProperty .
 
 
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.w3.org/2004/02/skos/core#altLabel
 skos:altLabel rdf:type owl:AnnotationProperty ;
               rdfs:label "Tillatt term"@nb ;
@@ -454,10 +462,6 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
                  rdfs:domain skd:Fictilis ;
                  rdfs:range skd:Fictilis ;
                  rdfs:label "erstatter"@nb .
-
-
-###  http://purl.org/dc/terms/source
-dcterms:source rdf:type owl:ObjectProperty .
 
 
 ###  http://purl.org/dc/terms/temporal
@@ -1259,10 +1263,6 @@ skd:Begrep rdf:type owl:Class ;
                              owl:someValuesFrom foaf:Agent
                            ] ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty dcterms:source ;
-                             owl:someValuesFrom skd:Definisjonskilde
-                           ] ,
-                           [ rdf:type owl:Restriction ;
                              owl:onProperty dcterms:temporal ;
                              owl:someValuesFrom dcterms:PeriodOfTime
                            ] ,
@@ -1693,7 +1693,8 @@ skd:Samling rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#Spraaktekst
 skd:Spraaktekst rdf:type owl:Class ;
                 rdfs:subClassOf skd:Fictilis ;
-                rdfs:label "Språktekst"@nb .
+                rdfs:label "*** Er denne nødvendig? ***"@nb ,
+                           "Språktekst"@nb .
 
 
 ###  http://data.skatteetaten.no#Strukturdiagram
@@ -2182,7 +2183,6 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
                                        skos:Consept ;
                               skd:sistEndretAv :tv ;
                               dcterms:publisher :sofie ;
-                              dcterms:source :bibl.erasmus.montanus ;
                               dcterms:temporal :gyldigFra2019 ;
                               skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
                               adms:status skd:active ;
