@@ -468,6 +468,7 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
 
 ###  http://purl.org/dc/terms/temporal
 dcterms:temporal rdf:type owl:ObjectProperty ;
+                 rdfs:domain skd:Fictilis ;
                  rdfs:range dcterms:PeriodOfTime .
 
 
