@@ -780,11 +780,11 @@ skd:kontekst rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#lengde
 skd:lengde rdf:type owl:DatatypeProperty ;
+           owl:equivalentProperty xsd:length ;
            rdfs:domain skd:Enkeltype ;
            rdfs:range xsd:nonNegativeInteger ;
            rdfs:label "lengde"@nb ;
-           rdfs:seeAlso xsd:length ;
-           owl:deprecated "true"^^xsd:boolean .
+           rdfs:seeAlso xsd:length .
 
 
 ###  http://data.skatteetaten.no#lokaltForvaltet
@@ -804,29 +804,29 @@ skd:maksDesimaler rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#maksLengde
 skd:maksLengde rdf:type owl:DatatypeProperty ;
+               owl:equivalentProperty xsd:maxLength ;
                rdfs:domain skd:Enkeltype ;
                rdfs:range xsd:nonNegativeInteger ;
                rdfs:label "maks lengde"@nb ;
-               rdfs:seeAlso xsd:maxLength ;
-               owl:deprecated "true"^^xsd:boolean .
+               rdfs:seeAlso xsd:maxLength .
 
 
 ###  http://data.skatteetaten.no#maksSiffer
 skd:maksSiffer rdf:type owl:DatatypeProperty ;
+               owl:equivalentProperty xsd:totalDigits ;
                rdfs:domain skd:Enkeltype ;
                rdfs:range xsd:nonNegativeInteger ;
                rdfs:label "maks siffer"@nb ;
-               rdfs:seeAlso xsd:totalDigits ;
-               owl:deprecated "true"^^xsd:boolean .
+               rdfs:seeAlso xsd:totalDigits .
 
 
 ###  http://data.skatteetaten.no#minLengde
 skd:minLengde rdf:type owl:DatatypeProperty ;
+              owl:equivalentProperty xsd:minLength ;
               rdfs:domain skd:Enkeltype ;
               rdfs:range xsd:nonNegativeInteger ;
               rdfs:label "min lengde"@nb ;
-              rdfs:seeAlso xsd:minLength ;
-              owl:deprecated "true"^^xsd:boolean .
+              rdfs:seeAlso xsd:minLength .
 
 
 ###  http://data.skatteetaten.no#modellElementnavn
@@ -928,11 +928,11 @@ skd:relasjon rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#representasjonsmoenster
 skd:representasjonsmoenster rdf:type owl:DatatypeProperty ;
+                            owl:equivalentProperty xsd:pattern ;
                             rdfs:domain skd:Enkeltype ;
                             rdfs:range xsd:string ;
                             rdfs:label "representasjonsmønster"@nb ;
-                            rdfs:seeAlso xsd:pattern ;
-                            owl:deprecated "true"^^xsd:boolean .
+                            rdfs:seeAlso xsd:pattern .
 
 
 ###  http://data.skatteetaten.no#rotElementID
@@ -1016,20 +1016,20 @@ skd:verdi rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#verdiMaksimum
 skd:verdiMaksimum rdf:type owl:DatatypeProperty ;
+                  owl:equivalentProperty xsd:maxInclusive ;
                   rdfs:domain skd:Enkeltype ;
                   rdfs:range xsd:long ;
                   rdfs:label "verdi-maksimum"@nb ;
-                  rdfs:seeAlso xsd:maxInclusive ;
-                  owl:deprecated "true"^^xsd:boolean .
+                  rdfs:seeAlso xsd:maxInclusive .
 
 
 ###  http://data.skatteetaten.no#verdiMinimum
 skd:verdiMinimum rdf:type owl:DatatypeProperty ;
+                 owl:equivalentProperty xsd:minInclusive ;
                  rdfs:domain skd:Enkeltype ;
                  rdfs:range xsd:long ;
                  rdfs:label "verdiminimum"@nb ;
-                 rdfs:seeAlso xsd:minInclusive ;
-                 owl:deprecated "true"^^xsd:boolean .
+                 rdfs:seeAlso xsd:minInclusive .
 
 
 ###  http://data.skatteetaten.no#versjonAvSkjema
@@ -1055,6 +1055,7 @@ skd:versjonstidspunkt rdf:type owl:DatatypeProperty ;
 
 ###  http://purl.org/dc/terms/created
 dcterms:created rdf:type owl:DatatypeProperty ;
+                rdfs:domain skd:Fictilis ;
                 rdfs:range xsd:dateTime ;
                 rdfs:label "Date Created"@en ,
                            "Opprettet dato"@nb .
@@ -1066,6 +1067,7 @@ dcterms:identifier rdf:type owl:DatatypeProperty .
 
 ###  http://purl.org/dc/terms/modified
 dcterms:modified rdf:type owl:DatatypeProperty ;
+                 rdfs:domain skd:Fictilis ;
                  rdfs:range xsd:dateTime ;
                  rdfs:label "Date modified"@en ,
                             "Endret dato"@nb .
