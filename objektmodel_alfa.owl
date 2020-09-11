@@ -184,7 +184,7 @@ skd:brukerElement rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no#client
 skd:client rdf:type owl:ObjectProperty ;
-           rdfs:domain skd:avhengighet ;
+           rdfs:domain skd:Avhengighet ;
            rdfs:range skd:Elementer ;
            rdfs:comment "Kan vi bruke klient / leverandør slik som i UML?"@nb ;
            rdfs:label "client"@en ,
@@ -216,7 +216,9 @@ skd:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no#formForAggregering
 skd:formForAggregering rdf:type owl:ObjectProperty ;
                        rdfs:domain skd:Rolle ;
-                       rdfs:range skos:Consept .
+                       rdfs:range skos:Consept ;
+                       rdfs:comment "Samme forståelse som i modelldcatno"@nb ;
+                       rdfs:label "form for aggregering"@nb .
 
 
 ###  http://data.skatteetaten.no#gyldigForBehandling
@@ -380,7 +382,7 @@ skd:stereotype rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no#suplier
 skd:suplier rdf:type owl:ObjectProperty ;
-            rdfs:domain skd:avhengighet ;
+            rdfs:domain skd:Avhengighet ;
             rdfs:range skd:Elementer ;
             rdfs:label "Suplier"@en ,
                        "leverandør"@en ;
@@ -731,6 +733,7 @@ skd:harSpraakkode rdf:type owl:DatatypeProperty ;
 skd:harTekst rdf:type owl:DatatypeProperty ;
              rdfs:domain skd:Spraaktekst ;
              rdfs:range rdfs:Literal ;
+             rdfs:comment "For bedre støtte for spørringer anbefales det å sette språkkoden også som en del av Literal verdien."@nb ;
              rdfs:label "har tekst"@nb .
 
 
@@ -1203,6 +1206,12 @@ modelldcatno:typeDefinitionReference rdf:type owl:DatatypeProperty ,
 #    Classes
 #################################################################
 
+###  http://data.skatteetaten.no#Abstraksjon
+skd:Abstraksjon rdf:type owl:Class ;
+                rdfs:subClassOf skd:Avhengighet ;
+                rdfs:comment "Abstraksjon"@nb .
+
+
 ###  http://data.skatteetaten.no#Agent
 skd:Agent rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( skd:Objekttype
@@ -1248,6 +1257,13 @@ skd:Attributt rdf:type owl:Class ;
                               ] ;
               rdfs:label "Attribute"@en ,
                          "Attributt"@nb .
+
+
+###  http://data.skatteetaten.no#Avhengighet
+skd:Avhengighet rdf:type owl:Class ;
+                rdfs:subClassOf skd:Modellbyggestener ;
+                rdfs:label "Avhengighet"@nb ,
+                           "Dependency"@en .
 
 
 ###  http://data.skatteetaten.no#Begrep
@@ -1493,7 +1509,7 @@ skd:Enumeratorverdi rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Fictilis
 skd:Fictilis rdf:type owl:Class ;
-             rdfs:comment "Toppklasse for modelereing, fra latin for leire."@nb ;
+             rdfs:comment "Toppklasse for modelereing, fra latin for leire. Tross navnet en abstrakt klasse."@nb ;
              rdfs:label "Fictilis"@la ,
                         "Leire"@nb .
 
@@ -1574,15 +1590,6 @@ skd:Kodetilleggsverdi rdf:type owl:Class ;
                       rdfs:label "Kodetilleggsverdi"@nb .
 
 
-###  http://data.skatteetaten.no#Komposisjon
-skd:Komposisjon rdf:type owl:Class ;
-                rdfs:subClassOf skd:Egenskap ;
-                rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
-                rdfs:label "Composition"@en ,
-                           "Komposisjon"@nb ;
-                owl:deprecated "true"^^xsd:boolean .
-
-
 ###  http://data.skatteetaten.no#Konstruksjonsdiagram
 skd:Konstruksjonsdiagram rdf:type owl:Class ;
                          rdfs:subClassOf skd:Diagram ;
@@ -1601,6 +1608,12 @@ skd:Konstruksjonsmodell rdf:type owl:Class ;
                                           owl:allValuesFrom skd:Rotobjektstype
                                         ] ;
                         rdfs:label "Konstruksjonsmodell"@nb .
+
+
+###  http://data.skatteetaten.no#Manifestasjon
+skd:Manifestasjon rdf:type owl:Class ;
+                  rdfs:subClassOf skd:Abstraksjon ;
+                  rdfs:label "Manifestasjon"@nb .
 
 
 ###  http://data.skatteetaten.no#Modell
@@ -1647,6 +1660,12 @@ skd:Prosjekt rdf:type owl:Class ;
              rdfs:label "Prosjekt"@nb .
 
 
+###  http://data.skatteetaten.no#Realisering
+skd:Realisering rdf:type owl:Class ;
+                rdfs:subClassOf skd:Abstraksjon ;
+                rdfs:label "Realiserer"@nb .
+
+
 ###  http://data.skatteetaten.no#Rolle
 skd:Rolle rdf:type owl:Class ;
           rdfs:subClassOf skd:Egenskap ,
@@ -1670,7 +1689,6 @@ skd:Rolle rdf:type owl:Class ;
                             owl:onProperty skd:type ;
                             owl:allValuesFrom skd:Objekttype
                           ] ;
-          rdfs:comment "*** Er dette egentlig en spesiel form for rolle? ***"@nb ;
           rdfs:label "Role"@en ,
                      "Rolle"@nb .
 
@@ -1681,20 +1699,10 @@ skd:Rotobjektstype rdf:type owl:Class ;
                    rdfs:label "Rot-objektsmøte"@nb .
 
 
-###  http://data.skatteetaten.no#Samling
-skd:Samling rdf:type owl:Class ;
-            rdfs:subClassOf skd:Egenskap ;
-            rdfs:comment "*** Sette inn attributter under (subklasser)"@nb ;
-            rdfs:label "Collection"@en ,
-                       "Samling"@nb ;
-            owl:deprecated "true"^^xsd:boolean .
-
-
 ###  http://data.skatteetaten.no#Spraaktekst
 skd:Spraaktekst rdf:type owl:Class ;
                 rdfs:subClassOf skd:Fictilis ;
-                rdfs:label "*** Er denne nødvendig? ***"@nb ,
-                           "Språktekst"@nb .
+                rdfs:label "Språktekst"@nb .
 
 
 ###  http://data.skatteetaten.no#Strukturdiagram
@@ -1795,18 +1803,6 @@ skd:Valg rdf:type owl:Class ;
                     "Valg"@nb .
 
 
-###  http://data.skatteetaten.no#abstraksjon
-skd:abstraksjon rdf:type owl:Class ;
-                rdfs:subClassOf skd:avhengighet .
-
-
-###  http://data.skatteetaten.no#avhengighet
-skd:avhengighet rdf:type owl:Class ;
-                rdfs:subClassOf skd:Modellbyggestener ;
-                rdfs:label "Avhengighet"@nb ,
-                           "Dependency"@en .
-
-
 ###  http://data.skatteetaten.no#begrepSomModellelement
 skd:begrepSomModellelement rdf:type owl:Class ;
                            rdfs:subClassOf skd:Klasse ;
@@ -1842,18 +1838,6 @@ skd:erNavngittNode rdf:type owl:Class ;
 skd:kodelisteIKatalog rdf:type owl:Class ;
                       rdfs:subClassOf skd:Fictilis ;
                       owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#manifestasjon
-skd:manifestasjon rdf:type owl:Class ;
-                  rdfs:subClassOf skd:abstraksjon ;
-                  rdfs:label "manifestasjon"@en .
-
-
-###  http://data.skatteetaten.no#realisering
-skd:realisering rdf:type owl:Class ;
-                rdfs:subClassOf skd:abstraksjon ;
-                rdfs:label "Realiserer"@nb .
 
 
 ###  http://data.skatteetaten.no#rotentitetstype
