@@ -468,8 +468,7 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
 
 ###  http://purl.org/dc/terms/temporal
 dcterms:temporal rdf:type owl:ObjectProperty ;
-                 rdfs:domain skd:Fictilis ;
-                 rdfs:range dcterms:PeriodOfTime .
+                 rdfs:domain skd:Fictilis .
 
 
 ###  http://www.w3.org/2004/02/skos/core#broadMatch
@@ -967,19 +966,16 @@ skd:skjemanavn rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no#sluttdato
-skd:sluttdato rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf dcat:endDate ;
-              rdf:type owl:FunctionalProperty ;
+skd:sluttdato rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
-              rdfs:comment "schema:startDate og schema:endDate"@nb ;
               rdfs:label "sluttdato"@nb .
 
 
 ###  http://data.skatteetaten.no#startdato
-skd:startdato rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf dcat:startDate ;
-              rdf:type owl:FunctionalProperty ;
+skd:startdato rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
               rdfs:range xsd:date ;
               rdfs:label "startdato"@nb .
@@ -1072,11 +1068,6 @@ dcterms:modified rdf:type owl:DatatypeProperty ;
                  rdfs:range xsd:dateTime ;
                  rdfs:label "Date modified"@en ,
                             "Endret dato"@nb .
-
-
-###  http://purl.org/dc/terms/subject
-dcterms:subject rdf:type owl:DatatypeProperty ;
-                rdfs:comment "Brukes i diverse digdir standarder så som SKOSNO og MODELDCATNO"@nb .
 
 
 ###  http://www.w3.org/2001/XMLSchema#fractionDigits
@@ -1180,22 +1171,6 @@ xsd:totalDigits rdf:type owl:DatatypeProperty ,
 skos:notation rdf:type owl:DatatypeProperty .
 
 
-###  http://www.w3.org/ns/dcat#endDate
-dcat:endDate rdf:type owl:DatatypeProperty ;
-             rdfs:domain dcterms:PeriodOfTime ;
-             rdfs:range xsd:dateTime ;
-             rdfs:comment "end date"@en ;
-             rdfs:label "sluttdato"@nb .
-
-
-###  http://www.w3.org/ns/dcat#startDate
-dcat:startDate rdf:type owl:DatatypeProperty ;
-               rdfs:domain dcterms:PeriodOfTime ;
-               rdfs:range xsd:dateTime ;
-               rdfs:label "start date"@en ,
-                          "startdato"@nb .
-
-
 ###  https://data.norge.no/vocabulary/modelldcatno#typeDefinitionReference
 modelldcatno:typeDefinitionReference rdf:type owl:DatatypeProperty ,
                                               owl:FunctionalProperty ;
@@ -1282,10 +1257,6 @@ skd:Begrep rdf:type owl:Class ;
                              owl:someValuesFrom foaf:Agent
                            ] ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty dcterms:temporal ;
-                             owl:someValuesFrom dcterms:PeriodOfTime
-                           ] ,
-                           [ rdf:type owl:Restriction ;
                              owl:onProperty skos:inScheme ;
                              owl:someValuesFrom skos:ConceptScheme
                            ] ,
@@ -1334,16 +1305,6 @@ skd:Begrep rdf:type owl:Class ;
                          owl:someValuesFrom foaf:Agent
                        ] ;
    rdfs:comment "Ansvarlig enhet"@nb
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource skd:Begrep ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty dcterms:temporal ;
-                         owl:someValuesFrom dcterms:PeriodOfTime
-                       ] ;
-   rdfs:comment "Gyldig til og fra"@nb
  ] .
 
 [ rdf:type owl:Axiom ;
@@ -1434,12 +1395,9 @@ skd:Datatyper rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Datoperiode
 skd:Datoperiode rdf:type owl:Class ;
-                owl:equivalentClass dcterms:PeriodOfTime ;
                 rdfs:subClassOf skd:Fictilis ;
                 dcterms:description "Type for datointervaler"@nb ;
-                rdfs:comment "Bruk heller standard dcterms uri"@nb ;
-                rdfs:label "Datoperiode"@nb ;
-                owl:deprecated "true"^^xsd:boolean .
+                rdfs:label "Datoperiode"@nb .
 
 
 ###  http://data.skatteetaten.no#Definisjonskilde
@@ -1889,12 +1847,6 @@ skd:underkodeliste rdf:type owl:Class ;
                    rdfs:subClassOf skd:KodelisteKatalog .
 
 
-###  http://purl.org/dc/terms/PeriodOfTime
-dcterms:PeriodOfTime rdf:type owl:Class ;
-                     rdfs:label "Datoperiode"@nb ,
-                                "Period of Time"@en .
-
-
 ###  http://www.w3.org/2004/02/skos/core#Collection
 skos:Collection rdf:type owl:Class ;
                 owl:disjointWith skos:ConceptScheme ,
@@ -2023,9 +1975,7 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
 
 
 ###  http://data.skatteetaten.no/ontologier/objektModell#gyldigFra2019
-:gyldigFra2019 rdf:type owl:NamedIndividual ,
-                        dcterms:PeriodOfTime ;
-               dcat:startDate "2019-01-01T00:00:00Z"^^xsd:dateTime .
+:gyldigFra2019 rdf:type owl:NamedIndividual .
 
 
 ###  http://data.skatteetaten.no/ontologier/objektModell#harPengerTilgodeHos
