@@ -1877,6 +1877,11 @@ foaf:Agent rdf:type owl:Class .
 #    Individuals
 #################################################################
 
+###  http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1
+<http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1> rdf:type owl:NamedIndividual ,
+                                                                                skd:Begrep .
+
+
 ###  http://data.skatteetaten.no#active
 skd:active rdf:type owl:NamedIndividual ,
                     skos:Consept .
@@ -1932,6 +1937,11 @@ ex:Inntektsaar rdf:type owl:NamedIndividual ,
                         skd:Enkeltype .
 
 
+###  http://example.com/skatt/pass-barn#Kildesystem
+ex:Kildesystem rdf:type owl:NamedIndividual ,
+                        skd:Enkeltype .
+
+
 ###  http://example.com/skatt/pass-barn#Kontaktinformasjon
 ex:Kontaktinformasjon rdf:type owl:NamedIndividual ,
                                skd:Datatype .
@@ -1944,7 +1954,11 @@ ex:Leveranse rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/skatt/pass-barn#Melding
 ex:Melding rdf:type owl:NamedIndividual ,
-                    skd:Rotobjektstype .
+                    skd:Rotobjektstype ;
+           skd:begrepsreferanse <http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1> ;
+           skd:dokumentasjon "innholdet i en innsending"@nb ;
+           skd:modellElementnavn "Melding"^^xsd:string ;
+           rdfs:label "Melding"@nb .
 
 
 ###  http://example.com/skatt/pass-barn#Navn
@@ -1972,6 +1986,15 @@ ex:Oppgaveoppsummering rdf:type owl:NamedIndividual ,
                                 skd:Objekttype .
 
 
+###  http://example.com/skatt/pass-barn#kildestystemAttributt
+ex:kildestystemAttributt rdf:type owl:NamedIndividual ,
+                                  skd:Attributt ;
+                         skd:tilhoererElement ex:Leveranse ;
+                         skd:type ex:Kildesystem ;
+                         skd:modellElementnavn "kildesystem"^^xsd:string ;
+                         rdfs:label "kildesystem"@nb .
+
+
 ###  http://example.com/skatt/pass-barn#konstruksjonsmodell_barnepass
 ex:konstruksjonsmodell_barnepass rdf:type owl:NamedIndividual ,
                                           skd:Konstruksjonsmodell ;
@@ -1984,8 +2007,34 @@ ex:konstruksjonsmodell_barnepass rdf:type owl:NamedIndividual ,
                                                    ex:Oppgavegiver ,
                                                    ex:Oppgaveoppsummering ;
                                  skd:harRot ex:Melding ;
-                                 skd:filnavn "barnepass.xsd" ;
-                                 skd:modellnavn "Oppgave over utgifter til pass og stell av barn"@nb .
+                                 skd:dokumentasjon "Barnehager og skolefritidsordninger skal levere opplysninger til Skatteetaten om kostnader foreldrene har hatt til pass og stell av barn."@nb ;
+                                 skd:filnavn "barnepassv2.0" ;
+                                 skd:modellID "_18_5_5af0179_1509703430144_220530_15826" ;
+                                 skd:modellnavn "Skatteinfo-PassOgStellAvBarn-2.0"@nb ;
+                                 skd:navnerom "urn:ske:fastsetting:innsamling:barnepass:v2" ;
+                                 skd:skjemanavn "RF-1241" ;
+                                 skd:versjonAvSkjema "2.0"^^xsd:string ;
+                                 rdfs:comment "skd:brukerElement også for alle roller etc, ønsker vi egentlig dette. Eller vil vi ha et hirarki."@nb ;
+                                 rdfs:label "Skatteinfo-PassOgStellAvBarn-2.0"@nb .
+
+
+###  http://example.com/skatt/pass-barn#leveranseRolle
+ex:leveranseRolle rdf:type owl:NamedIndividual ,
+                           skd:Rolle ;
+                  skd:tilhoererElement ex:Melding ;
+                  skd:type ex:Leveranse ;
+                  skd:modellElementnavn "leveranse"^^xsd:string ;
+                  skd:multiplisitet "1..*"^^xsd:string ;
+                  xsd:maxOccurs "*"^^xsd:string ;
+                  xsd:minOccurs "1"^^xsd:int ;
+                  rdfs:label "leveranse"^^xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource ex:leveranseRolle ;
+   owl:annotatedProperty xsd:maxOccurs ;
+   owl:annotatedTarget "*"^^xsd:string ;
+   rdfs:comment "Under diskusjon"
+ ] .
 
 
 #################################################################
