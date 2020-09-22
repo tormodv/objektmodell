@@ -1,5 +1,5 @@
 @prefix : <http://data.skatteetaten.no/ontologier/objektModell#> .
-@prefix ex: <http://example.com/test#> .
+@prefix ex: <http://example.com/skatt/pass-barn#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix skd: <http://data.skatteetaten.no#> .
@@ -203,6 +203,7 @@ skd:client rdf:type owl:ObjectProperty ;
 skd:eierElement rdf:type owl:ObjectProperty ;
                 rdfs:domain skd:Pakke ;
                 rdfs:range skd:Elementer ;
+                rdfs:comment "*** Er ikke i bruk" ;
                 rdfs:label "eier element"@nb .
 
 
@@ -307,6 +308,7 @@ skd:harRelatertBegrep rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no#harRot
 skd:harRot rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf skd:brukerElement ;
+           rdfs:range skd:Rotobjektstype ;
            rdfs:label "har rot"@nb .
 
 
@@ -1192,14 +1194,14 @@ skd:Abstraksjon rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Agent
 skd:Agent rdf:type owl:Class ;
-          owl:equivalentClass [ owl:intersectionOf ( skd:Objekttype
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty skd:harPartsrolle ;
-                                                       owl:allValuesFrom skd:Partsrolle
-                                                     ]
-                                                   ) ;
-                                rdf:type owl:Class
-                              ] .
+          rdfs:subClassOf [ owl:intersectionOf ( skd:Objekttype
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty skd:harPartsrolle ;
+                                                   owl:allValuesFrom skd:Partsrolle
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] .
 
 
 ###  http://data.skatteetaten.no#Assosiasjon
@@ -1925,236 +1927,65 @@ skd:shared rdf:type owl:NamedIndividual ,
 skd:visibilityKinds rdf:type owl:NamedIndividual .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#annenEnkeltype
-:annenEnkeltype rdf:type owl:NamedIndividual ,
-                         skd:Enkeltype .
+###  http://example.com/skatt/pass-barn#Inntektsaar
+ex:Inntektsaar rdf:type owl:NamedIndividual ,
+                        skd:Enkeltype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#bibl.erasmus.montanus
-:bibl.erasmus.montanus rdf:type owl:NamedIndividual ,
-                                skd:Definisjonskilde .
+###  http://example.com/skatt/pass-barn#Kontaktinformasjon
+ex:Kontaktinformasjon rdf:type owl:NamedIndividual ,
+                               skd:Datatype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#borger
-:borger rdf:type owl:NamedIndividual ,
-                 skd:Begrep ;
-        skd:iEgenskapAv :debitor .
+###  http://example.com/skatt/pass-barn#Leveranse
+ex:Leveranse rdf:type owl:NamedIndividual ,
+                      skd:Objekttype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#byggermodell
-:byggermodell rdf:type owl:NamedIndividual ,
-                       skd:Konstruksjonsmodell ;
-              skd:brukerElement :minDatatype ,
-                                :mittRot ;
-              skd:harRot :mittRot .
+###  http://example.com/skatt/pass-barn#Melding
+ex:Melding rdf:type owl:NamedIndividual ,
+                    skd:Rotobjektstype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#clay
-:clay rdf:type owl:NamedIndividual ,
-               skd:Fictilis ;
-      skd:begrepsreferanse :omformbar .
+###  http://example.com/skatt/pass-barn#Navn
+ex:Navn rdf:type owl:NamedIndividual ,
+                 skd:Enkeltype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#debitor
-:debitor rdf:type owl:NamedIndividual ,
-                  skd:Begrep ;
-         rdfs:label "Debitor"@nb .
+###  http://example.com/skatt/pass-barn#OppgaveBarnepass
+ex:OppgaveBarnepass rdf:type owl:NamedIndividual ,
+                             skd:Objekttype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#eggs
-:eggs rdf:type owl:NamedIndividual ,
-               skd:Kode ;
-      skd:tilhoererKodeliste :minKodeliste .
+###  http://example.com/skatt/pass-barn#Oppgaveeier
+ex:Oppgaveeier rdf:type owl:NamedIndividual ,
+                        skd:Objekttype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#element
-:element rdf:type owl:NamedIndividual ,
-                  skd:Elementer ;
-         skd:dokumentasjon "Dette er en dokumentasjon"^^xsd:string ;
-         skd:elementID "Fgfdfg werr 333"^^xsd:string .
+###  http://example.com/skatt/pass-barn#Oppgavegiver
+ex:Oppgavegiver rdf:type owl:NamedIndividual ,
+                         skd:Objekttype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#gyldigFra2019
-:gyldigFra2019 rdf:type owl:NamedIndividual .
+###  http://example.com/skatt/pass-barn#Oppgaveoppsummering
+ex:Oppgaveoppsummering rdf:type owl:NamedIndividual ,
+                                skd:Objekttype .
 
 
-###  http://data.skatteetaten.no/ontologier/objektModell#harPengerTilgodeHos
-:harPengerTilgodeHos rdf:type owl:NamedIndividual ,
-                              skd:Begrepsrelasjon ;
-                     skd:harObjekt :debitor ;
-                     skd:harSubjekt :kreditor ;
-                     rdfs:label "har penger tilgode hos"@nb .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#harrollerolle
-:harrollerolle rdf:type owl:NamedIndividual ,
-                        skd:Rolle .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#hjemKommune
-:hjemKommune rdf:type owl:NamedIndividual ,
-                      skd:Begrep ;
-             skd:iEgenskapAv :kreditor .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#innsender
-:innsender rdf:type owl:NamedIndividual ,
-                    skd:Objekttype ;
-           skd:harPartsrolle :kreditor .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#julepakke
-:julepakke rdf:type owl:NamedIndividual ,
-                    skd:Pakke .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#kittens
-:kittens rdf:type owl:NamedIndividual ,
-                  skd:Kode ;
-         skd:tilhoererKodeliste :minkodeliste .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#kreditor
-:kreditor rdf:type owl:NamedIndividual ,
-                   skd:Begrep ;
-          rdfs:label "Kreditor"@nb .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#metamorphose
-:metamorphose rdf:type owl:NamedIndividual ,
-                       skd:Begrep ;
-              skd:elementID "errt324"^^xsd:string ;
-              skd:versjonsnummer "1"^^xsd:int .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#minBox
-:minBox rdf:type owl:NamedIndividual ,
-                 skd:Objekttype .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#minDatatype
-:minDatatype rdf:type owl:NamedIndividual ,
-                      skd:Datatype .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#minEnkeltype
-:minEnkeltype rdf:type owl:NamedIndividual ,
-                       skd:Enkeltype .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#minKodeliste
-:minKodeliste rdf:type owl:NamedIndividual ,
-                       skd:Kodeliste .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#minMeter
-:minMeter rdf:type owl:NamedIndividual ,
-                   skd:Enkeltype ;
-          skd:qualifiedName "Skatteetaten::Konstruksjon::Opplysninger::Meldinger a-ordningen-2.1::A06A07Avstemming::A07SvarAvstemming::Permisjon::sluttdato" .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#minkodeliste
-:minkodeliste rdf:type owl:NamedIndividual ,
-                       skd:Kodeliste ;
-              rdfs:label "" .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#mittAttributt
-:mittAttributt rdf:type owl:NamedIndividual ,
-                        skd:Attributt ;
-               skd:tilhoererElement :mittRot ;
-               skd:type :minKodeliste .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#mittRot
-:mittRot rdf:type owl:NamedIndividual ,
-                  skd:Rotobjektstype .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#omformbar
-:omformbar rdf:type owl:NamedIndividual ,
-                    skd:Begrep ;
-           skd:harBredereBegrep :metamorphose .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#prosjektet
-:prosjektet rdf:type owl:NamedIndividual ,
-                     skd:Prosjekt ;
-            skd:eierInformasjonsmodell :byggermodell .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#skjemaetMitt
-:skjemaetMitt rdf:type owl:NamedIndividual ,
-                       skd:Rolle ;
-              skd:type :minBox .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#skylderPengerTil
-:skylderPengerTil rdf:type owl:NamedIndividual ,
-                           skd:Begrepsrelasjon ;
-                  skd:harInversBegrepsrelasjon :harPengerTilgodeHos ;
-                  skd:harObjekt :kreditor ;
-                  skd:harSubjekt :debitor ;
-                  rdfs:label "skylder penger til"@nb .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#sofie
-:sofie rdf:type owl:NamedIndividual ,
-                foaf:Agent .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#spam
-:spam rdf:type owl:NamedIndividual ,
-               skd:Kode ;
-      skd:tilhoererKodeliste :minKodeliste .
-
-
-###  http://data.skatteetaten.no/ontologier/objektModell#tv
-:tv rdf:type owl:NamedIndividual ,
-             foaf:Agent .
-
-
-###  http://example.com/test#123
-<http://example.com/test#123> rdf:type owl:NamedIndividual ,
-                                       skd:Begrep ,
-                                       skos:Consept ;
-                              skd:sistEndretAv :tv ;
-                              dcterms:publisher :sofie ;
-                              dcterms:temporal :gyldigFra2019 ;
-                              skos:inScheme <http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> ;
-                              adms:status skd:active ;
-                              skd:begrepErNavngittNode "false"^^xsd:boolean ;
-                              skd:begrepSistOppdatert "2019-03-27T00:00:00Z"^^xsd:dateTime ;
-                              skd:begrepsidentifikator "15cfbeb9-50c0-11e9-9ce9-0050568204d6" ;
-                              skd:konseptstatus "Registert" ;
-                              skd:versjonsnummer "1"^^xsd:int ;
-                              skd:versjonstidspunkt "2019-11-26T11:11:12.673+01:00"^^xsd:dateTime ;
-                              dcterms:modified "2019-03-27T00:00:00Z"^^xsd:dateTime ;
-                              skos:notation "saksBehandlingSomTekniskNavn"^^xsd:string ;
-                              skd:beslutningskommentar "Besluttes før man sitter i saksen"@nb ;
-                              skd:folkeligForklaring "En folkelig forklaring på saksbehandling"@nb ;
-                              skd:forvaltningsmerknad "En forvaltningsmerknat til saksbehandling"@nb ;
-                              skd:kommentar "En kommentar her du"@nb ;
-                              skd:rettsligForklaring "Rett(slig) forklaring"@nb ;
-                              skos:altLabel "Behandling av saker"@nb ;
-                              skos:definition "De forretningsprosessene som må utføres for å konkludere på det spørsmålet som er oppe til vurdering" ;
-                              skos:editorialNote "definisjonsmerknad"@nb ;
-                              skos:example "Et eksempel"@nb ;
-                              skos:hiddenLabel "Saksbehandling"@nb ;
-                              skos:prefLabel "saksbehandling"@nb .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource <http://example.com/test#123> ;
-   owl:annotatedProperty skd:begrepErNavngittNode ;
-   owl:annotatedTarget "false"^^xsd:boolean ;
-   rdfs:comment "Bør være en subklasse" ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-
-###  http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1
-<http://example.com/test#15cfbeb1-50c0-11e9-9ce9-0050568204d6_v1> rdf:type owl:NamedIndividual ,
-                                                                           skos:ConceptScheme .
+###  http://example.com/skatt/pass-barn#konstruksjonsmodell_barnepass
+ex:konstruksjonsmodell_barnepass rdf:type owl:NamedIndividual ,
+                                          skd:Konstruksjonsmodell ;
+                                 skd:brukerElement ex:Inntektsaar ,
+                                                   ex:Kontaktinformasjon ,
+                                                   ex:Leveranse ,
+                                                   ex:Navn ,
+                                                   ex:OppgaveBarnepass ,
+                                                   ex:Oppgaveeier ,
+                                                   ex:Oppgavegiver ,
+                                                   ex:Oppgaveoppsummering ;
+                                 skd:harRot ex:Melding ;
+                                 skd:filnavn "barnepass.xsd" ;
+                                 skd:modellnavn "Oppgave over utgifter til pass og stell av barn"@nb .
 
 
 #################################################################
