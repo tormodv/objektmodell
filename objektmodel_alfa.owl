@@ -2025,7 +2025,6 @@ ex:leveranseRolle rdf:type owl:NamedIndividual ,
                   skd:tilhoererElement ex:Melding ;
                   skd:type ex:Leveranse ;
                   skd:modellElementnavn "leveranse"^^xsd:string ;
-                  skd:multiplisitet "1..*"^^xsd:string ;
                   skd:multiplisitetMaks "*"^^xsd:string ;
                   skd:multiplisitetMin "1"^^xsd:int ;
                   rdfs:label "leveranse"^^xsd:string .
