@@ -859,6 +859,31 @@ skd:multiplisitet rdf:type owl:DatatypeProperty ;
                   rdfs:label "multiplisitet"@nb .
 
 
+###  http://data.skatteetaten.no#multiplisitetMaks
+skd:multiplisitetMaks rdf:type owl:DatatypeProperty ;
+                      rdfs:domain skd:Egenskap ;
+                      rdfs:range [ rdf:type rdfs:Datatype ;
+                                   owl:unionOf ( xsd:nonNegativeInteger
+                                                 [ rdf:type rdfs:Datatype ;
+                                                   owl:oneOf [ rdf:type rdf:List ;
+                                                               rdf:first "*" ;
+                                                               rdf:rest rdf:nil
+                                                             ]
+                                                 ]
+                                               )
+                                 ] ;
+                      rdfs:label "maks multiplisitet"@nb ,
+                                 "max occurs"@en .
+
+
+###  http://data.skatteetaten.no#multiplisitetMin
+skd:multiplisitetMin rdf:type owl:DatatypeProperty ;
+                     rdfs:domain skd:Egenskap ;
+                     rdfs:range xsd:nonNegativeInteger ;
+                     rdfs:label "min occurs"@en ,
+                                "minimum multiplisitet"@nb .
+
+
 ###  http://data.skatteetaten.no#navigerbar
 skd:navigerbar rdf:type owl:DatatypeProperty ;
                rdfs:domain skd:Egenskap ;
@@ -1106,23 +1131,6 @@ xsd:maxLength rdf:type owl:DatatypeProperty ,
                          "max length"@en .
 
 
-###  http://www.w3.org/2001/XMLSchema#maxOccurs
-xsd:maxOccurs rdf:type owl:DatatypeProperty ;
-              rdfs:domain skd:Egenskap ;
-              rdfs:range [ rdf:type rdfs:Datatype ;
-                           owl:unionOf ( xsd:nonNegativeInteger
-                                         [ rdf:type rdfs:Datatype ;
-                                           owl:oneOf [ rdf:type rdf:List ;
-                                                       rdf:first "*" ;
-                                                       rdf:rest rdf:nil
-                                                     ]
-                                         ]
-                                       )
-                         ] ;
-              rdfs:label "maks multiplisitet"@nb ,
-                         "max occurs"@en .
-
-
 ###  http://www.w3.org/2001/XMLSchema#minInclusive
 xsd:minInclusive rdf:type owl:DatatypeProperty ,
                           owl:FunctionalProperty ;
@@ -1139,14 +1147,6 @@ xsd:minLength rdf:type owl:DatatypeProperty ,
               rdfs:range xsd:nonNegativeInteger ;
               rdfs:label "min length"@en ,
                          "minimum lengde"@nb .
-
-
-###  http://www.w3.org/2001/XMLSchema#minOccurs
-xsd:minOccurs rdf:type owl:DatatypeProperty ;
-              rdfs:domain skd:Egenskap ;
-              rdfs:range xsd:nonNegativeInteger ;
-              rdfs:label "min occurs"@en ,
-                         "minimum multiplisitet"@nb .
 
 
 ###  http://www.w3.org/2001/XMLSchema#pattern
