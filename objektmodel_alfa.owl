@@ -1938,6 +1938,17 @@ ex:Inntektsaar rdf:type owl:NamedIndividual ,
                         skd:Enkeltype .
 
 
+###  http://example.com/skatt/pass-barn#InntektsaarAttributt
+ex:InntektsaarAttributt rdf:type owl:NamedIndividual ,
+                                 skd:Attributt ;
+                        skd:tilhoererElement ex:Leveranse ;
+                        skd:type ex:Inntektsaar ;
+                        skd:modellElementnavn "inntektsaar"^^xsd:string ;
+                        skd:multiplisitetMaks "1"^^xsd:int ;
+                        skd:multiplisitetMin "1"^^xsd:int ;
+                        rdfs:label "Inntektsaar"@nb .
+
+
 ###  http://example.com/skatt/pass-barn#Kildesystem
 ex:Kildesystem rdf:type owl:NamedIndividual ,
                         skd:Enkeltype .
@@ -1951,6 +1962,22 @@ ex:Kontaktinformasjon rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#Leveranse
 ex:Leveranse rdf:type owl:NamedIndividual ,
                       skd:Objekttype .
+
+
+###  http://example.com/skatt/pass-barn#LeveranseReferanse
+ex:LeveranseReferanse rdf:type owl:NamedIndividual ,
+                               skd:Enkeltype .
+
+
+###  http://example.com/skatt/pass-barn#LeveranseReferanseAttributt
+ex:LeveranseReferanseAttributt rdf:type owl:NamedIndividual ,
+                                        skd:Attributt ;
+                               skd:tilhoererElement ex:Leveranse ;
+                               skd:type ex:LeveranseReferanse ;
+                               skd:modellElementnavn "oppgavegiversLeveranseReferanse"^^xsd:string ;
+                               skd:multiplisitetMaks "1"^^xsd:int ;
+                               skd:multiplisitetMin "0"^^xsd:int ;
+                               rdfs:label "oppgavegiversLeveranseReferanse"@nb .
 
 
 ###  http://example.com/skatt/pass-barn#Melding
@@ -1993,6 +2020,8 @@ ex:kildestystemAttributt rdf:type owl:NamedIndividual ,
                          skd:tilhoererElement ex:Leveranse ;
                          skd:type ex:Kildesystem ;
                          skd:modellElementnavn "kildesystem"^^xsd:string ;
+                         skd:multiplisitetMaks "1"^^xsd:int ;
+                         skd:multiplisitetMin "0"^^xsd:int ;
                          rdfs:label "kildesystem"@nb .
 
 
