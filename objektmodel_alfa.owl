@@ -3,7 +3,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix skd: <http://data.skatteetaten.no#> .
-@prefix std: <http://data.skatteetaten.no/ontologier/standardTyper#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
@@ -1935,45 +1934,55 @@ skd:visibilityKinds rdf:type owl:NamedIndividual .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Antall
-std:Antall rdf:type owl:NamedIndividual ,
-                    skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#Antall> rdf:type owl:NamedIndividual ,
+                                                                       skd:Enkeltype .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Beloep
-std:Beloep rdf:type owl:NamedIndividual ,
-                    skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#Beloep> rdf:type owl:NamedIndividual ,
+                                                                       skd:Enkeltype .
+
+
+###  http://data.skatteetaten.no/ontologier/standardTyper#Epostadresse
+<http://data.skatteetaten.no/ontologier/standardTyper#Epostadresse> rdf:type owl:NamedIndividual ,
+                                                                             skd:Enkeltype .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Foedselsnummer
-std:Foedselsnummer rdf:type owl:NamedIndividual ,
-                            skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#Foedselsnummer> rdf:type owl:NamedIndividual ,
+                                                                               skd:Enkeltype .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Kildesystem
-std:Kildesystem rdf:type owl:NamedIndividual ,
-                         skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#Kildesystem> rdf:type owl:NamedIndividual ,
+                                                                            skd:Enkeltype .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#LeveranseReferanse
-std:LeveranseReferanse rdf:type owl:NamedIndividual ,
-                                skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#LeveranseReferanse> rdf:type owl:NamedIndividual ,
+                                                                                   skd:Enkeltype .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Organisasjonsnavn
-std:Organisasjonsnavn rdf:type owl:NamedIndividual ,
-                               skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#Organisasjonsnavn> rdf:type owl:NamedIndividual ,
+                                                                                  skd:Enkeltype .
 
 
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Organisasjonsnummer
-std:Organisasjonsnummer rdf:type owl:NamedIndividual ,
-                                 skd:Enkeltype .
+<http://data.skatteetaten.no/ontologier/standardTyper#Organisasjonsnummer> rdf:type owl:NamedIndividual ,
+                                                                                    skd:Enkeltype .
+
+
+###  http://data.skatteetaten.no/ontologier/standardTyper#Telefonnummer
+<http://data.skatteetaten.no/ontologier/standardTyper#Telefonnummer> rdf:type owl:NamedIndividual ,
+                                                                              skd:Enkeltype .
 
 
 ###  http://example.com/skatt/pass-barn#AntallOppgaverAttributt
 ex:AntallOppgaverAttributt rdf:type owl:NamedIndividual ,
                                     skd:Attributt ;
                            skd:tilhoererElement ex:Oppgaveoppsummering ;
-                           skd:type std:Antall ;
+                           skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Antall> ;
                            skd:modellElementnavn "antallOppgaver"^^xsd:string ;
                            skd:multiplisitetMaks "1"^^xsd:int ;
                            skd:multiplisitetMin "1"^^xsd:int .
@@ -1983,8 +1992,8 @@ ex:AntallOppgaverAttributt rdf:type owl:NamedIndividual ,
 ex:FoedselsnummerAttributt rdf:type owl:NamedIndividual ,
                                     skd:Attributt ;
                            skd:tilhoererElement ex:Oppgaveeier ;
-                           skd:type std:Foedselsnummer ;
-                           skd:modellElementnavn "foedselsnummer"^^xsd:string ;
+                           skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Foedselsnummer> ;
+                           skd:modellElementnavn "fødselsnummer"^^xsd:string ;
                            skd:multiplisitetMaks "1"^^xsd:int ;
                            skd:multiplisitetMin "1"^^xsd:int .
 
@@ -1999,7 +2008,7 @@ ex:InntektsaarAttributt rdf:type owl:NamedIndividual ,
                                  skd:Attributt ;
                         skd:tilhoererElement ex:Leveranse ;
                         skd:type ex:Inntektsaar ;
-                        skd:modellElementnavn "inntektsaar"^^xsd:string ;
+                        skd:modellElementnavn "inntektsår"^^xsd:string ;
                         skd:multiplisitetMaks "1"^^xsd:int ;
                         skd:multiplisitetMin "1"^^xsd:int ;
                         rdfs:label "Inntektsaar"@nb .
@@ -2029,7 +2038,7 @@ ex:Leveranse rdf:type owl:NamedIndividual ,
 ex:LeveranseReferanseAttributt rdf:type owl:NamedIndividual ,
                                         skd:Attributt ;
                                skd:tilhoererElement ex:Leveranse ;
-                               skd:type std:LeveranseReferanse ;
+                               skd:type <http://data.skatteetaten.no/ontologier/standardTyper#LeveranseReferanse> ;
                                skd:modellElementnavn "oppgavegiversLeveranseReferanse"^^xsd:string ;
                                skd:multiplisitetMaks "1"^^xsd:int ;
                                skd:multiplisitetMin "0"^^xsd:int ;
@@ -2139,7 +2148,7 @@ ex:OppgaveoppsummeringRolle rdf:type owl:NamedIndividual ,
 ex:OrganisasjonsnavnAttributt rdf:type owl:NamedIndividual ,
                                        skd:Attributt ;
                               skd:tilhoererElement ex:Oppgavegiver ;
-                              skd:type std:Organisasjonsnavn ;
+                              skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Organisasjonsnavn> ;
                               skd:modellElementnavn "organisasjonsnavn"^^xsd:string ;
                               skd:multiplisitetMaks "1"^^xsd:int ;
                               skd:multiplisitetMin "1"^^xsd:int .
@@ -2149,21 +2158,21 @@ ex:OrganisasjonsnavnAttributt rdf:type owl:NamedIndividual ,
 ex:OrganisasjonsnummerAttributt rdf:type owl:NamedIndividual ,
                                          skd:Attributt ;
                                 skd:tilhoererElement ex:Oppgavegiver ;
-                                skd:type std:Organisasjonsnummer ;
+                                skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Organisasjonsnummer> ;
                                 skd:modellElementnavn "organisasjonsnummer"^^xsd:string ;
                                 skd:multiplisitetMaks "1"^^xsd:int ;
                                 skd:multiplisitetMin "1"^^xsd:int .
 
 
-###  http://example.com/skatt/pass-barn#kildestystemAttributt
-ex:kildestystemAttributt rdf:type owl:NamedIndividual ,
-                                  skd:Attributt ;
-                         skd:tilhoererElement ex:Leveranse ;
-                         skd:type std:Kildesystem ;
-                         skd:modellElementnavn "kildesystem"^^xsd:string ;
-                         skd:multiplisitetMaks "1"^^xsd:int ;
-                         skd:multiplisitetMin "0"^^xsd:int ;
-                         rdfs:label "kildesystem"@nb .
+###  http://example.com/skatt/pass-barn#kildesystemAttributt
+ex:kildesystemAttributt rdf:type owl:NamedIndividual ,
+                                 skd:Attributt ;
+                        skd:tilhoererElement ex:Leveranse ;
+                        skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Kildesystem> ;
+                        skd:modellElementnavn "kildesystem"^^xsd:string ;
+                        skd:multiplisitetMaks "1"^^xsd:int ;
+                        skd:multiplisitetMin "0"^^xsd:int ;
+                        rdfs:label "kildesystem"@nb .
 
 
 ###  http://example.com/skatt/pass-barn#konstruksjonsmodell_barnepass
@@ -2198,6 +2207,30 @@ ex:kontaktNavnAttributt rdf:type owl:NamedIndividual ,
                         rdfs:label "navn"^^xsd:string .
 
 
+###  http://example.com/skatt/pass-barn#kontaktTelefonnummerAttributt
+ex:kontaktTelefonnummerAttributt rdf:type owl:NamedIndividual ,
+                                          skd:Attributt ;
+                                 skd:tilhoererElement ex:Kontaktinformasjon ;
+                                 skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Telefonnummer> ;
+                                 skd:modellElementnavn "telefonnummer"^^xsd:string .
+
+
+###  http://example.com/skatt/pass-barn#kontaktVarselEpostadresseAttributt
+ex:kontaktVarselEpostadresseAttributt rdf:type owl:NamedIndividual ,
+                                               skd:Attributt ;
+                                      skd:tilhoererElement ex:Kontaktinformasjon ;
+                                      skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Epostadresse> ;
+                                      skd:modellElementnavn "varselEpostadresse"^^xsd:string .
+
+
+###  http://example.com/skatt/pass-barn#kontaktVarselSmsMobilnummerAttributt
+ex:kontaktVarselSmsMobilnummerAttributt rdf:type owl:NamedIndividual ,
+                                                 skd:Attributt ;
+                                        skd:tilhoererElement ex:Kontaktinformasjon ;
+                                        skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Telefonnummer> ;
+                                        skd:modellElementnavn "varselSmsMobilnummer"^^xsd:string .
+
+
 ###  http://example.com/skatt/pass-barn#leveranseRolle
 ex:leveranseRolle rdf:type owl:NamedIndividual ,
                            skd:Rolle ;
@@ -2220,7 +2253,7 @@ ex:leveranseRolle rdf:type owl:NamedIndividual ,
 ex:paaloeptBeloepAttributt rdf:type owl:NamedIndividual ,
                                     skd:Attributt ;
                            skd:tilhoererElement ex:OppgaveBarnepass ;
-                           skd:type std:Beloep ;
+                           skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Beloep> ;
                            skd:modellElementnavn "påløptBeløp"^^xsd:string ;
                            skd:multiplisitetMaks "1"^^xsd:int ;
                            skd:multiplisitetMin "1"^^xsd:int .
@@ -2230,8 +2263,8 @@ ex:paaloeptBeloepAttributt rdf:type owl:NamedIndividual ,
 ex:sumBeloepAttributt rdf:type owl:NamedIndividual ,
                                skd:Attributt ;
                       skd:tilhoererElement ex:Oppgaveoppsummering ;
-                      skd:type std:Beloep ;
-                      skd:modellElementnavn "sumBeloep"^^xsd:string ;
+                      skd:type <http://data.skatteetaten.no/ontologier/standardTyper#Beloep> ;
+                      skd:modellElementnavn "sumBeløp"^^xsd:string ;
                       skd:multiplisitetMaks "1"^^xsd:int ;
                       skd:multiplisitetMin "1"^^xsd:int .
 
