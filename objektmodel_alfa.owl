@@ -2034,7 +2034,15 @@ ex:KontaktinformasjonAttributt rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/skatt/pass-barn#Leveranse
 ex:Leveranse rdf:type owl:NamedIndividual ,
-                      skd:Objekttype .
+                      skd:Objekttype ;
+             skd:stereotype skd:konstruksjon .
+
+
+###  http://example.com/skatt/pass-barn#LeveranseRealisering
+ex:LeveranseRealisering rdf:type owl:NamedIndividual ,
+                                 skd:Realisering ;
+                        skd:client ex:Leveranse ;
+                        skd:suplier ex:LeveranseStruktur .
 
 
 ###  http://example.com/skatt/pass-barn#LeveranseReferanseAttributt
@@ -2046,6 +2054,12 @@ ex:LeveranseReferanseAttributt rdf:type owl:NamedIndividual ,
                                skd:multiplisitetMaks "1"^^xsd:int ;
                                skd:multiplisitetMin "0"^^xsd:int ;
                                rdfs:label "oppgavegiversLeveranseReferanse"@nb .
+
+
+###  http://example.com/skatt/pass-barn#LeveranseStruktur
+ex:LeveranseStruktur rdf:type owl:NamedIndividual ,
+                              skd:Objekttype ;
+                     skd:stereotype skd:struktur .
 
 
 ###  http://example.com/skatt/pass-barn#Leveransetype
@@ -2067,9 +2081,23 @@ ex:LeveransetypeAttributt rdf:type owl:NamedIndividual ,
 ex:Melding rdf:type owl:NamedIndividual ,
                     skd:Rotobjektstype ;
            skd:begrepsreferanse <http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1> ;
+           skd:stereotype skd:konstruksjon ;
            skd:dokumentasjon "innholdet i en innsending"@nb ;
            skd:modellElementnavn "Melding"^^xsd:string ;
            rdfs:label "Melding"@nb .
+
+
+###  http://example.com/skatt/pass-barn#MeldingRealisering
+ex:MeldingRealisering rdf:type owl:NamedIndividual ,
+                               skd:Realisering ;
+                      skd:client ex:Melding ;
+                      skd:suplier ex:MeldingStruktur .
+
+
+###  http://example.com/skatt/pass-barn#MeldingStruktur
+ex:MeldingStruktur rdf:type owl:NamedIndividual ,
+                            skd:Objekttype ;
+                   skd:stereotype skd:struktur .
 
 
 ###  http://example.com/skatt/pass-barn#Navn
@@ -2089,7 +2117,8 @@ ex:NavnAttributt rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/skatt/pass-barn#OppgaveBarnepass
 ex:OppgaveBarnepass rdf:type owl:NamedIndividual ,
-                             skd:Objekttype .
+                             skd:Objekttype ;
+                    skd:stereotype skd:konstruksjon .
 
 
 ###  http://example.com/skatt/pass-barn#OppgaveBarnepassRolle
@@ -2104,7 +2133,8 @@ ex:OppgaveBarnepassRolle rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/skatt/pass-barn#Oppgaveeier
 ex:Oppgaveeier rdf:type owl:NamedIndividual ,
-                        skd:Objekttype .
+                        skd:Objekttype ;
+               skd:stereotype skd:konstruksjon .
 
 
 ###  http://example.com/skatt/pass-barn#OppgaveeierRolle
@@ -2119,7 +2149,8 @@ ex:OppgaveeierRolle rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/skatt/pass-barn#Oppgavegiver
 ex:Oppgavegiver rdf:type owl:NamedIndividual ,
-                         skd:Objekttype .
+                         skd:Objekttype ;
+                skd:stereotype skd:konstruksjon .
 
 
 ###  http://example.com/skatt/pass-barn#OppgavegiverRolle
@@ -2134,7 +2165,8 @@ ex:OppgavegiverRolle rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/skatt/pass-barn#Oppgaveoppsummering
 ex:Oppgaveoppsummering rdf:type owl:NamedIndividual ,
-                                skd:Objekttype .
+                                skd:Objekttype ;
+                       skd:stereotype skd:konstruksjon .
 
 
 ###  http://example.com/skatt/pass-barn#OppgaveoppsummeringRolle
