@@ -179,6 +179,7 @@ skd:brukerBegrep rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no#brukerElement
 skd:brukerElement rdf:type owl:ObjectProperty ;
+                  owl:inverseOf skd:delAv ;
                   rdfs:domain skd:Pakke ;
                   rdfs:range skd:Elementer ;
                   rdfs:label "bruker element"@nb .
@@ -199,6 +200,10 @@ skd:client rdf:type owl:ObjectProperty ;
    owl:annotatedTarget skd:Elementer ;
    rdfs:comment "Bør begrenset til skd:UMLklassifikator?"@nb
  ] .
+
+
+###  http://data.skatteetaten.no#delAv
+skd:delAv rdf:type owl:ObjectProperty .
 
 
 ###  http://data.skatteetaten.no#eierElement
