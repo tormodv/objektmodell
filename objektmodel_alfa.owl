@@ -8,6 +8,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix exds: <http://example.com/skatt/drosjesentral#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -1984,6 +1985,100 @@ std:Organisasjonsnummer rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologier/standardTyper#Telefonnummer
 std:Telefonnummer rdf:type owl:NamedIndividual ,
                            skd:Enkeltype .
+
+
+###  http://example.com/skatt/drosjesentral#Drosjesentral
+exds:Drosjesentral rdf:type owl:NamedIndividual ,
+                            skd:Objekttype ;
+                   skd:spesialiserer exds:Partskontekst ;
+                   skd:stereotype skd:struktur .
+
+
+###  http://example.com/skatt/drosjesentral#DrosjesentralRolle
+exds:DrosjesentralRolle rdf:type owl:NamedIndividual ,
+                                 skd:Rolle ;
+                        skd:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralDrosjesentralAssosiasjon ;
+                        skd:tilhoererElement exds:KontrollFraDrosjesentral ;
+                        skd:type exds:Drosjesentral ;
+                        skd:modellElementnavn "drosjesentral"^^xsd:string ;
+                        skd:multiplisitetMaks "1"^^xsd:int ;
+                        skd:multiplisitetMin "1"^^xsd:int .
+
+
+###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentral
+exds:KontrollFraDrosjesentral rdf:type owl:NamedIndividual ,
+                                       skd:Objekttype ;
+                              skd:stereotype skd:struktur .
+
+
+###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentralDrosjesentralAssosiasjon
+exds:KontrollFraDrosjesentralDrosjesentralAssosiasjon rdf:type owl:NamedIndividual ,
+                                                               skd:Assosiasjon .
+
+
+###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentralLoeyvehaverAssosiasjon
+exds:KontrollFraDrosjesentralLoeyvehaverAssosiasjon rdf:type owl:NamedIndividual ,
+                                                             skd:Assosiasjon .
+
+
+###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentralRolleD
+exds:KontrollFraDrosjesentralRolleD rdf:type owl:NamedIndividual ,
+                                             skd:Rolle ;
+                                    skd:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralDrosjesentralAssosiasjon ;
+                                    skd:tilhoererElement exds:Drosjesentral ;
+                                    skd:type exds:KontrollFraDrosjesentral ;
+                                    skd:modellElementnavn "kontrollFraDrosjesentral"^^xsd:string ;
+                                    skd:multiplisitetMaks "*"^^xsd:string ;
+                                    skd:multiplisitetMin "1"^^xsd:int .
+
+
+###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentralRolleL
+exds:KontrollFraDrosjesentralRolleL rdf:type owl:NamedIndividual ,
+                                             skd:Rolle ;
+                                    skd:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralLoeyvehaverAssosiasjon ;
+                                    skd:tilhoererElement exds:Loeyvehaver ;
+                                    skd:type exds:KontrollFraDrosjesentral ;
+                                    skd:modellElementnavn "kontrollFraDrosjesentral"^^xsd:string ;
+                                    skd:multiplisitetMaks "1"^^xsd:int ;
+                                    skd:multiplisitetMin "1"^^xsd:int .
+
+
+###  http://example.com/skatt/drosjesentral#Loeyvehaver
+exds:Loeyvehaver rdf:type owl:NamedIndividual ,
+                          skd:Objekttype ;
+                 skd:spesialiserer exds:Partskontekst ;
+                 skd:stereotype skd:struktur .
+
+
+###  http://example.com/skatt/drosjesentral#LoeyvehaverRolle
+exds:LoeyvehaverRolle rdf:type owl:NamedIndividual ,
+                               skd:Rolle ;
+                      skd:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralLoeyvehaverAssosiasjon ;
+                      skd:tilhoererElement exds:KontrollFraDrosjesentral ;
+                      skd:type exds:Loeyvehaver ;
+                      skd:modellElementnavn "løyvehaver"^^xsd:string ;
+                      skd:multiplisitetMaks "1"^^xsd:int ;
+                      skd:multiplisitetMin "1"^^xsd:int .
+
+
+###  http://example.com/skatt/drosjesentral#Partskontekst
+exds:Partskontekst rdf:type owl:NamedIndividual ,
+                            skd:Objekttype ;
+                   skd:stereotype skd:struktur .
+
+
+###  http://example.com/skatt/drosjesentral#StrukturmodellDrosjesentral
+exds:StrukturmodellDrosjesentral rdf:type owl:NamedIndividual ,
+                                          skd:Strukturmodell ;
+                                 skd:brukerElement exds:Drosjesentral ,
+                                                   exds:KontrollFraDrosjesentral ,
+                                                   exds:Loeyvehaver .
+
+
+###  http://example.com/skatt/drosjesentral#StrukturmodellProsess_v1.0
+exds:StrukturmodellProsess_v1.0 rdf:type owl:NamedIndividual ,
+                                         skd:Strukturmodell ;
+                                skd:brukerElement exds:Partskontekst .
 
 
 ###  http://example.com/skatt/pass-barn#AntallOppgaverAttributt
