@@ -350,9 +350,14 @@ skd:iEgenskapAv rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no#knyttetTilAssosiasjon
 skd:knyttetTilAssosiasjon rdf:type owl:ObjectProperty ;
+                          owl:inverseOf skd:knyttetTilRolle ;
                           rdfs:domain skd:Rolle ;
                           rdfs:range skd:Assosiasjon ;
                           rdfs:label "knyttet til assosiasjon"@nb .
+
+
+###  http://data.skatteetaten.no#knyttetTilRolle
+skd:knyttetTilRolle rdf:type owl:ObjectProperty .
 
 
 ###  http://data.skatteetaten.no#realiserer
