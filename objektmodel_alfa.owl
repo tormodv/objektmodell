@@ -57,6 +57,20 @@ skd:forvaltningsmerknad rdf:type owl:AnnotationProperty ;
                         rdfs:subPropertyOf skos:editorialNote .
 
 
+###  http://data.skatteetaten.no#futureConsept
+skd:futureConsept rdf:type owl:AnnotationProperty ;
+                  rdfs:label "Fremtidig funksjonalitet"@nb ;
+                  skos:note "Funksjoner som er i modellen, men som ikke blir implementert og dermed ikke vil dukke opp i datasettet"@nb ;
+                  rdfs:range xsd:boolean .
+
+
+###  http://data.skatteetaten.no#informative
+skd:informative rdf:type owl:AnnotationProperty ;
+                rdfs:comment "Konseptet er i modellen for å lette lesinbg av modellen. Brukes ikke ved skriving av modell"@nb ;
+                rdfs:label "Avledet informasjon"@nb ;
+                rdfs:range xsd:boolean .
+
+
 ###  http://data.skatteetaten.no#kommentar
 skd:kommentar rdf:type owl:AnnotationProperty ;
               rdfs:subPropertyOf skos:editorialNote ;
@@ -148,6 +162,14 @@ jmf https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Datatype_Maps"""@nb ;
 #    Object Properties
 #################################################################
 
+###  http://data.skatteetaten.no#aggregeringsform
+skd:aggregeringsform rdf:type owl:ObjectProperty ;
+                     rdfs:domain skd:Rolle ;
+                     rdfs:range skos:Consept ;
+                     rdfs:comment "Samme forståelse som i modelldcatno"@nb ;
+                     rdfs:label "aggregeringsform"@nb .
+
+
 ###  http://data.skatteetaten.no#begrepsreferanse
 skd:begrepsreferanse rdf:type owl:ObjectProperty ;
                      rdfs:domain skd:Fictilis ;
@@ -204,7 +226,9 @@ skd:client rdf:type owl:ObjectProperty ;
 
 
 ###  http://data.skatteetaten.no#delAv
-skd:delAv rdf:type owl:ObjectProperty .
+skd:delAv rdf:type owl:ObjectProperty ;
+          skd:informative "true"^^xsd:boolean ;
+          rdfs:label "del av pakke"@nb .
 
 
 ###  http://data.skatteetaten.no#eierElement
@@ -220,14 +244,6 @@ skd:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
                            rdfs:domain skd:Prosjekt ;
                            rdfs:range skd:Modell ;
                            rdfs:label "eier informasjonsmodell"@nb .
-
-
-###  http://data.skatteetaten.no#formForAggregering
-skd:formForAggregering rdf:type owl:ObjectProperty ;
-                       rdfs:domain skd:Rolle ;
-                       rdfs:range skos:Consept ;
-                       rdfs:comment "Samme forståelse som i modelldcatno"@nb ;
-                       rdfs:label "form for aggregering"@nb .
 
 
 ###  http://data.skatteetaten.no#gyldigForBehandling
@@ -257,6 +273,7 @@ skd:harBredereBegrep rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no#harEgenskap
 skd:harEgenskap rdf:type owl:ObjectProperty ;
                 owl:inverseOf skd:tilhoererElement ;
+                skd:informative "true"^^xsd:boolean ;
                 rdfs:label "harEgenskap"@nb .
 
 
@@ -274,6 +291,7 @@ skd:harInversBegrepsrelasjon rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no#harKode
 skd:harKode rdf:type owl:ObjectProperty ;
             owl:inverseOf skd:tilhoererKodeliste ;
+            skd:informative "true"^^xsd:boolean ;
             rdfs:label "har kode"@nb .
 
 
@@ -357,7 +375,9 @@ skd:knyttetTilAssosiasjon rdf:type owl:ObjectProperty ;
 
 
 ###  http://data.skatteetaten.no#knyttetTilRolle
-skd:knyttetTilRolle rdf:type owl:ObjectProperty .
+skd:knyttetTilRolle rdf:type owl:ObjectProperty ;
+                    skd:informative "true"^^xsd:boolean ;
+                    rdfs:label "knyttet til rolle"@nb .
 
 
 ###  http://data.skatteetaten.no#realiserer
@@ -413,7 +433,11 @@ skd:suplier rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no#synlighet
 skd:synlighet rdf:type owl:ObjectProperty ;
-              rdfs:domain skd:Egenskap .
+              rdfs:domain skd:Egenskap ;
+              rdfs:range skos:Consept ;
+              skd:futureConsept "true"^^xsd:boolean ;
+              rdfs:label "Synlighet"@nb ,
+                         "Visibility"@en .
 
 
 ###  http://data.skatteetaten.no#tilhoererElement
@@ -607,13 +631,13 @@ adms:status rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
-###  http://data.skatteetaten.no#aggregeringsform
-skd:aggregeringsform rdf:type owl:DatatypeProperty ;
-                     rdfs:domain skd:Egenskap ;
-                     rdfs:range xsd:string ;
-                     rdfs:comment "Flyttes som objektegenskap på rolle" ;
-                     rdfs:label "aggregeringsform"@nb ;
-                     owl:deprecated "true"^^xsd:boolean .
+###  http://data.skatteetaten.no#aggregeringsform_
+skd:aggregeringsform_ rdf:type owl:DatatypeProperty ;
+                      rdfs:domain skd:Egenskap ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Flyttes som objektegenskap på rolle" ;
+                      rdfs:label "aggregeringsform"@nb ;
+                      owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#annenKodeverdi
@@ -1465,7 +1489,11 @@ skd:Egenskapsnavn rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no#Elementer
 skd:Elementer rdf:type owl:Class ;
-              rdfs:subClassOf skd:Fictilis ;
+              rdfs:subClassOf skd:Fictilis ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty skd:stereotype ;
+                                owl:someValuesFrom skos:Consept
+                              ] ;
               rdfs:label "Element"@nb ;
               owl:backwardCompatibleWith skd:UMLElement .
 
@@ -1656,7 +1684,7 @@ skd:Rolle rdf:type owl:Class ;
                             owl:someValuesFrom skd:Objekttype
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty skd:formForAggregering ;
+                            owl:onProperty skd:aggregeringsform ;
                             owl:allValuesFrom [ rdf:type owl:Class ;
                                                 owl:oneOf ( skd:composited
                                                             skd:shared
