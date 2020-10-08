@@ -246,6 +246,13 @@ skd:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
                            rdfs:label "eier informasjonsmodell"@nb .
 
 
+###  http://data.skatteetaten.no#eksternKodeliste
+skd:eksternKodeliste rdf:type owl:ObjectProperty ;
+                     rdfs:domain skd:Kodeliste ;
+                     rdfs:range skd:Kodeliste ;
+                     rdfs:label "Refernase til ekstern kodeliste"@nb .
+
+
 ###  http://data.skatteetaten.no#gyldigForBehandling
 skd:gyldigForBehandling rdf:type owl:ObjectProperty ;
                         rdfs:domain skd:Kode ;
@@ -507,7 +514,8 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
 
 ###  http://purl.org/dc/terms/temporal
 dcterms:temporal rdf:type owl:ObjectProperty ;
-                 rdfs:domain skd:Fictilis .
+                 rdfs:domain skd:Fictilis ;
+                 rdfs:range skd:Datoperiode .
 
 
 ###  http://purl.org/umu/uneskos#contains
@@ -624,6 +632,7 @@ skos:topConceptOf rdf:type owl:ObjectProperty ;
 
 ###  http://www.w3.org/ns/adms#status
 adms:status rdf:type owl:ObjectProperty ;
+            rdfs:domain skd:Fictilis ;
             rdfs:range skos:Consept .
 
 
@@ -719,19 +728,21 @@ skd:dokumentasjon rdf:type owl:DatatypeProperty ;
                   rdfs:label "dokumentasjon"@nb .
 
 
-###  http://data.skatteetaten.no#eksternKodeliste
-skd:eksternKodeliste rdf:type owl:DatatypeProperty ;
-                     rdfs:domain skd:Kodeliste ;
-                     rdfs:range xsd:anyURI ;
-                     rdfs:label ""@nb ,
-                                "ekstern kodeliste"@nb .
-
-
 ###  http://data.skatteetaten.no#eksternKodelisteUri
 skd:eksternKodelisteUri rdf:type owl:DatatypeProperty ;
                         rdfs:domain skd:Kodeliste ;
                         rdfs:range xsd:anyURI ;
-                        rdfs:label "ekstern kodeliste URI"@nb .
+                        rdfs:comment "Dekkes konseptuelt i rdf"@nb ;
+                        rdfs:label "ekstern kodeliste URI"@nb ;
+                        owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no#eksternKodeliste_X
+skd:eksternKodeliste_X rdf:type owl:DatatypeProperty ;
+                       rdfs:domain skd:Kodeliste ;
+                       rdfs:range xsd:anyURI ;
+                       rdfs:label "ekstern kodeliste"@nb ;
+                       owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no#elementID
@@ -990,7 +1001,6 @@ skd:qualifiedName rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no#relasjon
 skd:relasjon rdf:type owl:DatatypeProperty ;
-             rdfs:domain skd:begrepsRelasjon ;
              rdfs:range xsd:string ;
              rdfs:label "relasjon"@nb ;
              owl:deprecated "true"^^xsd:boolean .
@@ -1285,6 +1295,7 @@ skd:Attributt rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#Avhengighet
 skd:Avhengighet rdf:type owl:Class ;
                 rdfs:subClassOf skd:Modellbyggestener ;
+                rdfs:comment "Egen dependency klasse med et klassehirarki som i UML"@nb ;
                 rdfs:label "Avhengighet"@nb ,
                            "Dependency"@en .
 
@@ -1494,8 +1505,7 @@ skd:Elementer rdf:type owl:Class ;
                                 owl:onProperty skd:stereotype ;
                                 owl:someValuesFrom skos:Consept
                               ] ;
-              rdfs:label "Element"@nb ;
-              owl:backwardCompatibleWith skd:UMLElement .
+              rdfs:label "Element"@nb .
 
 
 ###  http://data.skatteetaten.no#Enkeltype
@@ -1731,76 +1741,6 @@ skd:Strukturmodell rdf:type owl:Class ;
                    rdfs:label "Strukturmodell"@nb .
 
 
-###  http://data.skatteetaten.no#UMLDatatype
-skd:UMLDatatype rdf:type owl:Class ;
-                rdfs:subClassOf skd:Modellbyggestener ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty dcterms:isReplacedBy ;
-                                  owl:someValuesFrom skd:Datatyper
-                                ] ;
-                owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#UMLEgenskap
-skd:UMLEgenskap rdf:type owl:Class ;
-                rdfs:subClassOf skd:Elementer ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty dcterms:isReplacedBy ;
-                                  owl:someValuesFrom skd:Egenskap
-                                ] ;
-                owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#UMLElement
-skd:UMLElement rdf:type owl:Class ;
-               rdfs:subClassOf skd:Fictilis ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty dcterms:isReplacedBy ;
-                                 owl:someValuesFrom skd:Elementer
-                               ] ;
-               owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#UMLEnumerator
-skd:UMLEnumerator rdf:type owl:Class ;
-                  rdfs:subClassOf skd:Elementer ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty dcterms:isReplacedBy ;
-                                    owl:someValuesFrom skd:Enumerator
-                                  ] ;
-                  owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#UMLEnumeratorverdi
-skd:UMLEnumeratorverdi rdf:type owl:Class ;
-                       rdfs:subClassOf skd:Elementer ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty dcterms:isReplacedBy ;
-                                         owl:someValuesFrom skd:Enumeratorverdi
-                                       ] ;
-                       owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#UMLKlasse
-skd:UMLKlasse rdf:type owl:Class ;
-              rdfs:subClassOf skd:Modellbyggestener ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty dcterms:isReplacedBy ;
-                                owl:someValuesFrom skd:Klasse
-                              ] ;
-              owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#UMLKlassifikator
-skd:UMLKlassifikator rdf:type owl:Class ;
-                     rdfs:subClassOf skd:Elementer ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty dcterms:isReplacedBy ;
-                                       owl:someValuesFrom skd:Modellbyggestener
-                                     ] ;
-                     owl:deprecated "true"^^xsd:boolean .
-
-
 ###  http://data.skatteetaten.no#Valg
 skd:Valg rdf:type owl:Class ;
          rdfs:subClassOf skd:Egenskap ,
@@ -1823,12 +1763,6 @@ I så fall er det snakk om en kloss som både er en entitetstype og et begrep?""
                            owl:deprecated "true"@nb .
 
 
-###  http://data.skatteetaten.no#begrepsRelasjon
-skd:begrepsRelasjon rdf:type owl:Class ;
-                    rdfs:subClassOf skd:Assosiasjon ;
-                    owl:deprecated "true"^^xsd:boolean .
-
-
 ###  http://data.skatteetaten.no#erNavngittNode
 skd:erNavngittNode rdf:type owl:Class ;
                    rdfs:subClassOf skd:Begrep .
@@ -1837,20 +1771,6 @@ skd:erNavngittNode rdf:type owl:Class ;
 ###  http://data.skatteetaten.no#kodelisteIKatalog
 skd:kodelisteIKatalog rdf:type owl:Class ;
                       rdfs:subClassOf skd:Fictilis ;
-                      owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#strukturDatatype
-skd:strukturDatatype rdf:type owl:Class ;
-                     rdfs:subClassOf skd:Datatyper ;
-                     rdfs:label "Struktur datatype"@nb ;
-                     owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no#strukturEnkeltype
-skd:strukturEnkeltype rdf:type owl:Class ;
-                      rdfs:subClassOf skd:Datatyper ;
-                      rdfs:label "Struktur enkeltype"@nb ;
                       owl:deprecated "true"^^xsd:boolean .
 
 
