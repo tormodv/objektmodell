@@ -1,0 +1,15 @@
+#For instanser av klasser, data:
+@prefix bk: <http://data.skatteetaten.no/begrep/> .
+@prefix bm: <http://data.skatteetaten.no/begrepsmodell/> .
+@prefix km: <http://data.skatteetaten.no/konstruksjonsmodell/> .
+@prefix pr: <http://data.skatteetaten.no/prosjekt/> .
+@prefix rm: <http://data.skatteetaten.no/realisasjoner/> .
+@prefix sm: <http://data.skatteetaten.no/strukturmodell/> .
+
+#For predefinerte konsepter som brukes globalt:
+@prefix std: <http://data.skatteetaten.no/ontologi/standardTyper/> .
+#Modellering:
+@prefix skd: <http://data.skatteetaten.no/ontologi/standardModell/> .
+#Overordned konseptuell modell skatteetaten
+#(Dette brukes til konsepter og egenskaper på et overordnet nivå)
+@prefix okms: <http://data.skatteetaten/ontologier/okms/> .
