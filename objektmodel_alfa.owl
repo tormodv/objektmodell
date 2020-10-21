@@ -287,9 +287,8 @@ skd:harEgenskap rdf:type owl:ObjectProperty ;
 
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/harInversBegrepsrelasjon
-skd:harInversBegrepsrelasjon rdf:type owl:ObjectProperty ;
-                             rdfs:subPropertyOf skd:semantiskRelasjon ;
-                             rdf:type owl:SymmetricProperty ,
+skd:harInversBegrepsrelasjon rdf:type owl:ObjectProperty ,
+                                      owl:SymmetricProperty ,
                                       owl:IrreflexiveProperty ;
                              rdfs:domain skd:Begrepsrelasjon ;
                              rdfs:range skd:Begrepsrelasjon ;
@@ -312,9 +311,8 @@ skd:harKodetillegg rdf:type owl:ObjectProperty ;
 
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/harObjekt
-skd:harObjekt rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf skd:semantiskRelasjon ;
-              rdf:type owl:FunctionalProperty ,
+skd:harObjekt rdf:type owl:ObjectProperty ,
+                       owl:FunctionalProperty ,
                        owl:AsymmetricProperty ;
               rdfs:domain skd:Begrepsrelasjon ;
               rdfs:range skd:Begrep ;
@@ -357,9 +355,8 @@ skd:harSmalereBegrep rdf:type owl:ObjectProperty ;
 
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/harSubjekt
-skd:harSubjekt rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf skd:semantiskRelasjon ;
-               rdf:type owl:FunctionalProperty ,
+skd:harSubjekt rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ,
                         owl:AsymmetricProperty ;
                rdfs:domain skd:Begrepsrelasjon ;
                rdfs:range skd:Begrep ;
@@ -1315,6 +1312,10 @@ skd:Begrep rdf:type owl:Class ;
                              owl:someValuesFrom foaf:Agent
                            ] ,
                            [ rdf:type owl:Restriction ;
+                             owl:onProperty dcterms:temporal ;
+                             owl:someValuesFrom skd:Datoperiode
+                           ] ,
+                           [ rdf:type owl:Restriction ;
                              owl:onProperty skos:inScheme ;
                              owl:someValuesFrom skos:ConceptScheme
                            ] ,
@@ -1424,8 +1425,7 @@ skd:Begrepsmodell rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/Begrepsrelasjon
 skd:Begrepsrelasjon rdf:type owl:Class ;
-                    rdfs:subClassOf skos:Consept ,
-                                    [ rdf:type owl:Restriction ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
                                       owl:onProperty skd:harObjekt ;
                                       owl:allValuesFrom skd:Begrep
                                     ] ,
@@ -1776,6 +1776,11 @@ skd:kodelisteIKatalog rdf:type owl:Class ;
                       owl:deprecated "true"^^xsd:boolean .
 
 
+###  http://data.skatteetaten.no/ontologi/standardModell/spesifiserendeBegrepsrelasjon
+skd:spesifiserendeBegrepsrelasjon rdf:type owl:Class ;
+                                  rdfs:subClassOf skd:Begrepsrelasjon .
+
+
 ###  http://data.skatteetaten.no/ontologi/standardModell/strukturkodeliste
 skd:strukturkodeliste rdf:type owl:Class ;
                       rdfs:subClassOf skd:Enumerator ,
@@ -1822,6 +1827,81 @@ foaf:Agent rdf:type owl:Class .
 ###  http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1
 <http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1> rdf:type owl:NamedIndividual ,
                                                                                 skd:Begrep .
+
+
+###  http://data.skatteetaten.no/begrep/debitor
+bk:debitor rdf:type owl:NamedIndividual ,
+                    skd:Begrep ;
+           skos:prefLabel "debitor"@nb .
+
+
+###  http://data.skatteetaten.no/begrep/krav
+bk:krav rdf:type owl:NamedIndividual ,
+                 skd:Begrep ;
+        skos:prefLabel "krav"@nb .
+
+
+###  http://data.skatteetaten.no/begrep/kreditor
+bk:kreditor rdf:type owl:NamedIndividual ,
+                     skd:Begrep ;
+            skos:prefLabel "kreditor"@nb .
+
+
+###  http://data.skatteetaten.no/begrep/skyldner
+bk:skyldner rdf:type owl:NamedIndividual ,
+                     skd:Begrep ;
+            skos:altLabel "debitor"@nb ;
+            skos:prefLabel "skyldner"@nb .
+
+
+###  http://data.skatteetaten.no/begrepsmodell/harPengerTilgodeHos
+bm:harPengerTilgodeHos rdf:type owl:NamedIndividual ,
+                                skd:Begrepsrelasjon ;
+                       skd:harInversBegrepsrelasjon bm:skylderPengerTil ;
+                       skd:harObjekt bk:skyldner ;
+                       skd:harSubjekt bk:kreditor ;
+                       skos:prefLabel "har penger tilgode hos"@nb .
+
+
+###  http://data.skatteetaten.no/begrepsmodell/kallesog
+bm:kallesog rdf:type owl:NamedIndividual ,
+                     skd:spesifiserendeBegrepsrelasjon ;
+            skd:harObjekt bk:debitor ;
+            skd:harSubjekt bk:skyldner ;
+            skos:prefLabel "kalles også"@nb .
+
+
+###  http://data.skatteetaten.no/begrepsmodell/knuse
+bm:knuse rdf:type owl:NamedIndividual ,
+                  skd:Begrepsrelasjon ;
+         skd:harObjekt bm:lokaltBegrepSpareb ;
+         skd:harSubjekt bk:skyldner ;
+         skos:prefLabel "må knuse"@nb .
+
+
+###  http://data.skatteetaten.no/begrepsmodell/lokaltBegrepSpareb
+bm:lokaltBegrepSpareb rdf:type owl:NamedIndividual ,
+                               skd:Begrep ;
+                      rdfs:comment """Lokalt definerte begreper blir notert som en del av modellen.
+Begrepselementer med begrepsreferanse i en modell, representeres i modellen med det refererte elementet (fra bk: navnerommet)"""@nb ;
+                      skos:hiddenLabel "sparegris"@nb ;
+                      skos:prefLabel "sparebøsse"@nb .
+
+
+###  http://data.skatteetaten.no/begrepsmodell/skalDekke
+bm:skalDekke rdf:type owl:NamedIndividual ,
+                      skd:Begrepsrelasjon ;
+             skd:harObjekt bk:krav ;
+             skd:harSubjekt bk:skyldner ;
+             skos:prefLabel "skal dekke"@nb .
+
+
+###  http://data.skatteetaten.no/begrepsmodell/skylderPengerTil
+bm:skylderPengerTil rdf:type owl:NamedIndividual ,
+                             skd:Begrepsrelasjon ;
+                    skd:harObjekt bk:kreditor ;
+                    skd:harSubjekt bk:skyldner ;
+                    skos:prefLabel "skylder penger til"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/active
