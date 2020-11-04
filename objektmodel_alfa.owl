@@ -286,6 +286,13 @@ skd:harEgenskap rdf:type owl:ObjectProperty ;
                 rdfs:label "harEgenskap"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/standardModell/harForklaring
+skd:harForklaring rdf:type owl:ObjectProperty ;
+                  rdfs:domain skd:Begrep ;
+                  rdfs:range skd:Forklaring ;
+                  rdfs:label "har forklaring"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/standardModell/harInversBegrepsrelasjon
 skd:harInversBegrepsrelasjon rdf:type owl:ObjectProperty ,
                                       owl:SymmetricProperty ,
@@ -1044,6 +1051,13 @@ skd:skjemanavn rdf:type owl:DatatypeProperty ;
                rdfs:label "skjemanavn"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/standardModell/skjultEksternt
+skd:skjultEksternt rdf:type owl:DatatypeProperty ;
+                   rdfs:domain skd:Begrep ;
+                   rdfs:range xsd:boolean ;
+                   rdfs:label "Ressursen er skjult eksternt"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/standardModell/sluttdato
 skd:sluttdato rdf:type owl:DatatypeProperty ,
                        owl:FunctionalProperty ;
@@ -1222,7 +1236,8 @@ xsd:totalDigits rdf:type owl:DatatypeProperty ,
 
 
 ###  http://www.w3.org/2004/02/skos/core#notation
-skos:notation rdf:type owl:DatatypeProperty .
+skos:notation rdf:type owl:DatatypeProperty ;
+              rdfs:domain skos:Consept .
 
 
 ###  https://data.norge.no/vocabulary/modelldcatno#typeDefinitionReference
@@ -1536,6 +1551,19 @@ skd:Fictilis rdf:type owl:Class ;
                         "Leire"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/standardModell/FolkeligForklaring
+skd:FolkeligForklaring rdf:type owl:Class ;
+                       rdfs:subClassOf skd:Forklaring ;
+                       owl:disjointWith skd:JuridiskForklaring ;
+                       rdfs:label "Folkelig forklaring"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/standardModell/Forklaring
+skd:Forklaring rdf:type owl:Class ;
+               rdfs:subClassOf skos:Consept ;
+               rdfs:label "Forklaring"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/standardModell/Forretningsbegrep
 skd:Forretningsbegrep rdf:type owl:Class ;
                       rdfs:subClassOf skd:Begrep ;
@@ -1547,6 +1575,12 @@ skd:Interesseomraade rdf:type owl:Class ;
                      rdfs:subClassOf skd:Kategori ,
                                      skos:ConceptScheme ;
                      rdfs:label "Interesseområde"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/standardModell/JuridiskForklaring
+skd:JuridiskForklaring rdf:type owl:Class ;
+                       rdfs:subClassOf skd:Forklaring ;
+                       rdfs:label "Juridisk forklaring"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/Kategori
@@ -1755,6 +1789,12 @@ skd:Valg rdf:type owl:Class ;
                     "Valg"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/standardModell/basis
+skd:basis rdf:type owl:Class ;
+          rdfs:subClassOf skd:Definisjonskilde ;
+          rdfs:label "bassert på kilde"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/standardModell/begrepSomModellelement
 skd:begrepSomModellelement rdf:type owl:Class ;
                            rdfs:subClassOf skd:Klasse ;
@@ -1827,6 +1867,82 @@ foaf:Agent rdf:type owl:Class .
 ###  http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1
 <http://begrepskatalog/begrep/20b2e303-9fe1-11e5-a9f8-e4115b280940_v1> rdf:type owl:NamedIndividual ,
                                                                                 skd:Begrep .
+
+
+###  http://data.skatteetaten.no/begrep/NN
+bk:NN rdf:type owl:NamedIndividual ,
+               foaf:Agent .
+
+
+###  http://data.skatteetaten.no/begrep/UkjentInteresseomraade
+bk:UkjentInteresseomraade rdf:type owl:NamedIndividual ,
+                                   skd:Interesseomraade .
+
+
+###  http://data.skatteetaten.no/begrep/begrepMedAlleFelter
+bk:begrepMedAlleFelter rdf:type owl:NamedIndividual ,
+                                skd:Begrep ,
+                                skd:Forretningsbegrep ;
+                       skd:harForklaring bk:begrepmedfolkeligforklaring ,
+                                         bk:begrepmedjuridiskforklaring ;
+                       skd:sistEndretAv bk:NN ;
+                       dcterms:publisher bk:NN ;
+                       dcterms:temporal bk:begrep_mangefelter_gyldig ;
+                       skos:inScheme bk:UkjentInteresseomraade ;
+                       adms:status skd:active ;
+                       skd:begrepsidentifikator "5711etc"^^xsd:string ;
+                       skd:skjultEksternt "false"^^xsd:boolean ;
+                       dcterms:modified "2019-03-21"^^xsd:date ;
+                       skos:notation "testbegrepMedMangeMetadata"^^xsd:string ;
+                       skd:beslutningskommentar "Besluttningskommentar"@nb ;
+                       skd:forvaltningsmerknad "Forvaltningsmerknad"@nb ;
+                       skd:kommentar "Kommentar"@nb ;
+                       dcterms:source bk:begrepmedmangekilder ,
+                                      "Definisjonskilden skatteetaten"@nb ;
+                       skos:altLabel "Begrep til test"@nb ;
+                       skos:definition "Definisjon"@nb ;
+                       skos:editorialNote "Merknad til definbisjon"@nb ;
+                       skos:example "Eksempelvis xxx"@nb ;
+                       skos:hiddenLabel "Tullebegrep"@nb ;
+                       skos:prefLabel "test concept with many metadata"@en ,
+                                      "testbegrep med mange metadata"@nb ,
+                                      "testomgrep med mykje metadata"@nn .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource bk:begrepMedAlleFelter ;
+   owl:annotatedProperty dcterms:publisher ;
+   owl:annotatedTarget bk:NN ;
+   rdfs:comment "Ansvarlig enhet"@nb
+ ] .
+
+
+###  http://data.skatteetaten.no/begrep/begrep_mangefelter_gyldig
+bk:begrep_mangefelter_gyldig rdf:type owl:NamedIndividual ,
+                                      skd:Datoperiode ;
+                             skd:sluttdato "2019-08-17"^^xsd:date ;
+                             skd:startdato "2017-01-18"^^xsd:date .
+
+
+###  http://data.skatteetaten.no/begrep/begrepmedfolkeligforklaring
+bk:begrepmedfolkeligforklaring rdf:type owl:NamedIndividual ,
+                                        skd:FolkeligForklaring ;
+                               dcterms:description "Her er den folkelige forklaringen"@nb ;
+                               dcterms:source bk:begrepmedmangekilder .
+
+
+###  http://data.skatteetaten.no/begrep/begrepmedjuridiskforklaring
+bk:begrepmedjuridiskforklaring rdf:type owl:NamedIndividual ,
+                                        skd:JuridiskForklaring ;
+                               dcterms:description "En juridisk forklaring"@nb ;
+                               dcterms:source bk:begrepmedmangekilder .
+
+
+###  http://data.skatteetaten.no/begrep/begrepmedmangekilder
+bk:begrepmedmangekilder rdf:type owl:NamedIndividual ,
+                                 skd:Definisjonskilde ,
+                                 skd:basis ;
+                        rdfs:label "Skatteetaten"@nb ;
+                        rdfs:seeAlso "www.skatteetaten.no"@nb .
 
 
 ###  http://data.skatteetaten.no/begrep/debitor
