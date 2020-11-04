@@ -80,6 +80,11 @@ skd:kommentar rdf:type owl:AnnotationProperty ;
               rdfs:domain skd:Fictilis .
 
 
+###  http://data.skatteetaten.no/ontologi/standardModell/prefFormat
+skd:prefFormat rdf:type owl:AnnotationProperty ;
+               rdfs:label "anbefalt format"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/standardModell/rettsligForklaring
 skd:rettsligForklaring rdf:type owl:AnnotationProperty ;
                        rdfs:subPropertyOf skos:note .
@@ -684,7 +689,8 @@ skd:begrepGyldigFra rdf:type owl:DatatypeProperty ;
 ###  http://data.skatteetaten.no/ontologi/standardModell/begrepSistOppdatert
 skd:begrepSistOppdatert rdf:type owl:DatatypeProperty ;
                         rdfs:domain skd:Begrep ;
-                        rdfs:range xsd:date ;
+                        rdfs:range xsd:dateTime ;
+                        skd:prefFormat "dato"@nb ;
                         rdfs:label "begrep sist oppdatert"@nb .
 
 
@@ -1062,7 +1068,8 @@ skd:skjultEksternt rdf:type owl:DatatypeProperty ;
 skd:sluttdato rdf:type owl:DatatypeProperty ,
                        owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
-              rdfs:range xsd:date ;
+              rdfs:range xsd:dateTime ;
+              skd:prefFormat "dato"@nb ;
               rdfs:label "sluttdato"@nb .
 
 
@@ -1070,7 +1077,8 @@ skd:sluttdato rdf:type owl:DatatypeProperty ,
 skd:startdato rdf:type owl:DatatypeProperty ,
                        owl:FunctionalProperty ;
               rdfs:domain skd:Datoperiode ;
-              rdfs:range xsd:date ;
+              rdfs:range xsd:dateTime ;
+              skd:prefFormat "dato"@nb ;
               rdfs:label "startdato"@nb .
 
 
@@ -1892,7 +1900,7 @@ bk:begrepMedAlleFelter rdf:type owl:NamedIndividual ,
                        adms:status skd:active ;
                        skd:begrepsidentifikator "5711etc"^^xsd:string ;
                        skd:skjultEksternt "false"^^xsd:boolean ;
-                       dcterms:modified "2019-03-21"^^xsd:date ;
+                       dcterms:modified "2019-03-21T00:00:00"^^xsd:dateTime ;
                        skos:notation "testbegrepMedMangeMetadata"^^xsd:string ;
                        skd:beslutningskommentar "Besluttningskommentar"@nb ;
                        skd:forvaltningsmerknad "Forvaltningsmerknad"@nb ;
@@ -1919,8 +1927,8 @@ bk:begrepMedAlleFelter rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/begrep/begrep_mangefelter_gyldig
 bk:begrep_mangefelter_gyldig rdf:type owl:NamedIndividual ,
                                       skd:Datoperiode ;
-                             skd:sluttdato "2019-08-17"^^xsd:date ;
-                             skd:startdato "2017-01-18"^^xsd:date .
+                             skd:sluttdato "2019-08-17T00:00:00"^^xsd:dateTime ;
+                             skd:startdato "2017-01-18T00:00:00"^^xsd:dateTime .
 
 
 ###  http://data.skatteetaten.no/begrep/begrepmedfolkeligforklaring
