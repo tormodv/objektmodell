@@ -179,6 +179,7 @@ skd:aggregeringsform rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/begrepsreferanse
 skd:begrepsreferanse rdf:type owl:ObjectProperty ;
+                     owl:inverseOf dcterms:isReferencedBy ;
                      rdfs:domain skd:Fictilis ;
                      rdfs:range skd:Begrep ;
                      rdfs:label "begrepsreferanse"@nb .
@@ -240,6 +241,7 @@ skd:delAv rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/eierElement
 skd:eierElement rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skd:brukerElement ;
                 rdfs:domain skd:Pakke ;
                 rdfs:range skd:Elementer ;
                 rdfs:comment "*** Er ikke i bruk" ;
@@ -499,6 +501,16 @@ skd:visningsnavn rdf:type owl:ObjectProperty ;
                  rdfs:domain skd:Kode ;
                  rdfs:range skd:Spraaktekst ;
                  rdfs:label "visningsnavn"@nb .
+
+
+###  http://purl.org/dc/terms/isReferencedBy
+dcterms:isReferencedBy rdf:type owl:ObjectProperty ;
+                       rdfs:domain skos:Consept ;
+                       rdfs:range skd:Fictilis ;
+                       skd:informative "true"@nb ;
+                       dcterms:description "A related resource that references, cites, or otherwise points to the described resource."@en ;
+                       rdfs:label "er referert fra"@nb ,
+                                  "is referenced by"@en .
 
 
 ###  http://purl.org/dc/terms/isReplacedBy
@@ -1826,7 +1838,13 @@ skd:kodelisteIKatalog rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/spesifiserendeBegrepsrelasjon
 skd:spesifiserendeBegrepsrelasjon rdf:type owl:Class ;
-                                  rdfs:subClassOf skd:Begrepsrelasjon .
+                                  rdfs:subClassOf skd:Begrepsrelasjon ;
+                                  dcterms:description """Begrepet på subjektsiden har et mer generelt begrep på objektsiden.
+
+Eksempel:
+
+bil er en type kjøretøy"""@nb ;
+                                  rdfs:label "spesifiserende begrepsrelasjon"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/standardModell/strukturkodeliste
