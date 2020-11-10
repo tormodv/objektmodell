@@ -636,7 +636,11 @@ skos:topConceptOf rdf:type owl:ObjectProperty ;
 ###  http://www.w3.org/ns/adms#status
 adms:status rdf:type owl:ObjectProperty ;
             rdfs:domain md:Fictilis ;
-            rdfs:range skos:Consept .
+            rdfs:range skos:Consept ;
+            rdfs:comment "Links to the status of the Asset or Asset Distribution in the context of a particular workflow process. Since Status is defined using a skos:Concept, that is the defined range for this property."@en ;
+            rdfs:isDefinedBy <http://www.w3.org/TR/vocab-adms> ;
+            rdfs:label "status"@en ,
+                       "status"@nb .
 
 
 #################################################################
@@ -678,7 +682,8 @@ md:begrepsidentifikator rdf:type owl:DatatypeProperty ;
 md:begrepsstatus rdf:type owl:DatatypeProperty ;
                  rdfs:domain md:Begrep ;
                  rdfs:range xsd:string ;
-                 rdfs:label "begrepsstatus"@nb .
+                 rdfs:label "begrepsstatus"@nb ;
+                 owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/diagramnavn
@@ -715,7 +720,9 @@ md:filnavn rdf:type owl:DatatypeProperty ;
 md:godkjenningsstatus rdf:type owl:DatatypeProperty ;
                       rdfs:domain md:Modell ;
                       rdfs:range xsd:string ;
-                      rdfs:label "godkjenningsstatus"@nb .
+                      rdfs:comment "Her kan vi bruke det generelle status i stedet."@nb ;
+                      rdfs:label "godkjenningsstatus"@nb ;
+                      owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/harSpraakkode
@@ -764,7 +771,8 @@ md:kommentar rdf:type owl:DatatypeProperty .
 md:konseptstatus rdf:type owl:DatatypeProperty ;
                  rdfs:domain md:Begrep ;
                  rdfs:range xsd:string ;
-                 rdfs:label "konseptstatus"@nb .
+                 rdfs:label "konseptstatus"@nb ;
+                 owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/kontekst
@@ -1977,6 +1985,7 @@ type:Telefonnummer rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/type/active
 type:active rdf:type owl:NamedIndividual ,
                      skos:Consept ;
+            skos:inScheme type:conseptStatus ;
             rdfs:comment "Brukt i forbindelse med begreper"@nb .
 
 
@@ -1992,10 +2001,38 @@ type:composited rdf:type owl:NamedIndividual ,
                 skos:inScheme type:aggregationKinds .
 
 
+###  http://data.skatteetaten.no/ontologi/type/conseptStatus
+type:conseptStatus rdf:type owl:NamedIndividual ,
+                            skos:ConceptScheme ;
+                   rdfs:comment "Begrepene har to statussystemer"@nb ;
+                   rdfs:label "Konseptstatuser"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/type/erstattet
+type:erstattet rdf:type owl:NamedIndividual ,
+                        skos:Consept ;
+               skos:inScheme type:termStatus ;
+               rdfs:comment "Erstattet - settes på begrep som erstattes med nye som har samme / tilnærmet samme meningsinnhold."@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/type/godkjent
+type:godkjent rdf:type owl:NamedIndividual ,
+                       skos:Consept ;
+              skos:inScheme type:termStatus ;
+              rdfs:comment "Godkjent - av begrepseier"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/type/konstruksjon
 type:konstruksjon rdf:type owl:NamedIndividual ,
                            skos:Consept ;
-                  skos:inScheme type:stereotyper .
+                  skos:inScheme type:stereotypes .
+
+
+###  http://data.skatteetaten.no/ontologi/type/kvalifisert
+type:kvalifisert rdf:type owl:NamedIndividual ,
+                          skos:Consept ;
+                 skos:inScheme type:termStatus ;
+                 rdfs:comment "Kvalifisert - formell og innholdsmessig korrekt (typisk når fagpersoner har jobbet med begrepet før den har blitt formelt godkjent av eier)"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/package
@@ -2022,14 +2059,20 @@ type:public rdf:type owl:NamedIndividual ,
             skos:inScheme type:visibilityKinds .
 
 
+###  http://data.skatteetaten.no/ontologi/type/registrert
+type:registrert rdf:type owl:NamedIndividual ,
+                         skos:Consept ;
+                skos:inScheme type:termStatus .
+
+
 ###  http://data.skatteetaten.no/ontologi/type/shared
 type:shared rdf:type owl:NamedIndividual ,
                      skos:Consept ;
             skos:inScheme type:aggregationKinds .
 
 
-###  http://data.skatteetaten.no/ontologi/type/stereotyper
-type:stereotyper rdf:type owl:NamedIndividual ,
+###  http://data.skatteetaten.no/ontologi/type/stereotypes
+type:stereotypes rdf:type owl:NamedIndividual ,
                           skos:ConceptScheme ;
                  rdfs:label "Stereotyper"@nb ;
                  skos:note "Stereotyper brukt i skatteetatens rammeverk"@nb .
@@ -2038,7 +2081,21 @@ type:stereotyper rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/type/struktur
 type:struktur rdf:type owl:NamedIndividual ,
                        skos:Consept ;
-              skos:inScheme type:stereotyper .
+              skos:inScheme type:stereotypes .
+
+
+###  http://data.skatteetaten.no/ontologi/type/termStatus
+type:termStatus rdf:type owl:NamedIndividual ,
+                         skos:ConceptScheme ;
+                rdfs:comment "Statuser for livsløpet til begreper"@nb ;
+                rdfs:label "Begrepsstatus"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/type/tilbaketrukket
+type:tilbaketrukket rdf:type owl:NamedIndividual ,
+                             skos:Consept ;
+                    skos:inScheme type:termStatus ;
+                    rdfs:label "Trukket tilbake"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/visibilityKinds
