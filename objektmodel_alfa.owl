@@ -39,6 +39,12 @@ md:beslutningskommentar rdf:type owl:AnnotationProperty ;
                         rdfs:subPropertyOf skos:editorialNote .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/conseptCausedExportError
+md:conseptCausedExportError rdf:type owl:AnnotationProperty ;
+                            rdfs:comment """Brukes dersom eksportskriptet fører til en feil.
+Feilmelding i innhold"""@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/folkeligForklaring
 md:folkeligForklaring rdf:type owl:AnnotationProperty ;
                       rdfs:subPropertyOf skos:note .
@@ -1384,6 +1390,7 @@ md:Datatype rdf:type owl:Class ;
 md:Datatyper rdf:type owl:Class ;
              rdfs:subClassOf md:Modellbyggestener ;
              owl:disjointWith md:Klasse ;
+             rdfs:comment "Instanseres dersom man ikke kan skjeldne på subtypene, p.g.a. manglende stereotyper i MD"@nb ;
              rdfs:label "Datatyper"@nb .
 
 
@@ -1425,8 +1432,8 @@ md:Egenskap rdf:type owl:Class ;
                               owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
                               owl:onClass md:Rotobjektstype
                             ] ;
-            rdfs:label "Composition"@en ,
-                       "Egenskap"@nb ,
+            rdfs:comment "Instanseres dersom man ikke kan skjeldne på subtypene, p.g.a. manglende stereotyper i MD"@nb ;
+            rdfs:label "Egenskap"@nb ,
                        "Property"@en .
 
 
