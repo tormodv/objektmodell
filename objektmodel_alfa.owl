@@ -980,6 +980,7 @@ md:skjemanavn rdf:type owl:DatatypeProperty ;
 md:skjultEksternt rdf:type owl:DatatypeProperty ;
                   rdfs:domain md:Begrep ;
                   rdfs:range xsd:boolean ;
+                  rdfs:comment "Byttes ut med et mere generelt publiseringeEvent konsept."@nb ;
                   rdfs:label "Ressursen er skjult eksternt"@nb .
 
 
