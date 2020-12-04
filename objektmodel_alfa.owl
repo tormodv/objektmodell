@@ -254,10 +254,22 @@ md:gyldigForBehandling rdf:type owl:ObjectProperty ;
                        rdfs:label "gyldig for behandling"@nb .
 
 
-###  http://data.skatteetaten.no/ontologi/modell/harBegrepsKontekst
-md:harBegrepsKontekst rdf:type owl:ObjectProperty ;
+###  http://data.skatteetaten.no/ontologi/modell/harAssosiertProsess
+md:harAssosiertProsess rdf:type owl:ObjectProperty ;
+                       rdfs:domain md:Begrepsrelasjon ;
+                       md:futureConsept "true"^^xsd:boolean ;
+                       rdfs:comment """Noen begrepsrelasjoner relaterer seg til prosesser.
+
+(Disse for vi vel også inn etterhvert)"""@nb ;
+                       rdfs:label "har assosiert prosess"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/harBegrepskontekst
+md:harBegrepskontekst rdf:type owl:ObjectProperty ;
                       rdfs:domain md:Begrepsrelasjon ;
-                      rdfs:range md:Begrepsmodell .
+                      rdfs:range md:Begrepsmodell ;
+                      rdfs:comment "Knytter en begrepsrelasjon til en gitt begrepsmodell"@nb ;
+                      rdfs:label "har begrepskontekst"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/harBredereBegrep
@@ -1743,7 +1755,8 @@ md:spesifiserendeBegrepsrelasjon rdf:type owl:Class ;
 Eksempel:
 
 bil er en type kjøretøy"""@nb ;
-                                 rdfs:label "spesifiserende begrepsrelasjon"@nb .
+                                 rdfs:label "spesifiserende begrepsrelasjon"@nb ;
+                                 skos:altLabel "er en"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/underkodeliste
