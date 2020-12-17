@@ -76,6 +76,13 @@ md:kommentar rdf:type owl:AnnotationProperty ;
              rdfs:domain md:Fictilis .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/officialLabel
+md:officialLabel rdf:type owl:AnnotationProperty ;
+                 rdfs:comment "Brukes der det offesielle navnet har en egen form, f. eks. en kommune med et sammensatt navn på norsk og samisk."@nb ;
+                 rdfs:label "offesielt navn"@nb ;
+                 rdfs:subPropertyOf rdfs:label .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/prefFormat
 md:prefFormat rdf:type owl:AnnotationProperty ;
               rdfs:label "anbefalt format"@nb .
@@ -279,7 +286,7 @@ md:harBredereBegrep rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Begrep ;
                     rdfs:range md:Begrep ;
                     rdfs:comment "Brukes også i en begrepsmodell for  betegne at et begrep  er en generalisering av et annet begrep"@nb ;
-                    rdfs:isDefinedBy "skos:broader" ;
+                    rdfs:isDefinedBy skos:broader ;
                     rdfs:label "har bredere begrep"@nb .
 
 
@@ -361,7 +368,7 @@ md:harSmalereBegrep rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf md:semantiskRelasjon ;
                     rdfs:domain md:Begrep ;
                     rdfs:range md:Begrep ;
-                    rdfs:isDefinedBy "skos:narrower" ;
+                    rdfs:isDefinedBy skos:narrower ;
                     rdfs:label "har smalere begrep" .
 
 
@@ -669,6 +676,7 @@ adms:status rdf:type owl:ObjectProperty ;
 md:annenKodeverdi rdf:type owl:DatatypeProperty ;
                   rdfs:domain md:Kode ;
                   rdfs:range xsd:string ;
+                  rdfs:comment "Brukes for tilsvarende koder, brukt i andre lister"@nb ;
                   rdfs:label "annen kodeverdi"@nb .
 
 
@@ -702,6 +710,18 @@ md:begrepsstatus rdf:type owl:DatatypeProperty ;
                  rdfs:range xsd:string ;
                  rdfs:label "begrepsstatus"@nb ;
                  owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/codeIsReplacedBy
+md:codeIsReplacedBy rdf:type owl:DatatypeProperty ;
+                    rdfs:isDefinedBy dcterms:isReplacedBy ;
+                    rdfs:label "koden er erstattet av"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/codeReplaces
+md:codeReplaces rdf:type owl:DatatypeProperty ;
+                rdfs:isDefinedBy dcterms:replaces ;
+                rdfs:label "koden erstatter"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/diagramnavn
@@ -1302,7 +1322,6 @@ md:Begrep rdf:type owl:Class ;
           md:beslutningskommentar "Beslutsomhet"@nb ;
           md:forvaltningsmerknad "Hva brukes denne til?"@nb ;
           md:kommentar "Har vi delt oss på for mange felter her?"@nb ;
-          rdfs:isDefinedBy "skos:Consept" ;
           rdfs:label "Begrep"@nb ;
           skos:altLabel "Alternativt begrepsnavn"@nb ;
           skos:definition "Begrepets definisjonstekst"@nb ;
