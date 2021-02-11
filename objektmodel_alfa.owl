@@ -541,7 +541,6 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
 
 ###  http://purl.org/dc/terms/temporal
 dcterms:temporal rdf:type owl:ObjectProperty ;
-                 rdfs:domain md:Fictilis ;
                  rdfs:range md:Datoperiode .
 
 
@@ -1428,7 +1427,6 @@ md:Datatyper rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/Datoperiode
 md:Datoperiode rdf:type owl:Class ;
-               rdfs:subClassOf md:Fictilis ;
                dcterms:description "Type for datointervaler"@nb ;
                rdfs:label "Datoperiode"@nb .
 
@@ -1506,6 +1504,10 @@ md:Enumeratorverdi rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/Fictilis
 md:Fictilis rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty dcterms:temporal ;
+                              owl:someValuesFrom md:Datoperiode
+                            ] ;
             rdfs:comment "Toppklasse for modelereing, fra latin for leire. Tross navnet en abstrakt klasse."@nb ;
             rdfs:label "Fictilis"@la ,
                        "Leire"@nb .
