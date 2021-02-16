@@ -18,9 +18,11 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix type: <http://data.skatteetaten.no/ontologi/type/> .
+@prefix kodeex: <http://example.com/kodeliste#> .
 @prefix skosno: <https://data.norge.no/vocabulary/skosno#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix uneskos: <http://purl.org/umu/uneskos#> .
+@prefix kodetillegg: <http://data.skatteetaten.no/ontologi/kodetillegg/> .
 @prefix modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#> .
 @base <http://data.skatteetaten.no/ontologi/modell/> .
 
@@ -684,6 +686,16 @@ adms:status rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
+###  http://data.skatteetaten.no/ontologi/kodetillegg/OffisieltKommunenavn
+kodetillegg:OffisieltKommunenavn rdf:type owl:DatatypeProperty ;
+                                 rdfs:subPropertyOf md:kodetillegg .
+
+
+###  http://data.skatteetaten.no/ontologi/kodetillegg/nesteKommunenummer
+kodetillegg:nesteKommunenummer rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf md:kodetillegg .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/annenKodeverdi
 md:annenKodeverdi rdf:type owl:DatatypeProperty ;
                   rdfs:domain md:Kode ;
@@ -812,6 +824,10 @@ md:kodelisteidentifikator rdf:type owl:DatatypeProperty ;
                           rdfs:domain md:KodelisteKatalog ;
                           rdfs:range xsd:string ;
                           rdfs:label "kodeliste-identifikator"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/kodetillegg
+md:kodetillegg rdf:type owl:DatatypeProperty .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/kommentar
@@ -2167,6 +2183,23 @@ type:tilbaketrukket rdf:type owl:NamedIndividual ,
 type:visibilityKinds rdf:type owl:NamedIndividual ,
                               skos:ConceptScheme ;
                      rdfs:label "Synlighetsgrader"@nb .
+
+
+###  http://example.com/kodeliste#halden
+kodeex:halden rdf:type owl:NamedIndividual ,
+                       md:Kode ;
+              dcterms:temporal kodeex:halden_interval_1 ;
+              kodetillegg:OffisieltKommunenavn "Halden" ;
+              kodetillegg:nesteKommunenummer 0101 ;
+              skos:notation 0101 ;
+              skos:prefLabel "Halden"@nb .
+
+
+###  http://example.com/kodeliste#halden_interval_1
+kodeex:halden_interval_1 rdf:type owl:NamedIndividual ,
+                                  md:Datoperiode ;
+                         md:sluttdato "1966-12-31T23:59:59"^^xsd:dateTime ;
+                         md:startdato "1838-01-01T00:00:00"^^xsd:dateTime .
 
 
 ###  http://example.com/skatt/drosjesentral#Drosjesentral
