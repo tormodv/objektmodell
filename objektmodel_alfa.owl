@@ -1614,13 +1614,15 @@ md:Kodetillegg rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Kodetilleggsnavn
 md:Kodetilleggsnavn rdf:type owl:Class ;
                     rdfs:subClassOf md:Fictilis ;
-                    rdfs:label "Kodetilleggsnavn"@nb .
+                    rdfs:label "Kodetilleggsnavn"@nb ;
+                    owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Kodetilleggsverdi
 md:Kodetilleggsverdi rdf:type owl:Class ;
                      rdfs:subClassOf md:Fictilis ;
-                     rdfs:label "Kodetilleggsverdi"@nb .
+                     rdfs:label "Kodetilleggsverdi"@nb ;
+                     owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Konstruksjonsdiagram
