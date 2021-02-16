@@ -507,6 +507,19 @@ md:visningsnavn rdf:type owl:ObjectProperty ;
                 rdfs:label "visningsnavn"@nb .
 
 
+###  http://purl.org/dc/terms/hasPart
+dcterms:hasPart rdf:type owl:ObjectProperty ;
+                owl:inverseOf dcterms:isPartOf ;
+                rdfs:label "har del"@nb ,
+                           "has part"@en .
+
+
+###  http://purl.org/dc/terms/isPartOf
+dcterms:isPartOf rdf:type owl:ObjectProperty ;
+                 rdfs:label "er del av"@nb ,
+                            "is part of"@en .
+
+
 ###  http://purl.org/dc/terms/isReferencedBy
 dcterms:isReferencedBy rdf:type owl:ObjectProperty ;
                        rdfs:domain skos:Consept ;
@@ -707,6 +720,7 @@ md:begrepsidentifikator rdf:type owl:DatatypeProperty ;
 md:begrepsstatus rdf:type owl:DatatypeProperty ;
                  rdfs:domain md:Begrep ;
                  rdfs:range xsd:string ;
+                 rdfs:comment "Erstattet av adms:Status"@nb ;
                  rdfs:label "begrepsstatus"@nb ;
                  owl:deprecated "true"^^xsd:boolean .
 
@@ -1580,7 +1594,8 @@ md:Kodeliste rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/KodelisteKatalog
 md:KodelisteKatalog rdf:type owl:Class ;
                     owl:equivalentClass md:kodelisteIKatalog ;
-                    rdfs:subClassOf md:Fictilis ;
+                    rdfs:subClassOf md:Fictilis ,
+                                    skos:ConceptScheme ;
                     rdfs:label "Kodeliste-katalog"@nb .
 
 
@@ -1739,6 +1754,16 @@ md:Strukturmodell rdf:type owl:Class ;
                   rdfs:label "Strukturmodell"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/Underkodeliste
+md:Underkodeliste rdf:type owl:Class ;
+                  rdfs:subClassOf md:Kodeliste ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty dcterms:isPartOf ;
+                                    owl:someValuesFrom md:Kodeliste
+                                  ] ;
+                  rdfs:label "Underkodeliste"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/Valg
 md:Valg rdf:type owl:Class ;
         rdfs:subClassOf md:Egenskap ,
@@ -1765,6 +1790,7 @@ md:erNavngittNode rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/kodelisteIKatalog
 md:kodelisteIKatalog rdf:type owl:Class ;
                      rdfs:subClassOf md:Fictilis ;
+                     rdfs:comment "Feilstavet URL"@nb ;
                      owl:deprecated "true"^^xsd:boolean .
 
 
@@ -1778,11 +1804,6 @@ Eksempel:
 bil er en type kjøretøy"""@nb ;
                                  rdfs:label "spesifiserende begrepsrelasjon"@nb ;
                                  skos:altLabel "er en"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/underkodeliste
-md:underkodeliste rdf:type owl:Class ;
-                  rdfs:subClassOf md:KodelisteKatalog .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/strukturkodeliste
