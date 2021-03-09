@@ -238,7 +238,6 @@ md:eierElement rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf md:brukerElement ;
                rdfs:domain md:Pakke ;
                rdfs:range md:Elementer ;
-               rdfs:comment "*** Er ikke i bruk" ;
                rdfs:label "eier element"@nb .
 
 
@@ -361,6 +360,7 @@ md:harRelatertBegrep rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no/ontologi/modell/harRot
 md:harRot rdf:type owl:ObjectProperty ;
           rdfs:subPropertyOf md:brukerElement ;
+          rdfs:domain md:Konstruksjonsmodell ;
           rdfs:range md:Rotobjektstype ;
           rdfs:label "har rot"@nb .
 
