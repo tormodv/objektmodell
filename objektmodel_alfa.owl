@@ -536,8 +536,8 @@ dcterms:isReferencedBy rdf:type owl:ObjectProperty ;
 dcterms:isReplacedBy rdf:type owl:ObjectProperty ;
                      owl:inverseOf dcterms:replaces ;
                      rdf:type owl:TransitiveProperty ;
-                     rdfs:domain md:Fictilis ;
-                     rdfs:range md:Fictilis ;
+                     rdfs:domain owl:Thing ;
+                     rdfs:range owl:Thing ;
                      rdfs:label "er erstattet av"@nb .
 
 
@@ -549,8 +549,8 @@ dcterms:publisher rdf:type owl:ObjectProperty ;
 ###  http://purl.org/dc/terms/replaces
 dcterms:replaces rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
-                 rdfs:domain md:Fictilis ;
-                 rdfs:range md:Fictilis ;
+                 rdfs:domain owl:Thing ;
+                 rdfs:range owl:Thing ;
                  rdfs:label "erstatter"@nb .
 
 
