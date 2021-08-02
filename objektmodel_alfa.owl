@@ -1303,6 +1303,12 @@ md:Avhengighet rdf:type owl:Class ;
                           "Dependency"@en .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/Basis
+md:Basis rdf:type owl:Class ;
+         rdfs:subClassOf md:Definisjonskilde ;
+         rdfs:label "bassert på kilde"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/Begrep
 md:Begrep rdf:type owl:Class ;
           rdfs:subClassOf md:Fictilis ,
@@ -1500,7 +1506,8 @@ md:Egenskap rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Egenskapsnavn
 md:Egenskapsnavn rdf:type owl:Class ;
                  rdfs:subClassOf md:Begrep ;
-                 dcterms:description "Begrep som er brukt i struktur- eller konstruksjonsmodell"@nb .
+                 dcterms:description "Begrep som er brukt i struktur- eller konstruksjonsmodell"@nb ;
+                 rdfs:label "Egenskapsnavn"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Elementer
@@ -1532,13 +1539,20 @@ md:Enumeratorverdi rdf:type owl:Class ;
                    rdfs:label "Enumeratorverdi"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/ErNavngittNode
+md:ErNavngittNode rdf:type owl:Class ;
+                  rdfs:subClassOf md:Begrep ;
+                  dcterms:description "Kan brukes for å bestemme gjennomgående konsepter, men som ikke er klassiske begreper."@nb ;
+                  rdfs:label "Er navngitt node"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/Fictilis
 md:Fictilis rdf:type owl:Class ;
             rdfs:subClassOf [ rdf:type owl:Restriction ;
                               owl:onProperty dcterms:temporal ;
                               owl:someValuesFrom md:Datoperiode
                             ] ;
-            rdfs:comment "Toppklasse for modelereing, fra latin for leire. Tross navnet en abstrakt klasse."@nb ;
+            dcterms:description "Toppklasse for modelereing, fra latin for leire. Tross navnet en abstrakt klasse."@nb ;
             rdfs:label "Fictilis"@la ,
                        "Leire"@nb .
 
@@ -1559,7 +1573,8 @@ md:Forklaring rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Forretningsbegrep
 md:Forretningsbegrep rdf:type owl:Class ;
                      rdfs:subClassOf md:Begrep ;
-                     dcterms:description "Alle begreper som antas å være relevante for publikum og/eller ansatte utover en snever krets av spesialistbrukere."@nb .
+                     dcterms:description "Alle begreper som antas å være relevante for publikum og/eller ansatte utover en snever krets av spesialistbrukere."@nb ;
+                     rdfs:label "Forretningsbegrep"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Interesseomraade
@@ -1750,6 +1765,18 @@ md:Rotobjektstype rdf:type owl:Class ;
                   rdfs:label "Rot-objektsmøte"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/SpesifiserendeBegrepsrelasjon
+md:SpesifiserendeBegrepsrelasjon rdf:type owl:Class ;
+                                 rdfs:subClassOf md:Begrepsrelasjon ;
+                                 dcterms:description """Begrepet på subjektsiden har et mer generelt begrep på objektsiden.
+
+Eksempel:
+
+bil er en type kjøretøy"""@nb ;
+                                 rdfs:label "Spesifiserende begrepsrelasjon"@nb ;
+                                 skos:altLabel "er en"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/Spraaktekst
 md:Spraaktekst rdf:type owl:Class ;
                rdfs:subClassOf md:Fictilis ;
@@ -1794,34 +1821,11 @@ md:Valg rdf:type owl:Class ;
                    "Valg"@nb .
 
 
-###  http://data.skatteetaten.no/ontologi/modell/basis
-md:basis rdf:type owl:Class ;
-         rdfs:subClassOf md:Definisjonskilde ;
-         rdfs:label "bassert på kilde"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/erNavngittNode
-md:erNavngittNode rdf:type owl:Class ;
-                  rdfs:subClassOf md:Begrep .
-
-
 ###  http://data.skatteetaten.no/ontologi/modell/kodelisteIKatalog
 md:kodelisteIKatalog rdf:type owl:Class ;
                      rdfs:subClassOf md:Fictilis ;
                      rdfs:comment "Feilstavet URL"@nb ;
                      owl:deprecated "true"^^xsd:boolean .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/spesifiserendeBegrepsrelasjon
-md:spesifiserendeBegrepsrelasjon rdf:type owl:Class ;
-                                 rdfs:subClassOf md:Begrepsrelasjon ;
-                                 dcterms:description """Begrepet på subjektsiden har et mer generelt begrep på objektsiden.
-
-Eksempel:
-
-bil er en type kjøretøy"""@nb ;
-                                 rdfs:label "spesifiserende begrepsrelasjon"@nb ;
-                                 skos:altLabel "er en"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/strukturkodeliste
@@ -1937,8 +1941,8 @@ bk:begrepmedjuridiskforklaring rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/begrep/begrepmedmangekilder
 bk:begrepmedmangekilder rdf:type owl:NamedIndividual ,
-                                 md:Definisjonskilde ,
-                                 md:basis ;
+                                 md:Basis ,
+                                 md:Definisjonskilde ;
                         rdfs:label "Skatteetaten"@nb ;
                         rdfs:seeAlso "www.skatteetaten.no"@nb .
 
@@ -1979,7 +1983,7 @@ bm:harPengerTilgodeHos rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/begrepsmodell/kallesog
 bm:kallesog rdf:type owl:NamedIndividual ,
-                     md:spesifiserendeBegrepsrelasjon ;
+                     md:SpesifiserendeBegrepsrelasjon ;
             md:harObjekt bk:debitor ;
             md:harSubjekt bk:skyldner ;
             skos:prefLabel "kalles også"@nb .
