@@ -214,7 +214,6 @@ md:brukerElement rdf:type owl:ObjectProperty ;
 md:client rdf:type owl:ObjectProperty ;
           rdfs:domain md:Avhengighet ;
           rdfs:range md:Elementer ;
-          rdfs:comment "Kan vi bruke klient / leverandør slik som i UML?"@nb ;
           rdfs:label "client"@en ,
                      "klient"@nb ;
           skos:hiddenLabel "går fra"@nb .
@@ -252,7 +251,7 @@ md:eierInformasjonsmodell rdf:type owl:ObjectProperty ;
 md:eksternKodeliste rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Kodeliste ;
                     rdfs:range md:Kodeliste ;
-                    rdfs:label "Refernase til ekstern kodeliste"@nb .
+                    rdfs:label "refernase til ekstern kodeliste"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/gyldigForBehandling
@@ -295,7 +294,7 @@ md:harBredereBegrep rdf:type owl:ObjectProperty ;
 md:harEgenskap rdf:type owl:ObjectProperty ;
                owl:inverseOf md:tilhoererElement ;
                md:informative "true"^^xsd:boolean ;
-               rdfs:label "harEgenskap"@nb .
+               rdfs:label "har egenskap"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/harForklaring
@@ -410,7 +409,8 @@ md:knyttetTilRolle rdf:type owl:ObjectProperty ;
 md:realiserer rdf:type owl:ObjectProperty ,
                        owl:IrreflexiveProperty ;
               rdfs:domain md:Elementer ;
-              rdfs:range md:Elementer .
+              rdfs:range md:Elementer ;
+              rdfs:label "realiserer"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/semantiskRelasjon
@@ -424,7 +424,8 @@ md:semantiskRelasjon rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/sistEndretAv
 md:sistEndretAv rdf:type owl:ObjectProperty ;
-                rdfs:range foaf:Agent .
+                rdfs:range foaf:Agent ;
+                rdfs:label "sist endret av"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/spesialiserer
@@ -432,13 +433,15 @@ md:spesialiserer rdf:type owl:ObjectProperty ,
                           owl:IrreflexiveProperty ;
                  rdfs:domain md:Elementer ;
                  rdfs:range md:Elementer ;
-                 rdfs:comment "Kan utrykkes ved hjelp av rdsf:type også, men det kan være greit å si at to modellelementer har denne rollen i forhold til hverandre. Det er ikke nødvendighvis en arv i OWL forstand."@nb .
+                 rdfs:comment "Kan utrykkes ved hjelp av rdsf:type også, men det kan være greit å si at to modellelementer har denne rollen i forhold til hverandre. Det er ikke nødvendighvis en arv i OWL forstand."@nb ;
+                 rdfs:label "spesialiserer"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/stereotype
 md:stereotype rdf:type owl:ObjectProperty ;
               rdfs:domain md:Elementer ;
-              rdfs:range skos:Consept .
+              rdfs:range skos:Consept ;
+              rdfs:label "stereotype"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/suplier
@@ -446,7 +449,8 @@ md:suplier rdf:type owl:ObjectProperty ;
            rdfs:domain md:Avhengighet ;
            rdfs:range md:Elementer ;
            rdfs:label "Suplier"@en ,
-                      "leverandør"@en ;
+                      "leverandør"@en ,
+                      "suplier"@en ;
            skos:hiddenLabel "går til"@nb .
 
 [ rdf:type owl:Axiom ;
@@ -462,8 +466,8 @@ md:synlighet rdf:type owl:ObjectProperty ;
              rdfs:domain md:Egenskap ;
              rdfs:range skos:Consept ;
              md:futureConsept "true"^^xsd:boolean ;
-             rdfs:label "Synlighet"@nb ,
-                        "Visibility"@en .
+             rdfs:label "synlighet"@nb ,
+                        "visibility"@en .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/tilhoererElement
@@ -543,7 +547,8 @@ dcterms:isReplacedBy rdf:type owl:ObjectProperty ;
 
 ###  http://purl.org/dc/terms/publisher
 dcterms:publisher rdf:type owl:ObjectProperty ;
-                  rdfs:range foaf:Agent .
+                  rdfs:range foaf:Agent ;
+                  rdfs:label "utgiver"@nb .
 
 
 ###  http://purl.org/dc/terms/replaces
@@ -556,13 +561,15 @@ dcterms:replaces rdf:type owl:ObjectProperty ,
 
 ###  http://purl.org/dc/terms/temporal
 dcterms:temporal rdf:type owl:ObjectProperty ;
-                 rdfs:range md:Datoperiode .
+                 rdfs:range md:Datoperiode ;
+                 rdfs:label "tidsmessig"@nb .
 
 
 ###  http://purl.org/umu/uneskos#contains
 uneskos:contains rdf:type owl:ObjectProperty ;
                  owl:inverseOf skos:inScheme ;
-                 md:informative "true"^^xsd:boolean .
+                 md:informative "true"^^xsd:boolean ;
+                 rdfs:label "inneholder"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#broadMatch
@@ -602,12 +609,14 @@ skos:exactMatch rdf:type owl:ObjectProperty ;
 skos:hasTopConsept rdf:type owl:ObjectProperty ;
                    owl:inverseOf skos:topConceptOf ;
                    rdfs:domain skos:ConceptScheme ;
-                   rdfs:range skos:Consept .
+                   rdfs:range skos:Consept ;
+                   rdfs:label "hart topp konsept"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#inScheme
 skos:inScheme rdf:type owl:ObjectProperty ;
-              rdfs:range skos:ConceptScheme .
+              rdfs:range skos:ConceptScheme ;
+              rdfs:label "i skjema"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#mappingRelation
@@ -622,13 +631,15 @@ skos:member rdf:type owl:ObjectProperty ;
                          owl:unionOf ( skos:Collection
                                        skos:Consept
                                      )
-                       ] .
+                       ] ;
+            rdfs:label "medlem"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#memberList
 skos:memberList rdf:type owl:ObjectProperty ,
                          owl:FunctionalProperty ;
-                rdfs:domain skos:OrderedCollection .
+                rdfs:domain skos:OrderedCollection ;
+                rdfs:label "medlem liste"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#narrowMatch
@@ -664,7 +675,8 @@ skos:relatedMatch rdf:type owl:ObjectProperty ;
 ###  http://www.w3.org/2004/02/skos/core#semanticRelation
 skos:semanticRelation rdf:type owl:ObjectProperty ;
                       rdfs:domain skos:Consept ;
-                      rdfs:range skos:Consept .
+                      rdfs:range skos:Consept ;
+                      rdfs:label "semantisk relasjon"@nb .
 
 
 ###  http://www.w3.org/2004/02/skos/core#topConceptOf
@@ -1245,7 +1257,7 @@ modelldcatno:typeDefinitionReference rdf:type owl:DatatypeProperty ,
 ###  http://data.skatteetaten.no/ontologi/modell/Abstraksjon
 md:Abstraksjon rdf:type owl:Class ;
                rdfs:subClassOf md:Avhengighet ;
-               rdfs:comment "Abstraksjon"@nb .
+               rdfs:label "Abstraksjon"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Agent
@@ -1257,7 +1269,8 @@ md:Agent rdf:type owl:Class ;
                                                 ]
                                               ) ;
                            rdf:type owl:Class
-                         ] .
+                         ] ;
+         rdfs:label "Agent"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Assosiasjon
@@ -1306,7 +1319,7 @@ md:Avhengighet rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Basis
 md:Basis rdf:type owl:Class ;
          rdfs:subClassOf md:Definisjonskilde ;
-         rdfs:label "bassert på kilde"@nb .
+         rdfs:label "Basert på kilde"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Begrep
@@ -1470,7 +1483,8 @@ md:Datoperiode rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Definisjonskilde
 md:Definisjonskilde rdf:type owl:Class ;
                     rdfs:subClassOf md:Fictilis ;
-                    rdfs:comment "Bruk rdfs:label for beskrivelse av kilden og rdfs:seeAlso for selve referansen til kilden."@nb .
+                    rdfs:comment "Bruk rdfs:label for beskrivelse av kilden og rdfs:seeAlso for selve referansen til kilden."@nb ;
+                    rdfs:label "Definisjonskilde"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Diagram
@@ -1691,6 +1705,7 @@ md:Modell rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Modellbyggestener
 md:Modellbyggestener rdf:type owl:Class ;
                      rdfs:subClassOf md:Elementer ;
+                     dcterms:description "Overordnet klasse for ulike byggestener i modeller. Denne brukes nok ikke direkte, men samler en del felles egenskaper."@nb ;
                      rdfs:label "Modellbyggestener"@nb .
 
 
@@ -1762,7 +1777,7 @@ md:Rolle rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Rotobjektstype
 md:Rotobjektstype rdf:type owl:Class ;
                   rdfs:subClassOf md:Objekttype ;
-                  rdfs:label "Rot-objektsmøte"@nb .
+                  rdfs:label "Rot-objektstype"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/SpesifiserendeBegrepsrelasjon
@@ -1841,25 +1856,31 @@ type:strukturkodeliste rdf:type owl:Class ;
 ###  http://www.w3.org/2004/02/skos/core#Collection
 skos:Collection rdf:type owl:Class ;
                 owl:disjointWith skos:ConceptScheme ,
-                                 skos:Consept .
+                                 skos:Consept ;
+                rdfs:label "Collection"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#ConceptScheme
 skos:ConceptScheme rdf:type owl:Class ;
-                   owl:disjointWith skos:Consept .
+                   owl:disjointWith skos:Consept ;
+                   rdfs:label "Concept scheme"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#Consept
-skos:Consept rdf:type owl:Class .
+skos:Consept rdf:type owl:Class ;
+             rdfs:label "Consept"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#OrderedCollection
 skos:OrderedCollection rdf:type owl:Class ;
-                       rdfs:subClassOf skos:Collection .
+                       rdfs:subClassOf skos:Collection ;
+                       rdfs:label "Ordered collection"@en .
 
 
 ###  http://xmlns.com/foaf/0.1/Agent
-foaf:Agent rdf:type owl:Class .
+foaf:Agent rdf:type owl:Class ;
+           rdfs:label "Agent"@en ,
+                      "Agent"@nb .
 
 
 #################################################################
