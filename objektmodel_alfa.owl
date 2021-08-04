@@ -881,8 +881,7 @@ md:lokaltForvaltet rdf:type owl:DatatypeProperty ;
 md:maksDesimaler rdf:type owl:DatatypeProperty ;
                  rdfs:domain md:Enkeltype ;
                  rdfs:range xsd:nonNegativeInteger ;
-                 rdfs:label ""@nb ,
-                            "maks desimaler"@nb .
+                 rdfs:label "maks desimaler"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/maksLengde
@@ -1153,7 +1152,9 @@ dcterms:created rdf:type owl:DatatypeProperty ;
 
 
 ###  http://purl.org/dc/terms/identifier
-dcterms:identifier rdf:type owl:DatatypeProperty .
+dcterms:identifier rdf:type owl:DatatypeProperty ;
+                   rdfs:label "identifier"@en ,
+                              "identifikator"@nb .
 
 
 ###  http://purl.org/dc/terms/modified
