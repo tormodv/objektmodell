@@ -27,10 +27,7 @@
 @base <http://data.skatteetaten.no/ontologi/modell/> .
 
 <http://data.skatteetaten.no/ontologi/modell/> rdf:type owl:Ontology ;
-                                                dcterms:description "Ontologi for modeller i skatteetaten"@nb ;
-                                                rdfs:comment """Rettinger:
-
-""" .
+                                                dcterms:description "Ontologi for modeller i skatteetaten"@nb .
 
 #################################################################
 #    Annotation properties
@@ -38,6 +35,7 @@
 
 ###  http://data.skatteetaten.no/ontologi/modell/beslutningskommentar
 md:beslutningskommentar rdf:type owl:AnnotationProperty ;
+                        rdfs:label "beslutningskommentar"@nb ;
                         rdfs:subPropertyOf skos:editorialNote .
 
 
@@ -49,11 +47,13 @@ Feilmelding i innhold"""@nb .
 
 ###  http://data.skatteetaten.no/ontologi/modell/folkeligForklaring
 md:folkeligForklaring rdf:type owl:AnnotationProperty ;
+                      rdfs:label "folkelig forklaring"@nb ;
                       rdfs:subPropertyOf skos:note .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/forvaltningsmerknad
 md:forvaltningsmerknad rdf:type owl:AnnotationProperty ;
+                       rdfs:label "forvaltningsmerknad"@nb ;
                        rdfs:subPropertyOf skos:editorialNote .
 
 
@@ -73,6 +73,7 @@ md:informative rdf:type owl:AnnotationProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/kommentar
 md:kommentar rdf:type owl:AnnotationProperty ;
+             rdfs:label "kommentar"@nb ;
              rdfs:subPropertyOf skos:editorialNote ;
              rdfs:range rdfs:Literal ;
              rdfs:domain md:Fictilis .
@@ -92,6 +93,7 @@ md:prefFormat rdf:type owl:AnnotationProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/rettsligForklaring
 md:rettsligForklaring rdf:type owl:AnnotationProperty ;
+                      rdfs:label "rettslig forklaring"@nb ;
                       rdfs:subPropertyOf skos:note .
 
 
@@ -115,11 +117,13 @@ skos:altLabel rdf:type owl:AnnotationProperty ;
 
 ###  http://www.w3.org/2004/02/skos/core#changeNote
 skos:changeNote rdf:type owl:AnnotationProperty ;
+                rdfs:label "endringskommentar"@nb ;
                 rdfs:subPropertyOf skos:note .
 
 
 ###  http://www.w3.org/2004/02/skos/core#definition
 skos:definition rdf:type owl:AnnotationProperty ;
+                rdfs:label "definisjon"@nb ;
                 rdfs:subPropertyOf skos:note .
 
 
@@ -842,10 +846,6 @@ md:kodelisteidentifikator rdf:type owl:DatatypeProperty ;
 md:kodetillegg rdf:type owl:DatatypeProperty .
 
 
-###  http://data.skatteetaten.no/ontologi/modell/kommentar
-md:kommentar rdf:type owl:DatatypeProperty .
-
-
 ###  http://data.skatteetaten.no/ontologi/modell/konseptstatus
 md:konseptstatus rdf:type owl:DatatypeProperty ;
                  rdfs:domain md:Begrep ;
@@ -1370,7 +1370,6 @@ md:Begrep rdf:type owl:Class ;
           owl:disjointWith md:Elementer ;
           md:beslutningskommentar "Beslutsomhet"@nb ;
           md:forvaltningsmerknad "Hva brukes denne til?"@nb ;
-          md:kommentar "Har vi delt oss på for mange felter her?"@nb ;
           rdfs:label "Begrep"@nb ;
           skos:altLabel "Alternativt begrepsnavn"@nb ;
           skos:definition "Begrepets definisjonstekst"@nb ;
@@ -2765,14 +2764,6 @@ ex:sumBeloepAttributt rdf:type owl:NamedIndividual ,
                       md:modellElementnavn "sumBeløp"^^xsd:string ;
                       md:multiplisitetMaks "1"^^xsd:int ;
                       md:multiplisitetMin "1"^^xsd:int .
-
-
-#################################################################
-#    Annotations
-#################################################################
-
-md:kommentar rdfs:comment "Bruk dette for å merke elementer som har manglende metadata isteden for å sette disse til en ukjent klasse."@nb ;
-             rdfs:label "kommentar"@nb .
 
 
 #################################################################
