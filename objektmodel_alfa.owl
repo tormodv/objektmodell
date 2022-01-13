@@ -260,7 +260,6 @@ md:eksternKodeliste rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/gyldigForBehandling
 md:gyldigForBehandling rdf:type owl:ObjectProperty ;
-                       rdfs:domain md:Kode ;
                        rdfs:range md:Datoperiode ;
                        rdfs:label "gyldig for behandling"@nb .
 
@@ -316,13 +315,6 @@ md:harInversBegrepsrelasjon rdf:type owl:ObjectProperty ,
                             rdfs:range md:Begrepsrelasjon ;
                             dcterms:description "Brukes for å indikere begrepsrelasjon som utrykker relasjon mellom subjekt og objekt i motsatt rettning. Dvs. der a sitt subjekt er b sitt objekt."@nb ;
                             rdfs:label "har invers begrepsrelasjon"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/harKode
-md:harKode rdf:type owl:ObjectProperty ;
-           owl:inverseOf md:tilhoererKodeliste ;
-           md:informative "true"^^xsd:boolean ;
-           rdfs:label "har kode"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/harKodetillegg
@@ -488,33 +480,12 @@ md:tilhoererInteresseomraade rdf:type owl:ObjectProperty ;
                              rdfs:label "tilhører interesseområde"@nb .
 
 
-###  http://data.skatteetaten.no/ontologi/modell/tilhoererKodeliste
-md:tilhoererKodeliste rdf:type owl:ObjectProperty ;
-                      rdfs:domain md:Kode ;
-                      rdfs:range md:Kodeliste ;
-                      rdfs:label "tilhører kodeliste"@nb .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource md:tilhoererKodeliste ;
-   owl:annotatedProperty rdfs:range ;
-   owl:annotatedTarget md:Kodeliste ;
-   rdfs:comment "Legge inn skrukturkodeliste, eventuelt?"@nb
- ] .
-
-
 ###  http://data.skatteetaten.no/ontologi/modell/type
 md:type rdf:type owl:ObjectProperty ,
                  owl:FunctionalProperty ;
         rdfs:domain md:Egenskap ;
         rdfs:range md:Modellbyggestener ;
         rdfs:label "type"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/visningsnavn
-md:visningsnavn rdf:type owl:ObjectProperty ;
-                rdfs:domain md:Kode ;
-                rdfs:range md:Spraaktekst ;
-                rdfs:label "visningsnavn"@nb .
 
 
 ###  http://purl.org/dc/terms/hasPart
@@ -716,7 +687,8 @@ kodetillegg:nesteKommunenummer rdf:type owl:DatatypeProperty ;
 md:annenKodeverdi rdf:type owl:DatatypeProperty ;
                   rdfs:domain md:Kode ;
                   rdfs:range xsd:string ;
-                  rdfs:comment "Brukes for tilsvarende koder, brukt i andre lister"@nb ;
+                  rdfs:comment "Brukes for tilsvarende koder, brukt i andre lister"@nb ,
+                               "Burde ikke dette heller vært en relasjon til en klasse"@nb ;
                   rdfs:label "annen kodeverdi"@nb .
 
 
@@ -1077,7 +1049,6 @@ md:startdato rdf:type owl:DatatypeProperty ,
 ###  http://data.skatteetaten.no/ontologi/modell/tekniskNavn
 md:tekniskNavn rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf skos:notation ;
-               rdfs:domain md:Kode ;
                rdfs:range xsd:string ;
                rdfs:label "teknisk navn"@nb .
 
@@ -1328,18 +1299,6 @@ md:Begrep rdf:type owl:Class ;
           rdfs:subClassOf md:Fictilis ,
                           skos:Consept ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty md:sistEndretAv ;
-                            owl:someValuesFrom foaf:Agent
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty dcterms:publisher ;
-                            owl:someValuesFrom foaf:Agent
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty dcterms:temporal ;
-                            owl:someValuesFrom md:Datoperiode
-                          ] ,
-                          [ rdf:type owl:Restriction ;
                             owl:onProperty skos:inScheme ;
                             owl:someValuesFrom skos:ConceptScheme
                           ] ,
@@ -1348,24 +1307,33 @@ md:Begrep rdf:type owl:Class ;
                             owl:someValuesFrom skos:Consept
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty md:begrepsidentifikator ;
-                            owl:someValuesFrom rdfs:Literal
+                            owl:onProperty md:sistEndretAv ;
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass foaf:Agent
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty md:versjonsnummer ;
-                            owl:someValuesFrom rdfs:Literal
+                            owl:onProperty dcterms:publisher ;
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass foaf:Agent
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty md:begrepsidentifikator ;
+                            owl:cardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty md:versjonstidspunkt ;
-                            owl:someValuesFrom xsd:dateTime
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:dateTime
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty dcterms:modified ;
-                            owl:someValuesFrom xsd:dateTime
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:dateTime
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty skos:notation ;
-                            owl:someValuesFrom rdfs:Literal
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:string
                           ] ;
           owl:disjointWith md:Elementer ;
           md:beslutningskommentar "Beslutsomhet"@nb ;
@@ -1377,16 +1345,6 @@ md:Begrep rdf:type owl:Class ;
           skos:example "Eksempel"@nb ;
           skos:hiddenLabel "Frarådet begrepsnavn"@nb ;
           skos:prefLabel "Anbefalt begrep - begrepsnavn"@nb .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource md:Begrep ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty dcterms:publisher ;
-                         owl:someValuesFrom foaf:Agent
-                       ] ;
-   rdfs:comment "Ansvarlig enhet"@nb
- ] .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource md:Begrep ;
@@ -1412,8 +1370,20 @@ md:Begrep rdf:type owl:Class ;
    owl:annotatedSource md:Begrep ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
+                         owl:onProperty dcterms:publisher ;
+                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass foaf:Agent
+                       ] ;
+   rdfs:comment "Ansvarlig enhet"@nb
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource md:Begrep ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget [ rdf:type owl:Restriction ;
                          owl:onProperty dcterms:modified ;
-                         owl:someValuesFrom xsd:dateTime
+                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:dateTime
                        ] ;
    rdfs:comment "ekv. md:begrepSistOppdatert"@nb
  ] .
@@ -1423,7 +1393,8 @@ md:Begrep rdf:type owl:Class ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
                          owl:onProperty skos:notation ;
-                         owl:someValuesFrom rdfs:Literal
+                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:string
                        ] ;
    rdfs:comment "teknisk navn"@nb
  ] .
@@ -1566,7 +1537,8 @@ md:ErNavngittNode rdf:type owl:Class ;
 md:Fictilis rdf:type owl:Class ;
             rdfs:subClassOf [ rdf:type owl:Restriction ;
                               owl:onProperty dcterms:temporal ;
-                              owl:someValuesFrom md:Datoperiode
+                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass md:Datoperiode
                             ] ;
             dcterms:description "Toppklasse for modelereing, fra latin for leire. Tross navnet en abstrakt klasse."@nb ;
             rdfs:label "Fictilis"@la ,
@@ -1624,9 +1596,20 @@ md:Kode rdf:type owl:Class ;
         rdfs:subClassOf md:Enumeratorverdi ,
                         skos:Consept ,
                         [ rdf:type owl:Restriction ;
-                          owl:onProperty md:tilhoererKodeliste ;
-                          owl:someValuesFrom md:Kodeliste
+                          owl:onProperty skos:inScheme ;
+                          owl:someValuesFrom skos:ConceptScheme
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty dcterms:temporal ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass md:Datoperiode
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty skos:notation ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
                         ] ;
+        rdfs:comment "Visningsnavn, bruk ulike skas labels" ;
         rdfs:label "Kode"@nb .
 
 
@@ -2218,8 +2201,6 @@ type:visibilityKinds rdf:type owl:NamedIndividual ,
 kodeex:halden rdf:type owl:NamedIndividual ,
                        md:Kode ;
               dcterms:temporal kodeex:halden_interval_1 ;
-              kodetillegg:OffisieltKommunenavn "Halden" ;
-              kodetillegg:nesteKommunenummer 0101 ;
               skos:notation 0101 ;
               skos:prefLabel "Halden"@nb .
 
