@@ -19,6 +19,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix type: <http://data.skatteetaten.no/ontologi/type/> .
 @prefix kodeex: <http://example.com/kodeliste#> .
+@prefix schema: <https://schema.org/> .
 @prefix skosno: <https://data.norge.no/vocabulary/skosno#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix uneskos: <http://purl.org/umu/uneskos#> .
@@ -161,6 +162,14 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
 ###  http://www.w3.org/2004/02/skos/core#scopeNote
 skos:scopeNote rdf:type owl:AnnotationProperty ;
                rdfs:subPropertyOf skos:note .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
 
 
 #################################################################
@@ -515,7 +524,6 @@ dcterms:isReferencedBy rdf:type owl:ObjectProperty ;
 dcterms:isReplacedBy rdf:type owl:ObjectProperty ;
                      owl:inverseOf dcterms:replaces ;
                      rdf:type owl:TransitiveProperty ;
-                     rdfs:domain owl:Thing ;
                      rdfs:range owl:Thing ;
                      rdfs:label "er erstattet av"@nb .
 
@@ -529,7 +537,6 @@ dcterms:publisher rdf:type owl:ObjectProperty ;
 ###  http://purl.org/dc/terms/replaces
 dcterms:replaces rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
-                 rdfs:domain owl:Thing ;
                  rdfs:range owl:Thing ;
                  rdfs:label "erstatter"@nb .
 
@@ -892,7 +899,7 @@ md:modellElementnavn rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/modellID
 md:modellID rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf dcterms:identifier ;
+            rdfs:subPropertyOf md:rotElementID ;
             rdf:type owl:FunctionalProperty ;
             rdfs:domain md:Elementer ;
             rdfs:range xsd:string ;
@@ -932,7 +939,8 @@ md:multiplisitetMin rdf:type owl:DatatypeProperty ;
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/navigerbar
-md:navigerbar rdf:type owl:DatatypeProperty ;
+md:navigerbar rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
               rdfs:domain md:Egenskap ;
               rdfs:range xsd:boolean ;
               rdfs:label "navigerbar"@nb .
@@ -1026,24 +1034,6 @@ md:skjultEksternt rdf:type owl:DatatypeProperty ;
                   rdfs:range xsd:boolean ;
                   rdfs:comment "Byttes ut med et mere generelt publiseringeEvent konsept."@nb ;
                   rdfs:label "Ressursen er skjult eksternt"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/sluttdato
-md:sluttdato rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             rdfs:domain md:Datoperiode ;
-             rdfs:range xsd:dateTime ;
-             md:prefFormat "dato"@nb ;
-             rdfs:label "sluttdato"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/startdato
-md:startdato rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             rdfs:domain md:Datoperiode ;
-             rdfs:range xsd:dateTime ;
-             md:prefFormat "dato"@nb ;
-             rdfs:label "startdato"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/tekniskNavn
@@ -1220,6 +1210,18 @@ modelldcatno:typeDefinitionReference rdf:type owl:DatatypeProperty ,
                                      rdfs:range xsd:anyURI ;
                                      dcterms:description "External definition of the type in question, before adding any restrictions."@en ;
                                      rdfs:label "referanse til ekstern typedefinisjon"@nb .
+
+
+###  https://schema.org/endDate
+schema:endDate rdf:type owl:DatatypeProperty ;
+               rdfs:label "end date"@en ,
+                          "sluttdato"@nb .
+
+
+###  https://schema.org/startDate
+schema:startDate rdf:type owl:DatatypeProperty ;
+                 rdfs:label "start date"@en ,
+                            "startdato"@nb .
 
 
 #################################################################
@@ -1449,6 +1451,7 @@ md:Datatyper rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/Datoperiode
 md:Datoperiode rdf:type owl:Class ;
+               owl:equivalentClass dcterms:PeriodOfTime ;
                dcterms:description "Type for datointervaler"@nb ;
                rdfs:label "Datoperiode"@nb .
 
@@ -1536,9 +1539,17 @@ md:ErNavngittNode rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Fictilis
 md:Fictilis rdf:type owl:Class ;
             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty dcterms:isReplacedBy ;
+                              owl:someValuesFrom md:Fictilis
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty dcterms:replaces ;
+                              owl:someValuesFrom md:Fictilis
+                            ] ,
+                            [ rdf:type owl:Restriction ;
                               owl:onProperty dcterms:temporal ;
                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                              owl:onClass md:Datoperiode
+                              owl:onClass dcterms:PeriodOfTime
                             ] ;
             dcterms:description "Toppklasse for modelereing, fra latin for leire. Tross navnet en abstrakt klasse."@nb ;
             rdfs:label "Fictilis"@la ,
@@ -1598,11 +1609,6 @@ md:Kode rdf:type owl:Class ;
                         [ rdf:type owl:Restriction ;
                           owl:onProperty skos:inScheme ;
                           owl:someValuesFrom skos:ConceptScheme
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty dcterms:temporal ;
-                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onClass md:Datoperiode
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty skos:notation ;
@@ -1840,6 +1846,20 @@ type:strukturkodeliste rdf:type owl:Class ;
                        owl:deprecated "true"^^xsd:boolean .
 
 
+###  http://purl.org/dc/terms/PeriodOfTime
+dcterms:PeriodOfTime rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                       owl:onProperty schema:endDate ;
+                                       owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:date
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty schema:startDate ;
+                                       owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:date
+                                     ] .
+
+
 ###  http://www.w3.org/2004/02/skos/core#Collection
 skos:Collection rdf:type owl:Class ;
                 owl:disjointWith skos:ConceptScheme ,
@@ -1928,9 +1948,7 @@ bk:begrepMedAlleFelter rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/begrep/begrep_mangefelter_gyldig
 bk:begrep_mangefelter_gyldig rdf:type owl:NamedIndividual ,
-                                      md:Datoperiode ;
-                             md:sluttdato "2019-08-17T00:00:00"^^xsd:dateTime ;
-                             md:startdato "2017-01-18T00:00:00"^^xsd:dateTime .
+                                      md:Datoperiode .
 
 
 ###  http://data.skatteetaten.no/begrep/begrepmedfolkeligforklaring
@@ -2207,9 +2225,7 @@ kodeex:halden rdf:type owl:NamedIndividual ,
 
 ###  http://example.com/kodeliste#halden_interval_1
 kodeex:halden_interval_1 rdf:type owl:NamedIndividual ,
-                                  md:Datoperiode ;
-                         md:sluttdato "1966-12-31T23:59:59"^^xsd:dateTime ;
-                         md:startdato "1838-01-01T00:00:00"^^xsd:dateTime .
+                                  md:Datoperiode .
 
 
 ###  http://example.com/skatt/drosjesentral#Drosjesentral
