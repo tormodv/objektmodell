@@ -494,6 +494,7 @@ md:type rdf:type owl:ObjectProperty ,
                  owl:FunctionalProperty ;
         rdfs:domain md:Egenskap ;
         rdfs:range md:Modellbyggestener ;
+        rdfs:comment "*** Litt uheldig navn i rdf kanskje ***"@nb ;
         rdfs:label "type"@nb .
 
 
