@@ -309,6 +309,14 @@ md:harEgenskap rdf:type owl:ObjectProperty ;
                rdfs:label "har egenskap"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/harEgenskapstype
+md:harEgenskapstype rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:domain md:Egenskap ;
+                    rdfs:range md:Modellbyggestener ;
+                    rdfs:label "Har egenskapstype"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/harForklaring
 md:harForklaring rdf:type owl:ObjectProperty ;
                  rdfs:domain md:Begrep ;
@@ -487,15 +495,6 @@ md:tilhoererInteresseomraade rdf:type owl:ObjectProperty ;
                              rdfs:domain md:Begrep ;
                              rdfs:range md:Interesseomraade ;
                              rdfs:label "tilhører interesseområde"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/type
-md:type rdf:type owl:ObjectProperty ,
-                 owl:FunctionalProperty ;
-        rdfs:domain md:Egenskap ;
-        rdfs:range md:Modellbyggestener ;
-        rdfs:comment "*** Litt uheldig navn i rdf kanskje ***"@nb ;
-        rdfs:label "type"@nb .
 
 
 ###  http://purl.org/dc/terms/hasPart
@@ -1271,11 +1270,11 @@ md:Attributt rdf:type owl:Class ;
                                owl:someValuesFrom md:Rotobjektstype
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty md:type ;
+                               owl:onProperty md:harEgenskapstype ;
                                owl:allValuesFrom md:Datatyper
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty md:type ;
+                               owl:onProperty md:harEgenskapstype ;
                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                owl:onClass md:Datatyper
                              ] ;
@@ -1485,7 +1484,7 @@ md:Egenskap rdf:type owl:Class ;
                                                  ]
                             ] ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty md:type ;
+                              owl:onProperty md:harEgenskapstype ;
                               owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
                               owl:onClass md:Rotobjektstype
                             ] ;
@@ -1757,12 +1756,12 @@ md:Rolle rdf:type owl:Class ;
                                              ]
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty md:knyttetTilAssosiasjon ;
-                           owl:allValuesFrom md:Assosiasjon
+                           owl:onProperty md:harEgenskapstype ;
+                           owl:allValuesFrom md:Objekttype
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty md:type ;
-                           owl:allValuesFrom md:Objekttype
+                           owl:onProperty md:knyttetTilAssosiasjon ;
+                           owl:allValuesFrom md:Assosiasjon
                          ] ;
          rdfs:label "Role"@en ,
                     "Rolle"@nb .
@@ -1822,7 +1821,7 @@ md:Underkodeliste rdf:type owl:Class ;
 md:Valg rdf:type owl:Class ;
         rdfs:subClassOf md:Egenskap ,
                         [ rdf:type owl:Restriction ;
-                          owl:onProperty md:type ;
+                          owl:onProperty md:harEgenskapstype ;
                           owl:someValuesFrom md:Objekttype
                         ] ;
         rdfs:comment "Egenskap som er tillegg til Attributt eller Rolle"@nb ;
@@ -2239,9 +2238,9 @@ exds:Drosjesentral rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/drosjesentral#DrosjesentralRolle
 exds:DrosjesentralRolle rdf:type owl:NamedIndividual ,
                                  md:Rolle ;
+                        md:harEgenskapstype exds:Drosjesentral ;
                         md:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralDrosjesentralAssosiasjon ;
                         md:tilhoererElement exds:KontrollFraDrosjesentral ;
-                        md:type exds:Drosjesentral ;
                         md:modellElementnavn "drosjesentral"^^xsd:string ;
                         md:multiplisitetMaks "1"^^xsd:int ;
                         md:multiplisitetMin "1"^^xsd:int .
@@ -2266,9 +2265,9 @@ exds:KontrollFraDrosjesentralLoeyvehaverAssosiasjon rdf:type owl:NamedIndividual
 ###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentralRolleD
 exds:KontrollFraDrosjesentralRolleD rdf:type owl:NamedIndividual ,
                                              md:Rolle ;
+                                    md:harEgenskapstype exds:KontrollFraDrosjesentral ;
                                     md:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralDrosjesentralAssosiasjon ;
                                     md:tilhoererElement exds:Drosjesentral ;
-                                    md:type exds:KontrollFraDrosjesentral ;
                                     md:modellElementnavn "kontrollFraDrosjesentral"^^xsd:string ;
                                     md:multiplisitetMaks "*"^^xsd:string ;
                                     md:multiplisitetMin "1"^^xsd:int .
@@ -2277,9 +2276,9 @@ exds:KontrollFraDrosjesentralRolleD rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/drosjesentral#KontrollFraDrosjesentralRolleL
 exds:KontrollFraDrosjesentralRolleL rdf:type owl:NamedIndividual ,
                                              md:Rolle ;
+                                    md:harEgenskapstype exds:KontrollFraDrosjesentral ;
                                     md:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralLoeyvehaverAssosiasjon ;
                                     md:tilhoererElement exds:Loeyvehaver ;
-                                    md:type exds:KontrollFraDrosjesentral ;
                                     md:modellElementnavn "kontrollFraDrosjesentral"^^xsd:string ;
                                     md:multiplisitetMaks "1"^^xsd:int ;
                                     md:multiplisitetMin "1"^^xsd:int .
@@ -2295,9 +2294,9 @@ exds:Loeyvehaver rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/drosjesentral#LoeyvehaverRolle
 exds:LoeyvehaverRolle rdf:type owl:NamedIndividual ,
                                md:Rolle ;
+                      md:harEgenskapstype exds:Loeyvehaver ;
                       md:knyttetTilAssosiasjon exds:KontrollFraDrosjesentralLoeyvehaverAssosiasjon ;
                       md:tilhoererElement exds:KontrollFraDrosjesentral ;
-                      md:type exds:Loeyvehaver ;
                       md:modellElementnavn "løyvehaver"^^xsd:string ;
                       md:multiplisitetMaks "1"^^xsd:int ;
                       md:multiplisitetMin "1"^^xsd:int .
@@ -2326,8 +2325,8 @@ exds:StrukturmodellProsess_v1.0 rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#AntallOppgaverAttributt
 ex:AntallOppgaverAttributt rdf:type owl:NamedIndividual ,
                                     md:Attributt ;
+                           md:harEgenskapstype type:Antall ;
                            md:tilhoererElement ex:Oppgaveoppsummering ;
-                           md:type type:Antall ;
                            md:modellElementnavn "antallOppgaver"^^xsd:string ;
                            md:multiplisitetMaks "1"^^xsd:int ;
                            md:multiplisitetMin "1"^^xsd:int .
@@ -2336,8 +2335,8 @@ ex:AntallOppgaverAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#FoedselsnummerAttributt
 ex:FoedselsnummerAttributt rdf:type owl:NamedIndividual ,
                                     md:Attributt ;
+                           md:harEgenskapstype type:Foedselsnummer ;
                            md:tilhoererElement ex:Oppgaveeier ;
-                           md:type type:Foedselsnummer ;
                            md:modellElementnavn "fødselsnummer"^^xsd:string ;
                            md:multiplisitetMaks "1"^^xsd:int ;
                            md:multiplisitetMin "1"^^xsd:int .
@@ -2360,8 +2359,8 @@ ex:Inntektsaar rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#InntektsaarAttributt
 ex:InntektsaarAttributt rdf:type owl:NamedIndividual ,
                                  md:Attributt ;
+                        md:harEgenskapstype ex:Inntektsaar ;
                         md:tilhoererElement ex:Leveranse ;
-                        md:type ex:Inntektsaar ;
                         md:modellElementnavn "inntektsår"^^xsd:string ;
                         md:multiplisitetMaks "1"^^xsd:int ;
                         md:multiplisitetMin "1"^^xsd:int ;
@@ -2371,8 +2370,8 @@ ex:InntektsaarAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#InntektsaarAttributtStruktur
 ex:InntektsaarAttributtStruktur rdf:type owl:NamedIndividual ,
                                          md:Attributt ;
+                                md:harEgenskapstype ex:Inntektsaar ;
                                 md:tilhoererElement ex:LeveranseStruktur ;
-                                md:type ex:Inntektsaar ;
                                 md:modellElementnavn "inntektsår"^^xsd:string ;
                                 md:multiplisitetMaks "1"^^xsd:int ;
                                 md:multiplisitetMin "1"^^xsd:int .
@@ -2381,8 +2380,8 @@ ex:InntektsaarAttributtStruktur rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#KildesystemAttributtStruktur
 ex:KildesystemAttributtStruktur rdf:type owl:NamedIndividual ,
                                          md:Attributt ;
+                                md:harEgenskapstype type:Kildesystem ;
                                 md:tilhoererElement ex:LeveranseStruktur ;
-                                md:type type:Kildesystem ;
                                 md:modellElementnavn "kildesystem"^^xsd:string ;
                                 md:multiplisitetMaks "1"^^xsd:int ;
                                 md:multiplisitetMin "0"^^xsd:int .
@@ -2396,8 +2395,8 @@ ex:Kontaktinformasjon rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#KontaktinformasjonAttributt
 ex:KontaktinformasjonAttributt rdf:type owl:NamedIndividual ,
                                         md:Attributt ;
+                               md:harEgenskapstype ex:Kontaktinformasjon ;
                                md:tilhoererElement ex:Oppgavegiver ;
-                               md:type ex:Kontaktinformasjon ;
                                md:modellElementnavn "kontaktinformasjon"^^xsd:string ;
                                md:multiplisitetMaks "1"^^xsd:int ;
                                md:multiplisitetMin "0"^^xsd:int .
@@ -2432,8 +2431,8 @@ ex:LeveranseRealisering rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#LeveranseReferanseAttributt
 ex:LeveranseReferanseAttributt rdf:type owl:NamedIndividual ,
                                         md:Attributt ;
+                               md:harEgenskapstype type:LeveranseReferanse ;
                                md:tilhoererElement ex:Leveranse ;
-                               md:type type:LeveranseReferanse ;
                                md:modellElementnavn "oppgavegiversLeveranseReferanse"^^xsd:string ;
                                md:multiplisitetMaks "1"^^xsd:int ;
                                md:multiplisitetMin "0"^^xsd:int ;
@@ -2443,8 +2442,8 @@ ex:LeveranseReferanseAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#LeveranseReferanseAttributtStruktur
 ex:LeveranseReferanseAttributtStruktur rdf:type owl:NamedIndividual ,
                                                 md:Attributt ;
+                                       md:harEgenskapstype type:LeveranseReferanse ;
                                        md:tilhoererElement ex:LeveranseStruktur ;
-                                       md:type type:LeveranseReferanse ;
                                        md:modellElementnavn "oppgavegiversLeveransereferanse"^^xsd:string ;
                                        md:multiplisitetMaks "1"^^xsd:int ;
                                        md:multiplisitetMin "0"^^xsd:int .
@@ -2464,8 +2463,8 @@ ex:Leveransetype rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#LeveransetypeAttributt
 ex:LeveransetypeAttributt rdf:type owl:NamedIndividual ,
                                    md:Attributt ;
+                          md:harEgenskapstype ex:Leveransetype ;
                           md:tilhoererElement ex:Leveranse ;
-                          md:type ex:Leveransetype ;
                           md:modellElementnavn "leveransetype"^^xsd:string ;
                           md:multiplisitetMaks "1"^^xsd:int ;
                           md:multiplisitetMin "1"^^xsd:int .
@@ -2474,8 +2473,8 @@ ex:LeveransetypeAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#LeveransetypeAttributtStruktur
 ex:LeveransetypeAttributtStruktur rdf:type owl:NamedIndividual ,
                                            md:Attributt ;
+                                  md:harEgenskapstype ex:Leveransetype ;
                                   md:tilhoererElement ex:LeveranseStruktur ;
-                                  md:type ex:Leveransetype ;
                                   md:modellElementnavn "leveransetype"^^xsd:string ;
                                   md:multiplisitetMaks "1"^^xsd:int ;
                                   md:multiplisitetMin "1"^^xsd:int .
@@ -2512,8 +2511,8 @@ ex:Navn rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#NavnAttributt
 ex:NavnAttributt rdf:type owl:NamedIndividual ,
                           md:Attributt ;
+                 md:harEgenskapstype ex:Navn ;
                  md:tilhoererElement ex:Oppgaveeier ;
-                 md:type ex:Navn ;
                  md:modellElementnavn "navn"^^xsd:string ;
                  md:multiplisitetMaks "1"^^xsd:int ;
                  md:multiplisitetMin "1"^^xsd:int .
@@ -2535,8 +2534,8 @@ ex:OppgaveBarnepassRealisering rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#OppgaveBarnepassRolle
 ex:OppgaveBarnepassRolle rdf:type owl:NamedIndividual ,
                                   md:Rolle ;
+                         md:harEgenskapstype ex:OppgaveBarnepass ;
                          md:tilhoererElement ex:Leveranse ;
-                         md:type ex:OppgaveBarnepass ;
                          md:modellElementnavn "oppgave"^^xsd:string ;
                          md:multiplisitetMaks "*"^^xsd:string ;
                          md:multiplisitetMin "0"^^xsd:int .
@@ -2578,8 +2577,8 @@ ex:OppgaveeierRealisering rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#OppgaveeierRolle
 ex:OppgaveeierRolle rdf:type owl:NamedIndividual ,
                              md:Rolle ;
+                    md:harEgenskapstype ex:Oppgaveeier ;
                     md:tilhoererElement ex:OppgaveBarnepass ;
-                    md:type ex:Oppgaveeier ;
                     md:modellElementnavn "oppgaveeier"^^xsd:string ;
                     md:multiplisitetMaks "1"^^xsd:int ;
                     md:multiplisitetMin "1"^^xsd:int .
@@ -2607,8 +2606,8 @@ ex:OppgavegiverRealisering rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#OppgavegiverRolle
 ex:OppgavegiverRolle rdf:type owl:NamedIndividual ,
                               md:Rolle ;
+                     md:harEgenskapstype ex:Oppgavegiver ;
                      md:tilhoererElement ex:Leveranse ;
-                     md:type ex:Oppgavegiver ;
                      md:modellElementnavn "oppgavegiver"^^xsd:string ;
                      md:multiplisitetMaks "1"^^xsd:int ;
                      md:multiplisitetMin "1"^^xsd:int .
@@ -2630,8 +2629,8 @@ ex:OppgaveoppsummeringRealisering rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#OppgaveoppsummeringRolle
 ex:OppgaveoppsummeringRolle rdf:type owl:NamedIndividual ,
                                      md:Rolle ;
+                            md:harEgenskapstype ex:Oppgaveoppsummering ;
                             md:tilhoererElement ex:Leveranse ;
-                            md:type ex:Oppgaveoppsummering ;
                             md:modellElementnavn "oppgavesummering"^^xsd:string ;
                             md:multiplisitetMaks "1"^^xsd:int ;
                             md:multiplisitetMin "1"^^xsd:int .
@@ -2646,8 +2645,8 @@ ex:OppgaveoppsummeringStruktur rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#OrganisasjonsnavnAttributt
 ex:OrganisasjonsnavnAttributt rdf:type owl:NamedIndividual ,
                                        md:Attributt ;
+                              md:harEgenskapstype type:Organisasjonsnavn ;
                               md:tilhoererElement ex:Oppgavegiver ;
-                              md:type type:Organisasjonsnavn ;
                               md:modellElementnavn "organisasjonsnavn"^^xsd:string ;
                               md:multiplisitetMaks "1"^^xsd:int ;
                               md:multiplisitetMin "1"^^xsd:int .
@@ -2656,8 +2655,8 @@ ex:OrganisasjonsnavnAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#OrganisasjonsnummerAttributt
 ex:OrganisasjonsnummerAttributt rdf:type owl:NamedIndividual ,
                                          md:Attributt ;
+                                md:harEgenskapstype type:Organisasjonsnummer ;
                                 md:tilhoererElement ex:Oppgavegiver ;
-                                md:type type:Organisasjonsnummer ;
                                 md:modellElementnavn "organisasjonsnummer"^^xsd:string ;
                                 md:multiplisitetMaks "1"^^xsd:int ;
                                 md:multiplisitetMin "1"^^xsd:int .
@@ -2666,8 +2665,8 @@ ex:OrganisasjonsnummerAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#kildesystemAttributt
 ex:kildesystemAttributt rdf:type owl:NamedIndividual ,
                                  md:Attributt ;
+                        md:harEgenskapstype type:Kildesystem ;
                         md:tilhoererElement ex:Leveranse ;
-                        md:type type:Kildesystem ;
                         md:modellElementnavn "kildesystem"^^xsd:string ;
                         md:multiplisitetMaks "1"^^xsd:int ;
                         md:multiplisitetMin "0"^^xsd:int ;
@@ -2700,8 +2699,8 @@ ex:konstruksjonsmodell_barnepass rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#kontaktNavnAttributt
 ex:kontaktNavnAttributt rdf:type owl:NamedIndividual ,
                                  md:Attributt ;
+                        md:harEgenskapstype ex:Navn ;
                         md:tilhoererElement ex:Kontaktinformasjon ;
-                        md:type ex:Navn ;
                         md:modellElementnavn "navn"^^xsd:string ;
                         rdfs:label "navn"^^xsd:string .
 
@@ -2709,32 +2708,32 @@ ex:kontaktNavnAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#kontaktTelefonnummerAttributt
 ex:kontaktTelefonnummerAttributt rdf:type owl:NamedIndividual ,
                                           md:Attributt ;
+                                 md:harEgenskapstype type:Telefonnummer ;
                                  md:tilhoererElement ex:Kontaktinformasjon ;
-                                 md:type type:Telefonnummer ;
                                  md:modellElementnavn "telefonnummer"^^xsd:string .
 
 
 ###  http://example.com/skatt/pass-barn#kontaktVarselEpostadresseAttributt
 ex:kontaktVarselEpostadresseAttributt rdf:type owl:NamedIndividual ,
                                                md:Attributt ;
+                                      md:harEgenskapstype type:Epostadresse ;
                                       md:tilhoererElement ex:Kontaktinformasjon ;
-                                      md:type type:Epostadresse ;
                                       md:modellElementnavn "varselEpostadresse"^^xsd:string .
 
 
 ###  http://example.com/skatt/pass-barn#kontaktVarselSmsMobilnummerAttributt
 ex:kontaktVarselSmsMobilnummerAttributt rdf:type owl:NamedIndividual ,
                                                  md:Attributt ;
+                                        md:harEgenskapstype type:Telefonnummer ;
                                         md:tilhoererElement ex:Kontaktinformasjon ;
-                                        md:type type:Telefonnummer ;
                                         md:modellElementnavn "varselSmsMobilnummer"^^xsd:string .
 
 
 ###  http://example.com/skatt/pass-barn#leveranseRolle
 ex:leveranseRolle rdf:type owl:NamedIndividual ,
                            md:Rolle ;
+                  md:harEgenskapstype ex:Leveranse ;
                   md:tilhoererElement ex:Melding ;
-                  md:type ex:Leveranse ;
                   md:modellElementnavn "leveranse"^^xsd:string ;
                   md:multiplisitetMaks "*"^^xsd:string ;
                   md:multiplisitetMin "1"^^xsd:int ;
@@ -2751,8 +2750,8 @@ ex:leveranseRolle rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#paaloeptBeloepAttributt
 ex:paaloeptBeloepAttributt rdf:type owl:NamedIndividual ,
                                     md:Attributt ;
+                           md:harEgenskapstype type:Beloep ;
                            md:tilhoererElement ex:OppgaveBarnepass ;
-                           md:type type:Beloep ;
                            md:modellElementnavn "påløptBeløp"^^xsd:string ;
                            md:multiplisitetMaks "1"^^xsd:int ;
                            md:multiplisitetMin "1"^^xsd:int .
@@ -2761,8 +2760,8 @@ ex:paaloeptBeloepAttributt rdf:type owl:NamedIndividual ,
 ###  http://example.com/skatt/pass-barn#sumBeloepAttributt
 ex:sumBeloepAttributt rdf:type owl:NamedIndividual ,
                                md:Attributt ;
+                      md:harEgenskapstype type:Beloep ;
                       md:tilhoererElement ex:Oppgaveoppsummering ;
-                      md:type type:Beloep ;
                       md:modellElementnavn "sumBeløp"^^xsd:string ;
                       md:multiplisitetMaks "1"^^xsd:int ;
                       md:multiplisitetMin "1"^^xsd:int .
