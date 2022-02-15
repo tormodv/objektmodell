@@ -34,6 +34,13 @@
 #    Annotation properties
 #################################################################
 
+###  http://data.skatteetaten.no/ontologi/modell/ansvarligOrganisatoriskEnhet
+md:ansvarligOrganisatoriskEnhet rdf:type owl:AnnotationProperty ;
+                                rdfs:comment "Dette feltet benyttes kun der eier av et begrep ikke eier hele interesseområdet begrepet ligger under."@nb ;
+                                rdfs:label "Organisasjonenenheten som eier et begrep."@nb ;
+                                rdfs:subPropertyOf skos:note .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/beslutningskommentar
 md:beslutningskommentar rdf:type owl:AnnotationProperty ;
                         rdfs:label "beslutningskommentar"@nb ;
@@ -96,6 +103,12 @@ md:prefFormat rdf:type owl:AnnotationProperty ;
 md:rettsligForklaring rdf:type owl:AnnotationProperty ;
                       rdfs:label "rettslig forklaring"@nb ;
                       rdfs:subPropertyOf skos:note .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/sistOppdatertAv
+md:sistOppdatertAv rdf:type owl:AnnotationProperty ;
+                   rdfs:label "Personen eller enheten som sist utførte en oppdatering av en ressurs."@nb ;
+                   rdfs:subPropertyOf skos:note .
 
 
 ###  http://purl.org/dc/terms/description
@@ -179,7 +192,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://data.skatteetaten.no/ontologi/modell/aggregeringsform
 md:aggregeringsform rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Rolle ;
-                    rdfs:range skos:Consept ;
+                    rdfs:range skos:Concept ;
                     rdfs:comment "Samme forståelse som i modelldcatno"@nb ;
                     rdfs:label "aggregeringsform"@nb .
 
@@ -453,7 +466,7 @@ md:spesialiserer rdf:type owl:ObjectProperty ,
 ###  http://data.skatteetaten.no/ontologi/modell/stereotype
 md:stereotype rdf:type owl:ObjectProperty ;
               rdfs:domain md:Elementer ;
-              rdfs:range skos:Consept ;
+              rdfs:range skos:Concept ;
               rdfs:label "stereotype"@nb .
 
 
@@ -477,7 +490,7 @@ md:suplier rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no/ontologi/modell/synlighet
 md:synlighet rdf:type owl:ObjectProperty ;
              rdfs:domain md:Egenskap ;
-             rdfs:range skos:Consept ;
+             rdfs:range skos:Concept ;
              md:futureConsept "true"^^xsd:boolean ;
              rdfs:label "synlighet"@nb ,
                         "visibility"@en .
@@ -512,7 +525,7 @@ dcterms:isPartOf rdf:type owl:ObjectProperty ;
 
 ###  http://purl.org/dc/terms/isReferencedBy
 dcterms:isReferencedBy rdf:type owl:ObjectProperty ;
-                       rdfs:domain skos:Consept ;
+                       rdfs:domain skos:Concept ;
                        rdfs:range md:Fictilis ;
                        md:informative "true"@nb ;
                        dcterms:description "A related resource that references, cites, or otherwise points to the described resource."@en ;
@@ -591,7 +604,7 @@ skos:exactMatch rdf:type owl:ObjectProperty ;
 skos:hasTopConsept rdf:type owl:ObjectProperty ;
                    owl:inverseOf skos:topConceptOf ;
                    rdfs:domain skos:ConceptScheme ;
-                   rdfs:range skos:Consept ;
+                   rdfs:range skos:Concept ;
                    rdfs:label "hart topp konsept"@nb .
 
 
@@ -611,7 +624,7 @@ skos:member rdf:type owl:ObjectProperty ;
             rdfs:domain skos:Collection ;
             rdfs:range [ rdf:type owl:Class ;
                          owl:unionOf ( skos:Collection
-                                       skos:Consept
+                                       skos:Concept
                                      )
                        ] ;
             rdfs:label "medlem"@nb .
@@ -656,8 +669,8 @@ skos:relatedMatch rdf:type owl:ObjectProperty ;
 
 ###  http://www.w3.org/2004/02/skos/core#semanticRelation
 skos:semanticRelation rdf:type owl:ObjectProperty ;
-                      rdfs:domain skos:Consept ;
-                      rdfs:range skos:Consept ;
+                      rdfs:domain skos:Concept ;
+                      rdfs:range skos:Concept ;
                       rdfs:label "semantisk relasjon"@nb .
 
 
@@ -669,7 +682,7 @@ skos:topConceptOf rdf:type owl:ObjectProperty ;
 ###  http://www.w3.org/ns/adms#status
 adms:status rdf:type owl:ObjectProperty ;
             rdfs:domain md:Fictilis ;
-            rdfs:range skos:Consept ;
+            rdfs:range skos:Concept ;
             rdfs:comment "Links to the status of the Asset or Asset Distribution in the context of a particular workflow process. Since Status is defined using a skos:Concept, that is the defined range for this property."@en ;
             rdfs:isDefinedBy <http://www.w3.org/TR/vocab-adms> ;
             rdfs:label "status"@en ,
@@ -1200,7 +1213,7 @@ xsd:totalDigits rdf:type owl:DatatypeProperty ,
 
 ###  http://www.w3.org/2004/02/skos/core#notation
 skos:notation rdf:type owl:DatatypeProperty ;
-              rdfs:domain skos:Consept .
+              rdfs:domain skos:Concept .
 
 
 ###  https://data.norge.no/vocabulary/modelldcatno#typeDefinitionReference
@@ -1299,14 +1312,14 @@ md:Basis rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Begrep
 md:Begrep rdf:type owl:Class ;
           rdfs:subClassOf md:Fictilis ,
-                          skos:Consept ,
+                          skos:Concept ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty skos:inScheme ;
                             owl:someValuesFrom skos:ConceptScheme
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty adms:status ;
-                            owl:someValuesFrom skos:Consept
+                            owl:someValuesFrom skos:Concept
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty md:sistEndretAv ;
@@ -1363,7 +1376,7 @@ md:Begrep rdf:type owl:Class ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
                          owl:onProperty adms:status ;
-                         owl:someValuesFrom skos:Consept
+                         owl:someValuesFrom skos:Concept
                        ] ;
    rdfs:comment "samme som md:begrepsstatus og konseptstatus"@nb
  ] .
@@ -1505,7 +1518,7 @@ md:Elementer rdf:type owl:Class ;
              rdfs:subClassOf md:Fictilis ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty md:stereotype ;
-                               owl:someValuesFrom skos:Consept
+                               owl:someValuesFrom skos:Concept
                              ] ;
              rdfs:label "Element"@nb .
 
@@ -1565,7 +1578,7 @@ md:FolkeligForklaring rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/Forklaring
 md:Forklaring rdf:type owl:Class ;
-              rdfs:subClassOf skos:Consept ;
+              rdfs:subClassOf skos:Concept ;
               rdfs:label "Forklaring"@nb .
 
 
@@ -1605,7 +1618,7 @@ md:Klasse rdf:type owl:Class ;
 md:Kode rdf:type owl:Class ;
         owl:equivalentClass md:Kodenavn ;
         rdfs:subClassOf md:Enumeratorverdi ,
-                        skos:Consept ,
+                        skos:Concept ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty skos:inScheme ;
                           owl:someValuesFrom skos:ConceptScheme
@@ -1716,7 +1729,7 @@ md:Pakke rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/Partsrolle
 md:Partsrolle rdf:type owl:Class ;
-              rdfs:subClassOf skos:Consept ;
+              rdfs:subClassOf skos:Concept ;
               rdfs:comment "Klasse for begreper som også oppfører seg som en rolle"@nb ;
               rdfs:label "Partsrolle"@nb .
 
@@ -1862,20 +1875,20 @@ dcterms:PeriodOfTime rdf:type owl:Class ;
 
 ###  http://www.w3.org/2004/02/skos/core#Collection
 skos:Collection rdf:type owl:Class ;
-                owl:disjointWith skos:ConceptScheme ,
-                                 skos:Consept ;
+                owl:disjointWith skos:Concept ,
+                                 skos:ConceptScheme ;
                 rdfs:label "Collection"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class ;
+             owl:disjointWith skos:ConceptScheme ;
+             rdfs:label "Consept"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#ConceptScheme
 skos:ConceptScheme rdf:type owl:Class ;
-                   owl:disjointWith skos:Consept ;
                    rdfs:label "Concept scheme"@en .
-
-
-###  http://www.w3.org/2004/02/skos/core#Consept
-skos:Consept rdf:type owl:Class ;
-             rdfs:label "Consept"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#OrderedCollection
@@ -2095,7 +2108,7 @@ type:Telefonnummer rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/ontologi/type/active
 type:active rdf:type owl:NamedIndividual ,
-                     skos:Consept ;
+                     skos:Concept ;
             skos:inScheme type:conseptStatus ;
             rdfs:comment "Brukt i forbindelse med begreper"@nb .
 
@@ -2106,9 +2119,17 @@ type:aggregationKinds rdf:type owl:NamedIndividual ,
                       rdfs:label "Aggrigeringsformer"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/type/archived
+type:archived rdf:type owl:NamedIndividual ,
+                       skos:Concept ;
+              skos:inScheme type:termStatus ;
+              rdfs:comment "Deletes the concept in all locations in the selected scheme."@en ,
+                           "Lexaurus-intern status for et begrep."@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/type/composited
 type:composited rdf:type owl:NamedIndividual ,
-                         skos:Consept ;
+                         skos:Concept ;
                 skos:inScheme type:aggregationKinds .
 
 
@@ -2119,66 +2140,74 @@ type:conseptStatus rdf:type owl:NamedIndividual ,
                    rdfs:label "Konseptstatuser"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/type/deprecated
+type:deprecated rdf:type owl:NamedIndividual ,
+                         skos:Concept ;
+                skos:inScheme type:termStatus ;
+                rdfs:comment "Lexaurus-intern status for et begrep."@nb ,
+                             "This indicates the concept should no longer be used, but whose on-going display is supported. A deprecated concept is indicated by strike through. A deprecated concept can be restored."@en .
+
+
 ###  http://data.skatteetaten.no/ontologi/type/erstattet
 type:erstattet rdf:type owl:NamedIndividual ,
-                        skos:Consept ;
+                        skos:Concept ;
                skos:inScheme type:termStatus ;
                rdfs:comment "Erstattet - settes på begrep som erstattes med nye som har samme / tilnærmet samme meningsinnhold."@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/godkjent
 type:godkjent rdf:type owl:NamedIndividual ,
-                       skos:Consept ;
+                       skos:Concept ;
               skos:inScheme type:termStatus ;
               rdfs:comment "Godkjent - av begrepseier"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/konstruksjon
 type:konstruksjon rdf:type owl:NamedIndividual ,
-                           skos:Consept ;
+                           skos:Concept ;
                   skos:inScheme type:stereotypes .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/kvalifisert
 type:kvalifisert rdf:type owl:NamedIndividual ,
-                          skos:Consept ;
+                          skos:Concept ;
                  skos:inScheme type:termStatus ;
                  rdfs:comment "Kvalifisert - formell og innholdsmessig korrekt (typisk når fagpersoner har jobbet med begrepet før den har blitt formelt godkjent av eier)"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/package
 type:package rdf:type owl:NamedIndividual ,
-                      skos:Consept ;
+                      skos:Concept ;
              skos:inScheme type:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/private
 type:private rdf:type owl:NamedIndividual ,
-                      skos:Consept ;
+                      skos:Concept ;
              skos:inScheme type:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/protected
 type:protected rdf:type owl:NamedIndividual ,
-                        skos:Consept ;
+                        skos:Concept ;
                skos:inScheme type:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/public
 type:public rdf:type owl:NamedIndividual ,
-                     skos:Consept ;
+                     skos:Concept ;
             skos:inScheme type:visibilityKinds .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/registrert
 type:registrert rdf:type owl:NamedIndividual ,
-                         skos:Consept ;
+                         skos:Concept ;
                 skos:inScheme type:termStatus .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/shared
 type:shared rdf:type owl:NamedIndividual ,
-                     skos:Consept ;
+                     skos:Concept ;
             skos:inScheme type:aggregationKinds .
 
 
@@ -2191,7 +2220,7 @@ type:stereotypes rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/ontologi/type/struktur
 type:struktur rdf:type owl:NamedIndividual ,
-                       skos:Consept ;
+                       skos:Concept ;
               skos:inScheme type:stereotypes .
 
 
@@ -2204,9 +2233,15 @@ type:termStatus rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/ontologi/type/tilbaketrukket
 type:tilbaketrukket rdf:type owl:NamedIndividual ,
-                             skos:Consept ;
+                             skos:Concept ;
                     skos:inScheme type:termStatus ;
                     rdfs:label "Trukket tilbake"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/type/underBehandling
+type:underBehandling rdf:type owl:NamedIndividual ,
+                              skos:Concept ;
+                     skos:inScheme type:termStatus .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/visibilityKinds
