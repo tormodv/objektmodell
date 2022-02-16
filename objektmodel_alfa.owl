@@ -1571,8 +1571,9 @@ md:Fictilis rdf:type owl:Class ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/FolkeligForklaring
 md:FolkeligForklaring rdf:type owl:Class ;
-                      rdfs:subClassOf md:Forklaring ;
-                      owl:disjointWith md:JuridiskForklaring ;
+                      rdfs:subClassOf md:Forklaring ,
+                                      skosno:AlternativFormulering ;
+                      owl:disjointWith md:RettsligForklaring ;
                       rdfs:label "Folkelig forklaring"@nb .
 
 
@@ -1594,12 +1595,6 @@ md:Interesseomraade rdf:type owl:Class ;
                     rdfs:subClassOf md:Kategori ,
                                     skos:ConceptScheme ;
                     rdfs:label "Interesseområde"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/JuridiskForklaring
-md:JuridiskForklaring rdf:type owl:Class ;
-                      rdfs:subClassOf md:Forklaring ;
-                      rdfs:label "Juridisk forklaring"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Kategori
@@ -1753,6 +1748,13 @@ md:Realisering rdf:type owl:Class ;
                rdfs:label "Realiserer"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/RettsligForklaring
+md:RettsligForklaring rdf:type owl:Class ;
+                      rdfs:subClassOf md:Forklaring ,
+                                      skosno:AlternativFormulering ;
+                      rdfs:label "Juridisk forklaring"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/Rolle
 md:Rolle rdf:type owl:Class ;
          rdfs:subClassOf md:Egenskap ,
@@ -1903,6 +1905,17 @@ foaf:Agent rdf:type owl:Class ;
                       "Agent"@nb .
 
 
+###  https://data.norge.no/vocabulary/skosno#AlternativFormulering
+skosno:AlternativFormulering rdf:type owl:Class ;
+                             owl:disjointWith skosno:Definisjon ;
+                             rdfs:label "Alternativ formulering"@nb .
+
+
+###  https://data.norge.no/vocabulary/skosno#Definisjon
+skosno:Definisjon rdf:type owl:Class ;
+                  rdfs:label "Definisjon"@nb .
+
+
 #################################################################
 #    Individuals
 #################################################################
@@ -1973,7 +1986,7 @@ bk:begrepmedfolkeligforklaring rdf:type owl:NamedIndividual ,
 
 ###  http://data.skatteetaten.no/begrep/begrepmedjuridiskforklaring
 bk:begrepmedjuridiskforklaring rdf:type owl:NamedIndividual ,
-                                        md:JuridiskForklaring ;
+                                        md:RettsligForklaring ;
                                dcterms:description "En juridisk forklaring"@nb ;
                                dcterms:source bk:begrepmedmangekilder .
 
