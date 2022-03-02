@@ -1051,7 +1051,6 @@ md:skjultEksternt rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/tekniskNavn
 md:tekniskNavn rdf:type owl:DatatypeProperty ;
-               rdfs:subPropertyOf skos:notation ;
                rdfs:range xsd:string ;
                rdfs:label "teknisk navn"@nb .
 
@@ -1617,6 +1616,11 @@ md:Kode rdf:type owl:Class ;
                         [ rdf:type owl:Restriction ;
                           owl:onProperty skos:inScheme ;
                           owl:someValuesFrom skos:ConceptScheme
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty md:tekniskNavn ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty skos:notation ;
