@@ -2,6 +2,7 @@
 @prefix bk: <http://data.skatteetaten.no/begrep/> .
 @prefix bm: <http://data.skatteetaten.no/begrepsmodell/> .
 @prefix ex: <http://example.com/skatt/pass-barn#> .
+@prefix kl: <http://data.skatteetaten.no/kodeliste/> .
 @prefix km: <http://data.skatteetaten.no/konstruksjonsmodell/> .
 @prefix md: <http://data.skatteetaten.no/ontologi/modell/> .
 @prefix pr: <http://data.skatteetaten.no/prosjekt/> .
@@ -204,14 +205,6 @@ md:begrepsreferanse rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Fictilis ;
                     rdfs:range md:Begrep ;
                     rdfs:label "begrepsreferanse"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/beskrivelse
-md:beskrivelse rdf:type owl:ObjectProperty ;
-               rdfs:domain md:Elementer ;
-               rdfs:range md:Spraaktekst ;
-               rdfs:comment "Kan denne lett bli blandet med beskriver?"@nb ;
-               rdfs:label "beskrivelse"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/beskriver
@@ -750,6 +743,13 @@ md:begrepsstatus rdf:type owl:DatatypeProperty ;
                  rdfs:comment "Erstattet av adms:Status"@nb ;
                  rdfs:label "begrepsstatus"@nb ;
                  owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/beskrivelse
+md:beskrivelse rdf:type owl:DatatypeProperty ;
+               rdfs:domain md:Elementer ;
+               rdfs:range rdfs:Literal ;
+               rdfs:label "beskrivelse"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/codeIsReplacedBy
