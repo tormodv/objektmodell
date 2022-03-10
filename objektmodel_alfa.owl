@@ -712,6 +712,14 @@ md:annenKodeverdi rdf:type owl:DatatypeProperty ;
                   rdfs:label "annen kodeverdi"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/ansvarligOmraade
+md:ansvarligOmraade rdf:type owl:DatatypeProperty ;
+                    rdfs:domain md:Kodeliste ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "hvilke produktområde, fagområde, eller organisatorisk enhet har forvaltningsansvar for en kodeliste"@nb ;
+                    rdfs:label "ansvarlig område"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/begrepSistOppdatert
 md:begrepSistOppdatert rdf:type owl:DatatypeProperty ;
                        rdfs:domain md:Begrep ;
@@ -890,7 +898,9 @@ md:lengde rdf:type owl:DatatypeProperty ;
 md:lokaltForvaltet rdf:type owl:DatatypeProperty ;
                    rdfs:domain md:KodelisteKatalog ;
                    rdfs:range xsd:boolean ;
-                   rdfs:label "lokalt forvaltet"@nb .
+                   rdfs:comment "feltet fjernes fra kodelistekatalogen"@nb ;
+                   rdfs:label "lokalt forvaltet"@nb ;
+                   owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/maksDesimaler
