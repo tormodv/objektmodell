@@ -191,6 +191,14 @@ xsd:date rdf:type rdfs:Datatype .
 #    Object Properties
 #################################################################
 
+###  http://data.skatteetaten.no/ontologi/modell/_sistEndretAv
+md:_sistEndretAv rdf:type owl:ObjectProperty ;
+                 rdfs:range foaf:Agent ;
+                 rdfs:comment "Vi behøver ikke foaf:Agent for \"sist endret av\", vi bruker bare bruker-ident"@nb ;
+                 rdfs:label "sist endret av"@nb ;
+                 owl:deprecated "true"^^xsd:boolean .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/aggregeringsform
 md:aggregeringsform rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Rolle ;
@@ -272,6 +280,15 @@ md:eksternKodeliste rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Kodeliste ;
                     rdfs:range md:Kodeliste ;
                     rdfs:label "refernase til ekstern kodeliste"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/erUnderkodeliste
+md:erUnderkodeliste rdf:type owl:ObjectProperty ;
+                    owl:inverseOf md:harUnderkodeliste ;
+                    rdfs:domain md:Underkodeliste ;
+                    rdfs:range md:Kodeliste ;
+                    rdfs:comment "ressursen er en underkodeliste i kodelisten det pekes til"@nb ;
+                    rdfs:label "er underkodeliste"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/gyldigForBehandling
@@ -406,7 +423,8 @@ md:harSubjekt rdf:type owl:ObjectProperty ,
 ###  http://data.skatteetaten.no/ontologi/modell/harUnderkodeliste
 md:harUnderkodeliste rdf:type owl:ObjectProperty ;
                      rdfs:domain md:Kodeliste ;
-                     rdfs:range md:Underkodeliste .
+                     rdfs:range md:Underkodeliste ;
+                     rdfs:label "har underkodeliste"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/iEgenskapAv
@@ -446,12 +464,6 @@ md:semantiskRelasjon rdf:type owl:ObjectProperty ;
                      rdfs:range md:Begrep ;
                      dcterms:description "Samling av semantiske relasjoner for bruk i begrepsmodeller"@nb ;
                      rdfs:label "semantisk relasjon"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/sistEndretAv
-md:sistEndretAv rdf:type owl:ObjectProperty ;
-                rdfs:range foaf:Agent ;
-                rdfs:label "sist endret av"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/spesialiserer
@@ -1054,6 +1066,13 @@ md:sekvensnummer rdf:type owl:DatatypeProperty ;
                  rdfs:label "Sekvensnummer"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/sistEndretAv
+md:sistEndretAv rdf:type owl:DatatypeProperty ;
+                rdfs:range rdfs:Literal ;
+                rdfs:comment "brukeridentiteten til den som sist endret en ressurs"@nb ;
+                rdfs:label "sist endret av"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/skjemalokasjon
 md:skjemalokasjon rdf:type owl:DatatypeProperty ;
                   rdfs:domain md:Konstruksjonsmodell ;
@@ -1342,7 +1361,7 @@ md:Begrep rdf:type owl:Class ;
                             owl:someValuesFrom skos:Concept
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty md:sistEndretAv ;
+                            owl:onProperty md:_sistEndretAv ;
                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                             owl:onClass foaf:Agent
                           ] ,
@@ -1964,9 +1983,9 @@ bk:UkjentInteresseomraade rdf:type owl:NamedIndividual ,
 bk:begrepMedAlleFelter rdf:type owl:NamedIndividual ,
                                 md:Begrep ,
                                 md:Forretningsbegrep ;
+                       md:_sistEndretAv bk:NN ;
                        md:harForklaring bk:begrepmedfolkeligforklaring ,
                                         bk:begrepmedjuridiskforklaring ;
-                       md:sistEndretAv bk:NN ;
                        dcterms:publisher bk:NN ;
                        dcterms:temporal bk:begrep_mangefelter_gyldig ;
                        skos:inScheme bk:UkjentInteresseomraade ;
