@@ -293,6 +293,7 @@ md:erUnderkodeliste rdf:type owl:ObjectProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/gyldigForBehandling
 md:gyldigForBehandling rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf dcterms:temporal ;
                        rdfs:range md:Datoperiode ;
                        rdfs:label "gyldig for behandling"@nb .
 
@@ -1674,7 +1675,8 @@ md:Kode rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Kodeliste
 md:Kodeliste rdf:type owl:Class ;
              rdfs:subClassOf md:Datatyper ,
-                             md:Enumerator ;
+                             md:Enumerator ,
+                             skos:ConceptScheme ;
              rdfs:comment """*** Skal vi ha info om utgiver o.l. for eksternt definerte kodelister ***
 Dette kan gjøres i form av en standard metadatablokk vi kan gjenbruke for konsepter vi vil ha en kildehenvisning til"""@nb ,
                           "Utad oppfører seg som en datatype, innad et sammlingaspunkt for koder"@nb ;
@@ -1683,7 +1685,6 @@ Dette kan gjøres i form av en standard metadatablokk vi kan gjenbruke for konse
 
 ###  http://data.skatteetaten.no/ontologi/modell/KodelisteKatalog
 md:KodelisteKatalog rdf:type owl:Class ;
-                    owl:equivalentClass md:kodelisteIKatalog ;
                     rdfs:subClassOf md:Fictilis ,
                                     skos:ConceptScheme ;
                     rdfs:label "Kodeliste-katalog"@nb .
@@ -1886,13 +1887,6 @@ md:Valg rdf:type owl:Class ;
         rdfs:comment "Egenskap som er tillegg til Attributt eller Rolle"@nb ;
         rdfs:label "Choice"@en ,
                    "Valg"@nb .
-
-
-###  http://data.skatteetaten.no/ontologi/modell/kodelisteIKatalog
-md:kodelisteIKatalog rdf:type owl:Class ;
-                     rdfs:subClassOf md:Fictilis ;
-                     rdfs:comment "Feilstavet URL"@nb ;
-                     owl:deprecated "true"^^xsd:boolean .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/strukturkodeliste
