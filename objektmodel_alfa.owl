@@ -1067,6 +1067,14 @@ md:sekvensnummer rdf:type owl:DatatypeProperty ;
                  rdfs:label "Sekvensnummer"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/sistEndret
+md:sistEndret rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf dcterms:modified ;
+              rdfs:range xsd:dateTime ;
+              rdfs:comment "datotid da en ressurs sist ble endret"@nb ;
+              rdfs:label "sist endret"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/sistEndretAv
 md:sistEndretAv rdf:type owl:DatatypeProperty ;
                 rdfs:range rdfs:Literal ;
