@@ -1106,6 +1106,7 @@ md:skjultEksternt rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/tekniskNavn
 md:tekniskNavn rdf:type owl:DatatypeProperty ;
+               rdfs:domain md:Elementer ;
                rdfs:range xsd:string ;
                rdfs:label "teknisk navn"@nb .
 
@@ -1163,6 +1164,13 @@ md:versjonstidspunkt rdf:type owl:DatatypeProperty ;
                      rdfs:domain md:Fictilis ;
                      rdfs:range xsd:dateTime ;
                      rdfs:label "versjonstidspunkt"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/visningsnavn
+md:visningsnavn rdf:type owl:DatatypeProperty ;
+                rdfs:domain md:Elementer ;
+                rdfs:range xsd:string ;
+                rdfs:label "visningsnavn"@nb .
 
 
 ###  http://purl.org/dc/terms/created
