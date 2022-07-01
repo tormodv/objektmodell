@@ -210,7 +210,6 @@ md:aggregeringsform rdf:type owl:ObjectProperty ;
 ###  http://data.skatteetaten.no/ontologi/modell/begrepsreferanse
 md:begrepsreferanse rdf:type owl:ObjectProperty ;
                     owl:inverseOf dcterms:isReferencedBy ;
-                    rdfs:domain md:Fictilis ;
                     rdfs:range md:Begrep ;
                     rdfs:label "begrepsreferanse"@nb .
 
@@ -280,6 +279,12 @@ md:eksternKodeliste rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Kodeliste ;
                     rdfs:range md:Kodeliste ;
                     rdfs:label "refernase til ekstern kodeliste"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/erGeolokaliserende
+md:erGeolokaliserende rdf:type owl:ObjectProperty ;
+                      rdfs:range md:Geolokaliserende ;
+                      rdfs:comment "er geolokaliserende"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/erUnderkodeliste
@@ -768,7 +773,6 @@ md:begrepsstatus rdf:type owl:DatatypeProperty ;
 
 ###  http://data.skatteetaten.no/ontologi/modell/beskrivelse
 md:beskrivelse rdf:type owl:DatatypeProperty ;
-               rdfs:domain md:Elementer ;
                rdfs:range rdfs:Literal ;
                rdfs:label "beskrivelse"@nb .
 
@@ -815,6 +819,12 @@ md:filnavn rdf:type owl:DatatypeProperty ;
            rdfs:label "filnavn"@nb .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/geolokaliserende
+md:geolokaliserende rdf:type owl:DatatypeProperty ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:label "geolokaliserende"@nb .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/godkjenningsstatus
 md:godkjenningsstatus rdf:type owl:DatatypeProperty ;
                       rdfs:domain md:Modell ;
@@ -822,6 +832,12 @@ md:godkjenningsstatus rdf:type owl:DatatypeProperty ;
                       rdfs:comment "Her kan vi bruke det generelle status i stedet."@nb ;
                       rdfs:label "godkjenningsstatus"@nb ;
                       owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/gradAvLokalisering
+md:gradAvLokalisering rdf:type owl:DatatypeProperty ;
+                      rdfs:range rdfs:Literal ;
+                      rdfs:label "grad av lokalisering"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/harSpraakkode
@@ -905,6 +921,12 @@ md:lengde rdf:type owl:DatatypeProperty ;
           rdfs:range xsd:nonNegativeInteger ;
           rdfs:label "lengde"@nb ;
           rdfs:seeAlso xsd:length .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/lokaliserendeKontekst
+md:lokaliserendeKontekst rdf:type owl:DatatypeProperty ;
+                         rdfs:range rdfs:Literal ;
+                         rdfs:label "lokaliserende kontekst"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/lokaltForvaltet
@@ -1567,6 +1589,15 @@ md:Elementer rdf:type owl:Class ;
                              [ rdf:type owl:Restriction ;
                                owl:onProperty md:stereotype ;
                                owl:someValuesFrom skos:Concept
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty md:erGeolokaliserende ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass md:Geolokaliserende
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty md:beskrivelse ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:label "Element"@nb .
 
@@ -1600,12 +1631,16 @@ md:ErNavngittNode rdf:type owl:Class ;
 ###  http://data.skatteetaten.no/ontologi/modell/Fictilis
 md:Fictilis rdf:type owl:Class ;
             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty md:begrepsreferanse ;
+                              owl:allValuesFrom md:Begrep
+                            ] ,
+                            [ rdf:type owl:Restriction ;
                               owl:onProperty dcterms:isReplacedBy ;
-                              owl:someValuesFrom md:Fictilis
+                              owl:allValuesFrom md:Fictilis
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty dcterms:replaces ;
-                              owl:someValuesFrom md:Fictilis
+                              owl:allValuesFrom md:Fictilis
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty dcterms:temporal ;
@@ -1636,6 +1671,28 @@ md:Forretningsbegrep rdf:type owl:Class ;
                      rdfs:subClassOf md:Begrep ;
                      dcterms:description "Alle begreper som antas å være relevante for publikum og/eller ansatte utover en snever krets av spesialistbrukere."@nb ;
                      rdfs:label "Forretningsbegrep"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/modell/Geolokaliserende
+md:Geolokaliserende rdf:type owl:Class ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty md:beskrivelse ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty md:geolokaliserende ;
+                                      owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onDataRange xsd:boolean
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty md:gradAvLokalisering ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty md:lokaliserendeKontekst ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ;
+                    rdfs:label "Geolokaliserende"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/modell/Interesseomraade
