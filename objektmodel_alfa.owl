@@ -514,6 +514,14 @@ md:synlighet rdf:type owl:ObjectProperty ;
                         "visibility"@en .
 
 
+###  http://data.skatteetaten.no/ontologi/modell/termstatus
+md:termstatus rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf adms:status ;
+              rdfs:range skos:Concept ;
+              rdfs:comment "Sub-property for å skille mellom \"Begrepsstatus\" (bruker adms:status) og \"Termstatus\" som er en Lexaurus-intern status for begrepene."@nb ;
+              rdfs:label "termstatus" .
+
+
 ###  http://data.skatteetaten.no/ontologi/modell/tilhoererElement
 md:tilhoererElement rdf:type owl:ObjectProperty ;
                     rdfs:domain md:Egenskap ;
