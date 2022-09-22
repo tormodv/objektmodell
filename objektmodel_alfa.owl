@@ -2204,7 +2204,8 @@ status:active rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/status/aktiv
 status:aktiv rdf:type owl:NamedIndividual ,
                       skos:Concept ;
-             skos:inScheme status:kodelistestatus .
+             skos:inScheme status:kodelistestatus ;
+             rdfs:label "aktiv" .
 
 
 ###  http://data.skatteetaten.no/ontologi/status/archived
@@ -2218,7 +2219,9 @@ status:archived rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/status/avviklet
 status:avviklet rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                skos:inScheme status:kodelistestatus .
+                skos:inScheme status:kodelistestatus ,
+                              status:konstruksjonsmodellstatus ;
+                rdfs:label "avviklet"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/status/begrepStatus
@@ -2241,8 +2244,18 @@ status:deprecated rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/status/erstattet
 status:erstattet rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 skos:inScheme status:begrepStatus ;
-                 rdfs:comment "Erstattet - settes på begrep som erstattes med nye som har samme / tilnærmet samme meningsinnhold."@nb .
+                 skos:inScheme status:begrepStatus ,
+                               status:kodelistestatus ;
+                 rdfs:comment "Erstattet - settes på ressurser som er erstattet med en nyere versjon av samme ressurs, eller på begrep som erstattes med nye som har samme / tilnærmet samme meningsinnhold."@nb ;
+                 rdfs:label "erstattet" .
+
+
+###  http://data.skatteetaten.no/ontologi/status/fullfoert
+status:fullfoert rdf:type owl:NamedIndividual ,
+                          skos:Concept ;
+                 skos:inScheme status:konstruksjonsmodellstatus ;
+                 rdfs:comment "Settes når en versjon av konstruksjonsmodellen er endelig (komplett og verifisert)"@nb ;
+                 rdfs:label "fullført"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/status/godkjent
@@ -2257,6 +2270,13 @@ status:kodelistestatus rdf:type owl:NamedIndividual ,
                                 skos:ConceptScheme ;
                        rdfs:comment "Gyldige statusverdier for en kodeliste"@nb ;
                        rdfs:label "kodelistestatus"@nb .
+
+
+###  http://data.skatteetaten.no/ontologi/status/konstruksjonsmodellstatus
+status:konstruksjonsmodellstatus rdf:type owl:NamedIndividual ,
+                                          skos:ConceptScheme ;
+                                 rdfs:comment "gyldige verdier for status på konstruksjonsmodeller"@nb ;
+                                 rdfs:label "konstruksjonsmodellstatus" .
 
 
 ###  http://data.skatteetaten.no/ontologi/status/kvalifisert
@@ -2290,7 +2310,9 @@ status:tilbaketrukket rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/status/trukketTilbake
 status:trukketTilbake rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      skos:inScheme status:kodelistestatus .
+                      skos:inScheme status:kodelistestatus ,
+                                    status:konstruksjonsmodellstatus ;
+                      rdfs:label "trukket tilbake"@nb .
 
 
 ###  http://data.skatteetaten.no/ontologi/status/underBehandling
@@ -2302,7 +2324,9 @@ status:underBehandling rdf:type owl:NamedIndividual ,
 ###  http://data.skatteetaten.no/ontologi/status/underUtvikling
 status:underUtvikling rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      skos:inScheme status:kodelistestatus .
+                      skos:inScheme status:kodelistestatus ,
+                                    status:konstruksjonsmodellstatus ;
+                      rdfs:label "under utvikling" .
 
 
 ###  http://data.skatteetaten.no/ontologi/type/Antall
