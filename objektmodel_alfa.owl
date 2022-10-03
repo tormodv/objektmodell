@@ -19,12 +19,16 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix type: <http://data.skatteetaten.no/ontologi/type/> .
+@prefix bkgraf: <http://data.skatteetaten.no/kontekst/begrep/> .
+@prefix klgraf: <http://data.skatteetaten.no/kontekst/kodeliste/> .
+@prefix kmgraf: <http://data.skatteetaten.no/kontekst/konstruksjonsmodell/> .
 @prefix kodeex: <http://example.com/kodeliste#> .
 @prefix schema: <https://schema.org/> .
 @prefix skosno: <https://data.norge.no/vocabulary/skosno#> .
 @prefix status: <http://data.skatteetaten.no/ontologi/status/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix uneskos: <http://purl.org/umu/uneskos#> .
+@prefix kontekst: <http://data.skatteetaten.no/kontekst/> .
 @prefix kodetillegg: <http://data.skatteetaten.no/ontologi/kodetillegg/> .
 @prefix modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#> .
 @base <http://data.skatteetaten.no/ontologi/modell/> .
